@@ -19,7 +19,7 @@ function setPhotos() {
 function setSocials() {
     let WhatsMessage = "Hola he visto tu link tree y quiero saber mas.";
     let social = {
-        "Instagram": "https://instagram.com/criterios_reposteriadiferente",
+        "Instagram": "https://www.instagram.com/criterios._/",
         "Whatsapp": `https://wa.me/+573208722922?text=${encodeURI(WhatsMessage)}`,
         "Facebook": "https://www.facebook.com/Criterios.DI"
     }
