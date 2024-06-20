@@ -6,8 +6,8 @@ function setPhotos() {
         for (let pic of photo_grid) {
             let photo = pic.children[0];
             photo.src = `resources/Gallery/${index}.webp`;
-            photo.style.width = "340px";
-            photo.style.height = "150px";
+            // photo.style.width = "340px";
+            // photo.style.height = "150px";
             console.log();
             index++;
         }
@@ -21,7 +21,8 @@ function setSocials() {
     let social = {
         "Instagram": "https://www.instagram.com/criterios._/",
         "Whatsapp": `https://wa.me/+573208722922?text=${encodeURI(WhatsMessage)}`,
-        "Facebook": "https://www.facebook.com/Criterios.DI"
+        "Facebook": "https://www.facebook.com/Criterios.DI",
+        "Catalogo": "./resources/Catalogo.pdf"
     }
     let index = 1;
     let linkTree = document.getElementsByClassName("linkTree")[0].children;

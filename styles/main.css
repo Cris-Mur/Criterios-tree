@@ -11,15 +11,6 @@
 }
 
 html,
-body {
-    height: 100%;
-}
-
-body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-}
-
 img,
 picture,
 video,
@@ -51,6 +42,21 @@ h6 {
     isolation: isolate;
 }
 
+body {
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
 .content {
     display: flex;
     flex-direction: column;
@@ -59,13 +65,13 @@ h6 {
     margin: 0%;
     padding: 5% 5%;
     width: 100%;
-    height: fit-content;
-    background: rgb(255, 25, 219);
-    background: radial-gradient(circle, rgba(255, 25, 219, 1) 0%, rgba(70, 252, 207, 1) 100%);
-    /* background-image: url('../resources/background_Criterios_Tree.webp'); */
-    background-size: cover;
+    height: 100%;
+    background-image: url('../resources/background_Criterios_Tree.png');
+    background-color: black;
+    background-size: 50%;
     background-position: center;
     max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .items {
@@ -73,65 +79,47 @@ h6 {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(103, 22, 179, 0.479);
+    background-color: rgba(80, 80, 80, 0.479);
     margin: 0%;
     padding: 5%;
     width: 100%;
     height: 100%;
     border-radius: 15px;
     gap: 5%;
+    box-sizing: border-box;
+    max-width: 1200px;
 }
 
 header {
-    width: 100%;
     display: flex;
-    flex-direction: column;
+    padding: 5%;
     align-items: center;
+    width: 100%;
+    min-height: 100%;
     justify-content: center;
 }
 
 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
     background-image: url("../resources/logo.png");
-    background-size: 118%;
+    background-size: 100%;
     background-position: center;
     background-color: #eeeeee00;
     background-repeat: no-repeat;
     width: 100%;
-    max-width: 360px;
+    height: 100%;
+    min-width: 100% ;
+    min-height: 100%;
     aspect-ratio: 1/1;
     border-radius: 50%;
-}
-
-.photoGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    background-color: rgba(21, 255, 0, 0);
-    grid-gap: 0.5em;
-    width: 100%;
-}
-
-.photoGrid>div {
-    width: 100%;
-    background-color: rgba(255, 0, 0, 0);
-}
-
-.photoGrid>div>img {
-    aspect-ratio: 16/9;
-    width: 100%;
-    object-fit: cover;
-    object-position: 100% 50%;
-    border-radius: 15px;
 }
 
 .linkTree {
     display: flex;
     flex-direction: column;
+    width: 100%;
     padding: 12px 10px;
     gap: 12px;
+    box-sizing: border-box;
 }
 
 .linkTree>div {
@@ -141,7 +129,7 @@ header {
     padding: 12px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     transition: all .3s ease;
 }
 
@@ -163,23 +151,83 @@ header {
     background-color: rgb(0, 97, 161);
 }
 
+.linkTree div:nth-of-type(4) {
+    background-color: rgb(161, 0, 80);
+}
+
 .linkTree>div:hover {
     background-color: #7b7b7b;
 }
 
 
-@media (min-width: 998px) {
-    .photoGrid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+.photoGrid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(1fr, 350px));
+    background-color: rgba(21, 255, 0, 0);
+    grid-gap: 0.5em;
+    box-sizing: border-box;
 }
 
-@media (min-width: 1000px) {
+.photoGrid>div {
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.photoGrid>div>img {
+    aspect-ratio: 16/9;
+    width: 100%;
+    object-fit: cover;
+    object-position: 100% 50%;
+    border-radius: 15px;
+}
+
+footer {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* responsive media querys */
+
+@media (min-width: 700px) {
+    .content {
+        height: 100vh;
+    }
+
     .items {
         flex-direction: row;
     }
 
-    .content {
-        height: 100vh;
+    .photoGrid {
+        /* Horizontal Grid View */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .logo {
+        background-size: 90%;
+    }
+
+}
+
+@media (max-width: 700px) {
+    header {
+        flex-direction: column;
+    }
+
+    .linkTree>div>a {
+        font-size: large;
     }
 }
