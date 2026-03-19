@@ -21,11 +21,11 @@ Este documento desglosa las tareas maestras sincronizadas en el ERP (Dolibarr) e
 * [x]   **2.5** Implementar `SectionContainer.astro` con el patrón de textura "Stardust" (CSS Mask).
 * [x]   **2.6** Crear `Button.astro` con variantes `solid` y `outline` (Efecto Glow).
 
-- [ ] ## 🚀 PJ2-TSK-03: [DEV] Construcción de Hero & CTA Principal
-* [ ]   **3.1** Desarrollar componente `Hero.astro` con narrativa "Conocimiento Ancestral".
-* [ ]   **3.2** Implementar gradiente de profundidad y texturas galácticas en el fondo.
-* [ ]   **3.3** Vincular el CTA principal al Catálogo o WhatsApp.
-* [ ]   **3.4** Optimización de imagen Hero para Mobile (LCP optimization).
+- [x] ## 🚀 PJ2-TSK-03: [DEV] Construcción de Hero & CTA Principal
+* [x]   **3.1** Desarrollar componente `Hero.astro` con narrativa "Conocimiento Ancestral".
+* [x]   **3.2** Implementar gradiente de profundidad y texturas galácticas en el fondo.
+* [x]   **3.3** Vincular el CTA principal al Catálogo o WhatsApp.
+* [x]   **3.4** Optimización de imagen Hero para Mobile (LCP optimization).
 
 - [ ] ## 🍱 PJ2-TSK-04: [DEV] Catálogo Visual de Productos
 * [ ]   **4.1** Configurar Content Collection `products` en `src/content/config.ts`.

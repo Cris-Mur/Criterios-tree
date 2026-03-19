@@ -2,9 +2,19 @@
 import DevLayout from '@layouts/DevLayout.astro';
 import Button from '@components/ui/Button.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import Hero from '@components/sections/Hero.astro';
 ---
 
 <DevLayout title="Design System | Criterios Tree">
+	<section class="ds-section">
+		<h2 class="section-title">Secciones Principales</h2>
+		<div class="sample-grid">
+			<div class="luxury-border" style="overflow: hidden;">
+				<Hero />
+			</div>
+		</div>
+	</section>
+
 	<section class="ds-section">
 		<h2 class="section-title">Estructura de Secciones (Containers)</h2>
 		<div class="sample-grid">
