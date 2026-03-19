@@ -1,7 +1,9 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const products = defineCollection({
-	type: 'content',
+	// Usamos glob loader para cargar archivos Markdown de la carpeta products
+	loader: glob({ pattern: '**/[^_]*.md', base: "./src/content/products" }),
 	schema: ({ image }) => z.object({
 		title: z.string(),
 		description: z.string(),

@@ -31,7 +31,7 @@ Este documento desglosa las tareas maestras sincronizadas en el ERP (Dolibarr) e
 * [x]   **4.1** Configurar Content Collection `products` en `src/content/config.ts`.
 * [x]   **4.2** Crear archivos `.md` de prueba con placeholders de alta gama (Placeholders estéticos).
 * [x]   **4.3** Desarrollar componente `ProductCard.astro` (Uso de `luxury_score`).
-* [ ]   **4.4** Implementar página de Catálogo (`/catalogo`) con Grid dinámico.
+* [x]   **4.4** Implementar página de Catálogo (`/catalogo`) con Grid dinámico.
 * [ ]   **4.5** Crear página de Detalle de Producto (`/catalogo/[slug]`) con ficha técnica.
 
 - [ ] ## ✍️ PJ2-TSK-05: [DEV] Blog de Concientización & Historia
