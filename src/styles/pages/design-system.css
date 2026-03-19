@@ -26,6 +26,37 @@
 	letter-spacing: 1px;
 }
 
+/* Data Health Styles */
+.status-ok { color: #4CAF50; }
+.status-error { color: #ff6b6b; font-weight: bold; }
+
+.di-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 1rem;
+	background: rgba(0, 0, 0, 0.2);
+}
+
+.di-table th, .di-table td {
+	padding: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	text-align: left;
+	font-size: 0.85rem;
+}
+
+.di-table th {
+	background: rgba(212, 175, 55, 0.05);
+	color: var(--color-gold);
+	text-transform: uppercase;
+	font-size: 0.7rem;
+}
+
+.table-wrapper {
+	overflow-x: auto;
+	border-radius: 8px;
+	border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
 /* Foundations */
 .color-grid {
 	display: grid;

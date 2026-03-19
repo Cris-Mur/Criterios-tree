@@ -1,0 +1,170 @@
+---
+import { HeroSchema, StoreSchema, AboutSchema } from '@utils/schemas';
+import heroData from '@data/hero.json';
+import storesData from '@data/stores.json';
+import aboutData from '@data/about.json';
+import { getCollection } from 'astro:content';
+
+// Función validadora
+const validate = (schema: any, data: any, name: string) => {
+	const result = schema.safeParse(data);
+	return {
+		name,
+		success: result.success,
+		data: result.success ? result.data : data,
+		errors: result.success ? [] : result.error.issues.map((i: any) => `${i.path.join('.')}: ${i.message}`)
+	};
+};
+
+const reports = [
+	validate(HeroSchema, heroData, 'Hero Content'),
+	validate(StoreSchema, storesData, 'Stores / Locations'),
+	validate(AboutSchema, aboutData, 'About Brand')
+];
+
+const products = await getCollection('products');
+const blog = await getCollection('blog');
+---
+
+<div class="data-integrity">
+	<!-- 1. RESUMEN DE SALUD -->
+	<div class="di-grid">
+		<div class="di-card">
+			<h3>Estado de Archivos JSON</h3>
+			<ul class="di-list">
+				{reports.map(r => (
+					<li class={r.success ? 'status-ok' : 'status-error'}>
+						<span class="di-icon">{r.success ? '✅' : '❌'}</span>
+						<span class="di-name">{r.name}</span>
+						{!r.success && (
+							<ul class="di-errors">
+								{r.errors.map(e => <li>{e}</li>)}
+							</ul>
+						)}
+					</li>
+				))}
+			</ul>
+		</div>
+
+		<div class="di-card">
+			<h3>Colecciones Astro</h3>
+			<ul class="di-list">
+				<li>✅ Products: {products.length} entradas</li>
+				<li>✅ Blog: {blog.length} entradas</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 2. EXPLORADOR DE DATOS (TABLAS) -->
+	<div class="di-explorer">
+		<h3 class="subsection-title">Explorador de Datos Críticos</h3>
+		
+		<!-- Tabla Hero -->
+		<div class="table-wrapper">
+			<table class="di-table">
+				<caption>Propiedades de Hero</caption>
+				<thead>
+					<tr>
+						<th>Propiedad</th>
+						<th>Valor Actual</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Título</td><td>{heroData.title}</td></tr>
+					<tr><td>Subtítulo</td><td>{heroData.subtitle}</td></tr>
+					<tr><td>CTA Primario</td><td>{heroData.actions.primary.label} ({heroData.actions.primary.href})</td></tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Tabla Tiendas -->
+		<div class="table-wrapper">
+			<table class="di-table">
+				<caption>Puntos de Venta ({storesData.length})</caption>
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Ubicación</th>
+						<th>Tipo</th>
+						<th>Contacto</th>
+					</tr>
+				</thead>
+				<tbody>
+					{storesData.map((store: any) => (
+						<tr>
+							<td><strong>{store.name}</strong></td>
+							<td>{store.address}</td>
+							<td>{store.isDigital ? 'Digital' : 'Físico'}</td>
+							<td>{store.phone}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<style>
+	.data-integrity {
+		color: var(--color-stardust);
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xl);
+	}
+	.di-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: var(--space-md);
+	}
+	.di-card {
+		background: rgba(255, 255, 255, 0.03);
+		padding: var(--space-md);
+		border-radius: 8px;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	.di-card h3 {
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		color: var(--color-gold);
+		margin-bottom: 1rem;
+	}
+	.di-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+	.status-error { color: #ff6b6b; border-color: rgba(255, 0, 0, 0.2); }
+	
+	/* Estilos de Tabla */
+	.table-wrapper {
+		margin-bottom: var(--space-lg);
+		overflow-x: auto;
+		background: rgba(0, 0, 0, 0.2);
+		border-radius: 8px;
+		border: 1px solid rgba(212, 175, 55, 0.2);
+	}
+	.di-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.85rem;
+		text-align: left;
+	}
+	.di-table caption {
+		padding: 12px;
+		font-weight: bold;
+		color: var(--color-gold);
+		background: rgba(212, 175, 55, 0.05);
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 1px;
+	}
+	.di-table th, .di-table td {
+		padding: 12px 16px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+	}
+	.di-table th {
+		background: rgba(255, 255, 255, 0.05);
+		text-transform: uppercase;
+		font-size: 0.7rem;
+		opacity: 0.7;
+	}
+	.di-table tr:hover {
+		background: rgba(212, 175, 55, 0.03);
+	}
+</style>

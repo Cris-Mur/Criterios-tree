@@ -15,7 +15,7 @@ const allProducts = await getCollection('products');
 const allPosts = await getCollection('blog');
 ---
 
-<DevLayout title="Suite de Diseño | Criterios Tree">
+<DevLayout title="Design System | Criterios Tree">
 	<div class="ds-container container">
 		
 		<!-- 1. FOUNDATIONS -->
@@ -45,25 +45,25 @@ const allPosts = await getCollection('blog');
 			<h3 class="subsection-title" style="margin-top: var(--space-lg);">Tipografía</h3>
 			<div class="typography-sample">
 				<h1 style="font-family: var(--font-heading);">Cinzel - Heading 1</h1>
-				<p style="font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8;">Inter - Body Text. Este es el estándar de lectura para descripciones y contenido narrativo.</p>
+				<p style="font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8;">Inter - Body Text. Estándar de lectura para descripciones y contenido narrativo.</p>
 			</div>
 		</section>
 
-		<!-- 2. ATOMS -->
+		<!-- 2. ATOMS & UI -->
 		<section class="ds-section">
-			<h2 class="section-title">Atoms</h2>
+			<h2 class="section-title">Atoms & UI</h2>
 			
 			<div class="sample-grid">
 				<div class="sample-item">
 					<p class="sample-label">Botones</p>
 					<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-						<Button variant="solid">Solid Button</Button>
-						<Button variant="outline">Outline Button</Button>
+						<Button variant="solid">Solid Action</Button>
+						<Button variant="outline">Outline Action</Button>
 					</div>
 				</div>
 				
 				<div class="sample-item">
-					<p class="sample-label">Iconos (Nativos)</p>
+					<p class="sample-label">Iconos locales</p>
 					<div style="display: flex; gap: 1.5rem; color: var(--color-gold);">
 						<Icon name="instagram_line" width={32} height={32} />
 						<Icon name="facebook_logo" width={32} height={32} />
@@ -77,33 +77,37 @@ const allPosts = await getCollection('blog');
 		<section class="ds-section">
 			<h2 class="section-title">Molecules & Organisms</h2>
 			
-			<h3 class="subsection-title">Tarjetas de Catálogo</h3>
+			<h3 class="subsection-title">Product Showcase</h3>
 			<div class="product-grid">
 				{allProducts.slice(0, 2).map(product => (
-					<ProductCard 
-						title={product.data.title}
-						description={product.data.description}
-						price={product.data.price}
-						category={product.data.category}
-						luxury_score={product.data.luxury_score}
-						image={product.data.image}
-						href="#"
-					/>
+					<div class="sample-item">
+						<ProductCard 
+							title={product.data.title}
+							description={product.data.description}
+							price={product.data.price}
+							category={product.data.category}
+							luxury_score={product.data.luxury_score}
+							image={product.data.image}
+							href={`/catalogo/${product.id}/`}
+						/>
+					</div>
 				))}
 			</div>
 
-			<h3 class="subsection-title" style="margin-top: var(--space-xl);">Tarjetas de Blog</h3>
+			<h3 class="subsection-title" style="margin-top: var(--space-xl);">Blog Previews</h3>
 			<div class="blog-grid">
 				{allPosts.slice(0, 2).map(post => (
-					<BlogCard 
-						title={post.data.title}
-						description={post.data.description}
-						pubDate={post.data.pubDate}
-						author={post.data.author}
-						image={post.data.image}
-						href="#"
-						tags={post.data.tags}
-					/>
+					<div class="sample-item">
+						<BlogCard 
+							title={post.data.title}
+							description={post.data.description}
+							pubDate={post.data.pubDate}
+							author={post.data.author}
+							image={post.data.image}
+							href={`/blog/${post.id}/`}
+							tags={post.data.tags}
+						/>
+					</div>
 				))}
 			</div>
 		</section>
@@ -112,7 +116,7 @@ const allPosts = await getCollection('blog');
 		<section class="ds-section">
 			<h2 class="section-title">Templates & Sections</h2>
 			
-			<h3 class="subsection-title">Page Header</h3>
+			<h3 class="subsection-title">Page Header Component</h3>
 			<div class="luxury-border" style="overflow: hidden; margin-bottom: var(--space-xl);">
 				<PageHeader 
 					title="Título de Página" 
@@ -121,9 +125,8 @@ const allPosts = await getCollection('blog');
 				/>
 			</div>
 
-			<h3 class="subsection-title">Hero Principal (Preview)</h3>
+			<h3 class="subsection-title">Hero Principal (Live Sequence)</h3>
 			<div class="luxury-border" style="overflow: hidden; height: 600px; position: relative;">
-				<p style="position: absolute; top: 10px; left: 10px; z-index: 100; background: red; padding: 4px; font-size: 10px;">VISTA PREVIA LIMITADA</p>
 				<Hero />
 			</div>
 		</section>

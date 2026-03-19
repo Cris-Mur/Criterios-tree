@@ -1,0 +1,130 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { Image } from 'astro:assets';
+
+// Buscamos todas las imágenes en assets
+const imageFiles = import.meta.glob('/src/assets/**/*.{webp,png,jpg,jpeg,svg}', { eager: true });
+
+const mediaAssets = Object.entries(imageFiles).map(([filePath, module]: [string, any]) => {
+	const absolutePath = path.join(process.cwd(), filePath);
+	let stats = { size: 0 };
+	
+	try {
+		stats = fs.statSync(absolutePath);
+	} catch (e) {
+		console.error(`Error leyendo stats de ${filePath}`);
+	}
+
+	const sizeInKb = (stats.size / 1024).toFixed(2);
+	const metadata = module.default;
+
+	return {
+		name: path.basename(filePath),
+		path: filePath,
+		width: metadata.width || 'N/A',
+		height: metadata.height || 'N/A',
+		format: path.extname(filePath).replace('.', '').toUpperCase(),
+		size: sizeInKb,
+		aspectRatio: metadata.width ? (metadata.width / metadata.height).toFixed(2) : 'N/A',
+		preview: metadata
+	};
+});
+
+// Ordenar por tamaño (descendente) para identificar assets pesados
+const sortedMedia = mediaAssets.sort((a, b) => parseFloat(b.size) - parseFloat(a.size));
+---
+
+<div class="media-audit">
+	<h3 class="subsection-title">Inventario de Activos Visuales ({mediaAssets.length})</h3>
+	
+	<div class="table-wrapper">
+		<table class="di-table">
+			<thead>
+				<tr>
+					<th>Preview</th>
+					<th>Nombre / Ruta</th>
+					<th>Dimensiones</th>
+					<th>Ratio</th>
+					<th>Formato</th>
+					<th>Peso (KB)</th>
+				</tr>
+			</thead>
+			<tbody>
+				{sortedMedia.map(asset => (
+					<tr>
+						<td class="td-preview">
+							<div class="media-thumbnail">
+								{asset.format === 'SVG' ? (
+									<img src={asset.path} alt="" width="40" />
+								) : (
+									<Image src={asset.preview} alt="" width={80} height={60} quality="low" />
+								)}
+							</div>
+						</td>
+						<td>
+							<span class="asset-name">{asset.name}</span>
+							<code class="asset-path">{asset.path}</code>
+						</td>
+						<td>{asset.width} x {asset.height} px</td>
+						<td>{asset.aspectRatio}</td>
+						<td><span class={`badge-format format-${asset.format.toLowerCase()}`}>{asset.format}</span></td>
+						<td class={parseFloat(asset.size) > 500 ? 'weight-heavy' : ''}>
+							{asset.size} KB
+						</td>
+					</tr>
+				))}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<style>
+	.media-audit {
+		margin-top: var(--space-lg);
+	}
+	.td-preview {
+		width: 100px;
+	}
+	.media-thumbnail {
+		width: 80px;
+		height: 60px;
+		background: #111;
+		border-radius: 4px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255,255,255,0.1);
+	}
+	.asset-name {
+		display: block;
+		font-weight: bold;
+		color: var(--color-gold);
+		margin-bottom: 2px;
+	}
+	.asset-path {
+		font-size: 0.7rem;
+		opacity: 0.5;
+	}
+	.badge-format {
+		font-size: 0.65rem;
+		padding: 2px 6px;
+		border-radius: 3px;
+		background: rgba(255,255,255,0.1);
+	}
+	.format-svg { color: #FFB11B; border: 1px solid #FFB11B; }
+	.format-webp { color: #4CAF50; border: 1px solid #4CAF50; }
+	
+	.weight-heavy {
+		color: #ff6b6b;
+		font-weight: bold;
+	}
+
+	.table-wrapper {
+		max-height: 600px;
+		overflow-y: auto;
+		border: 1px solid rgba(212, 175, 55, 0.2);
+		border-radius: 8px;
+	}
+</style>

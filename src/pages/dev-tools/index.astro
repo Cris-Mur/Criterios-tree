@@ -1,0 +1,41 @@
+---
+import DevLayout from '@layouts/DevLayout.astro';
+import DataIntegrity from '@components/dev/DataIntegrity.astro';
+import MediaAudit from '@components/dev/MediaAudit.astro';
+import '@styles/pages/design-system.css'; // Usamos los mismos estilos base por ahora
+---
+
+<DevLayout title="Dev Tools | Auditoría Técnica">
+	<div class="ds-container container">
+		
+		<section class="ds-section">
+			<h2 class="section-title">Technical Health Audit</h2>
+			<p style="margin-bottom: var(--space-lg); opacity: 0.7;">Panel de control para la integridad de datos y optimización de activos multimedia.</p>
+			
+			<div class="health-grid">
+				<div class="health-item">
+					<h3 class="subsection-title">Data Integrity (Zod Validation)</h3>
+					<DataIntegrity />
+				</div>
+				
+				<div class="health-item" style="margin-top: var(--space-xl);">
+					<h3 class="subsection-title">Media Assets Inventory & Performance</h3>
+					<MediaAudit />
+				</div>
+			</div>
+		</section>
+
+		<section class="ds-section">
+			<h2 class="section-title">Environment Info</h2>
+			<div class="di-card">
+				<ul class="di-list">
+					<li><strong>Framework:</strong> Astro 6.0.0</li>
+					<li><strong>Integrations:</strong> Sitemap</li>
+					<li><strong>Output Mode:</strong> Static (SSG)</li>
+					<li><strong>Base URL:</strong> https://criterios-tree.com/</li>
+				</ul>
+			</div>
+		</section>
+
+	</div>
+</DevLayout>
