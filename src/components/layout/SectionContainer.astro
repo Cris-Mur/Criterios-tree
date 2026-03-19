@@ -4,23 +4,32 @@ import '@styles/components/section-container.css';
 interface Props {
 	id?: string;
 	class?: string;
+	style?: string;
 	variant?: 'default' | 'stardust' | 'nebula';
 	fullWidth?: boolean;
+	[x: string]: any;
 }
 
 const { 
 	id, 
 	class: className, 
+	style,
 	variant = 'default',
-	fullWidth = false
+	fullWidth = false,
+	...rest
 } = Astro.props;
 ---
 
-<section id={id} class:list={[
-	'section',
-	`section--${variant}`,
-	className
-]}>
+<section 
+	id={id} 
+	class:list={[
+		'section',
+		`section--${variant}`,
+		className
+	]}
+	style={style}
+	{...rest}
+>
 	<div class:list={['section__content', { 'section__content--full': fullWidth }]}>
 		<slot />
 	</div>

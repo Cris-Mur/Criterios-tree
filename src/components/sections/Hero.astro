@@ -1,8 +1,9 @@
 ---
 import SectionContainer from '@components/layout/SectionContainer.astro';
 import Button from '@components/ui/Button.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import logoImage from '@assets/branding/logo.png';
+import bgImage from '@assets/branding/hero-bg.jpg';
 import '@styles/components/hero.css';
 
 interface Props {
@@ -14,9 +15,16 @@ const {
 	title = "El Sabor del Conocimiento Ancestral.", 
 	subtitle = "Repostería artesanal para el bienestar. Descubre una experiencia de sabor galáctico diseñada para tu equilibrio." 
 } = Astro.props;
+
+// Optimizamos la imagen de fondo para usarla en CSS
+const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 ---
 
-<SectionContainer variant="nebula" class="hero">
+<SectionContainer 
+	variant="nebula" 
+	class="hero" 
+	style={`--hero-bg: url(${optimizedBg.src})`}
+>
 	<div class="hero__content">
 		<div class="hero__branding">
 			<Image 
