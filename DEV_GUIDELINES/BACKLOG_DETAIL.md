@@ -34,11 +34,11 @@ Este documento desglosa las tareas maestras sincronizadas en el ERP (Dolibarr) e
 * [x]   **4.4** Implementar página de Catálogo (`/catalogo`) con Grid dinámico.
 * [x]   **4.5** Crear página de Detalle de Producto (`/catalogo/[slug]`) con ficha técnica.
 
-- [ ] ## ✍️ PJ2-TSK-05: [DEV] Blog de Concientización & Historia
-* [ ]   **5.1** Configurar Content Collection `blog` con esquemas de Zod.
-* [ ]   **5.2** Desarrollar componente `BlogCard.astro` para previsualización.
-* [ ]   **5.3** Implementar página de listado del Blog (`/blog`).
-* [ ]   **5.4** Crear Layout específico para artículos del Blog con soporte para Markdown.
+- [x] ## ✍️ PJ2-TSK-05: [DEV] Blog de Concientización & Historia
+* [x]   **5.1** Configurar Content Collection `blog` con esquemas de Zod.
+* [x]   **5.2** Desarrollar componente `BlogCard.astro` para previsualización.
+* [x]   **5.3** Implementar página de listado del Blog (`/blog`).
+* [x]   **5.4** Crear Layout específico para artículos del Blog con soporte para Markdown.
 
 - [ ] ## 📱 PJ2-TSK-06: [DEV] Footer & Canal de Conversión
 * [ ]   **6.1** Desarrollar `Footer.astro` con enlaces a redes y canales de venta.
