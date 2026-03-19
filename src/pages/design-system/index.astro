@@ -2,22 +2,84 @@
 import { getCollection } from 'astro:content';
 import DevLayout from '@layouts/DevLayout.astro';
 import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
-import Hero from '@components/sections/Hero.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import ProductCard from '@components/ui/ProductCard.astro';
 import BlogCard from '@components/ui/BlogCard.astro';
+import Hero from '@components/sections/Hero.astro';
+import bgSample from '@assets/gallery/6.webp';
+import '@styles/pages/design-system.css';
 
 const allProducts = await getCollection('products');
 const allPosts = await getCollection('blog');
 ---
 
-<DevLayout title="Design System | Criterios Tree">
-	<section class="ds-section">
-		<h2 class="section-title">Componentes de Negocio</h2>
-		<h3 class="subsection-title">Catálogo</h3>
-		<div class="product-grid">
-			{allProducts.map(product => (
+<DevLayout title="Suite de Diseño | Criterios Tree">
+	<div class="ds-container container">
+		
+		<!-- 1. FOUNDATIONS -->
+		<section class="ds-section">
+			<h2 class="section-title">Foundations</h2>
+			
+			<h3 class="subsection-title">Paleta de Colores</h3>
+			<div class="color-grid">
+				<div class="color-item" style="background-color: var(--color-gold);">
+					<span>Gold</span>
+					<code>#D4AF37</code>
+				</div>
+				<div class="color-item" style="background-color: var(--color-deep-space); border: 1px solid var(--color-gold);">
+					<span>Deep Space</span>
+					<code>#050505</code>
+				</div>
+				<div class="color-item" style="background-color: var(--color-nebula-purple);">
+					<span>Nebula Purple</span>
+					<code>#4B0082</code>
+				</div>
+				<div class="color-item" style="background-color: var(--color-void);">
+					<span>Void</span>
+					<code>#000000</code>
+				</div>
+			</div>
+
+			<h3 class="subsection-title" style="margin-top: var(--space-lg);">Tipografía</h3>
+			<div class="typography-sample">
+				<h1 style="font-family: var(--font-heading);">Cinzel - Heading 1</h1>
+				<p style="font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8;">Inter - Body Text. Este es el estándar de lectura para descripciones y contenido narrativo.</p>
+			</div>
+		</section>
+
+		<!-- 2. ATOMS -->
+		<section class="ds-section">
+			<h2 class="section-title">Atoms</h2>
+			
+			<div class="sample-grid">
 				<div class="sample-item">
+					<p class="sample-label">Botones</p>
+					<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+						<Button variant="solid">Solid Button</Button>
+						<Button variant="outline">Outline Button</Button>
+					</div>
+				</div>
+				
+				<div class="sample-item">
+					<p class="sample-label">Iconos (Nativos)</p>
+					<div style="display: flex; gap: 1.5rem; color: var(--color-gold);">
+						<Icon name="instagram_line" width={32} height={32} />
+						<Icon name="facebook_logo" width={32} height={32} />
+						<Icon name="whatsapp_line" width={32} height={32} />
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- 3. MOLECULES & ORGANISMS -->
+		<section class="ds-section">
+			<h2 class="section-title">Molecules & Organisms</h2>
+			
+			<h3 class="subsection-title">Tarjetas de Catálogo</h3>
+			<div class="product-grid">
+				{allProducts.slice(0, 2).map(product => (
 					<ProductCard 
 						title={product.data.title}
 						description={product.data.description}
@@ -25,162 +87,46 @@ const allPosts = await getCollection('blog');
 						category={product.data.category}
 						luxury_score={product.data.luxury_score}
 						image={product.data.image}
-						href={`/catalogo/${product.id}`}
+						href="#"
 					/>
-				</div>
-			))}
-		</div>
+				))}
+			</div>
 
-		<h3 class="subsection-title" style="margin-top: var(--space-xl);">Blog (Concientización)</h3>
-		<div class="blog-grid">
-			{allPosts.map(post => (
-				<div class="sample-item">
+			<h3 class="subsection-title" style="margin-top: var(--space-xl);">Tarjetas de Blog</h3>
+			<div class="blog-grid">
+				{allPosts.slice(0, 2).map(post => (
 					<BlogCard 
 						title={post.data.title}
 						description={post.data.description}
 						pubDate={post.data.pubDate}
 						author={post.data.author}
 						image={post.data.image}
-						href={`/blog/${post.id}`}
+						href="#"
 						tags={post.data.tags}
 					/>
-				</div>
-			))}
-		</div>
-	</section>
-	<section class="ds-section">
-		<h2 class="section-title">Secciones Principales</h2>
-		<div class="sample-grid">
-			<div class="luxury-border" style="overflow: hidden;">
+				))}
+			</div>
+		</section>
+
+		<!-- 4. TEMPLATES & SECTIONS -->
+		<section class="ds-section">
+			<h2 class="section-title">Templates & Sections</h2>
+			
+			<h3 class="subsection-title">Page Header</h3>
+			<div class="luxury-border" style="overflow: hidden; margin-bottom: var(--space-xl);">
+				<PageHeader 
+					title="Título de Página" 
+					subtitle="Subtítulo descriptivo de alta gama" 
+					bgImage={bgSample}
+				/>
+			</div>
+
+			<h3 class="subsection-title">Hero Principal (Preview)</h3>
+			<div class="luxury-border" style="overflow: hidden; height: 600px; position: relative;">
+				<p style="position: absolute; top: 10px; left: 10px; z-index: 100; background: red; padding: 4px; font-size: 10px;">VISTA PREVIA LIMITADA</p>
 				<Hero />
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section class="ds-section">
-		<h2 class="section-title">Estructura de Secciones (Containers)</h2>
-		<div class="sample-grid">
-			<SectionContainer variant="stardust" class="luxury-border">
-				<h3 class="text-glow">Section: Stardust</h3>
-				<p>Contenedor estándar con patrón galáctico sutil y espaciado consistente.</p>
-				<Button variant="outline">Prueba de botón</Button>
-			</SectionContainer>
-			
-			<div style="margin-top: 2rem;">
-				<SectionContainer variant="nebula" class="luxury-border">
-					<h3 class="text-glow">Section: Nebula</h3>
-					<p>Contenedor con gradiente de profundidad galáctica.</p>
-				</SectionContainer>
-			</div>
-		</div>
-	</section>
-
-	<section class="ds-section">
-		<h2 class="section-title">Botones</h2>
-		<div class="ui-samples">
-			<div class="sample-item">
-				<p class="sample-label">Solid (Default)</p>
-				<Button>Explorar Catálogo</Button>
-			</div>
-			<div class="sample-item">
-				<p class="sample-label">Outline</p>
-				<Button variant="outline">Ver Historia</Button>
-			</div>
-			<div class="sample-item">
-				<p class="sample-label">Como Enlace (a)</p>
-				<Button href="https://wa.me/573208722922" target="_blank">WhatsApp</Button>
-			</div>
-		</div>
-	</section>
-	<section class="ds-section">
-		<h2 class="section-title">Colores Principales</h2>
-		<div class="color-grid">
-			<div class="color-item" style="background-color: var(--color-gold);">
-				<span>Gold</span>
-				<code>#D4AF37</code>
-			</div>
-			<div class="color-item" style="background-color: var(--color-deep-space); border: 1px solid var(--color-gold);">
-				<span>Deep Space</span>
-				<code>#050505</code>
-			</div>
-			<div class="color-item" style="background-color: var(--color-nebula-purple);">
-				<span>Nebula Purple</span>
-				<code>#4B0082</code>
-			</div>
-		</div>
-	</section>
-
-	<section class="ds-section">
-		<h2 class="section-title">Tipografía</h2>
-		<div class="typography-sample">
-			<h1 class="font-cinzel">Cinzel - Heading 1 (Luxury Display)</h1>
-			<p class="font-inter">Inter - Body Text (Legibility focus). Este es el texto que usaremos para descripciones y contenido general en Criterios.</p>
-		</div>
-	</section>
-
-	<section class="ds-section">
-		<h2 class="section-title">Utilidades de UI</h2>
-		<div class="ui-samples">
-			<div class="sample-box luxury-border">Luxury Border Effect</div>
-			<div class="sample-box text-glow">Text Glow Effect</div>
-		</div>
-	</section>
+	</div>
 </DevLayout>
-
-<style>
-	.ds-section {
-		margin-bottom: var(--space-xl);
-	}
-	.product-grid, .blog-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: var(--space-lg);
-	}
-	.section-title {
-		font-size: 1.5rem;
-		border-left: 4px solid var(--color-gold);
-		padding-left: var(--space-sm);
-		margin-bottom: var(--space-md);
-	}
-	.subsection-title {
-		font-family: var(--font-heading);
-		font-size: 1.1rem;
-		color: var(--color-gold);
-		margin-bottom: var(--space-sm);
-		text-transform: uppercase;
-		letter-spacing: 1px;
-	}
-	.sample-grid {
-
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-		gap: var(--space-md);
-	}
-	.color-item {
-		height: 100px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		border-radius: 8px;
-		font-family: var(--font-body);
-		font-size: 0.8rem;
-		color: #fff;
-		text-align: center;
-		padding: var(--space-xs);
-	}
-	.color-item span { font-weight: bold; margin-bottom: 4px; }
-	.color-item code { opacity: 0.8; }
-
-	.typography-sample h1 { font-size: 2.5rem; margin-bottom: var(--space-sm); }
-	
-	.ui-samples {
-		display: flex;
-		gap: var(--space-lg);
-		flex-wrap: wrap;
-	}
-	.sample-box {
-		padding: var(--space-md) var(--space-lg);
-		font-family: var(--font-heading);
-	}
-</style>
