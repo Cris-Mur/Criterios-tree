@@ -16,7 +16,6 @@ const {
 	subtitle = "Repostería artesanal para el bienestar. Descubre una experiencia de sabor galáctico diseñada para tu equilibrio." 
 } = Astro.props;
 
-// Optimizamos la imagen de fondo para usarla en CSS
 const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 ---
 
@@ -25,19 +24,52 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 	class="hero" 
 	style={`--hero-bg: url(${optimizedBg.src})`}
 >
-	<div class="hero__content">
-		<HeroLogo />
-		
-		<h1 class="hero__title text-glow">
-			{title}
-		</h1>
-		
-		<p class="hero__subtitle">
-			{subtitle}
-		</p>
-		
-		<HeroActions />
+	<div class="hero__sticky">
+		<div class="hero__content">
+			<HeroLogo class="js-hero-logo" />
+			
+			<h1 class="hero__title text-glow js-hero-title">
+				{title}
+			</h1>
+			
+			<p class="hero__subtitle js-hero-subtitle">
+				{subtitle}
+			</p>
+			
+			<div class="hero__actions-wrapper js-hero-actions">
+				<HeroActions />
+			</div>
+		</div>
+		<div class="hero__background-overlay"></div>
 	</div>
-
-	<div class="hero__background-overlay"></div>
 </SectionContainer>
+
+<script>
+	import { animations } from '@utils/animations';
+
+	const hero = document.querySelector('.hero') as HTMLElement;
+	const logo = document.querySelector('.js-hero-logo') as HTMLElement;
+	const textElements = [
+		'.js-hero-title',
+		'.js-hero-subtitle',
+		'.js-hero-actions'
+	];
+
+	if (hero && logo) {
+		// Usamos nuestra API abstraída para el timeline de scroll
+		const tl = animations.createScrollTimeline(hero);
+
+		// Definimos la secuencia cinematográfica
+		tl.fromTo(logo, 
+			{ y: "35vh", scale: 0.7, opacity: 0.4 }, 
+			{ y: "0vh", scale: 1.4, opacity: 1, duration: 1 }
+		);
+
+		tl.to(textElements, {
+			opacity: 1,
+			y: 0,
+			stagger: 0.15,
+			duration: 0.6
+		}, "-=0.4");
+	}
+</script>
