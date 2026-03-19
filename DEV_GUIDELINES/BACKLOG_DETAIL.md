@@ -27,12 +27,12 @@ Este documento desglosa las tareas maestras sincronizadas en el ERP (Dolibarr) e
 * [x]   **3.3** Vincular el CTA principal al Catálogo o WhatsApp.
 * [x]   **3.4** Optimización de imagen Hero para Mobile (LCP optimization).
 
-- [ ] ## 🍱 PJ2-TSK-04: [DEV] Catálogo Visual de Productos
+- [x] ## 🍱 PJ2-TSK-04: [DEV] Catálogo Visual de Productos
 * [x]   **4.1** Configurar Content Collection `products` en `src/content/config.ts`.
 * [x]   **4.2** Crear archivos `.md` de prueba con placeholders de alta gama (Placeholders estéticos).
 * [x]   **4.3** Desarrollar componente `ProductCard.astro` (Uso de `luxury_score`).
 * [x]   **4.4** Implementar página de Catálogo (`/catalogo`) con Grid dinámico.
-* [ ]   **4.5** Crear página de Detalle de Producto (`/catalogo/[slug]`) con ficha técnica.
+* [x]   **4.5** Crear página de Detalle de Producto (`/catalogo/[slug]`) con ficha técnica.
 
 - [ ] ## ✍️ PJ2-TSK-05: [DEV] Blog de Concientización & Historia
 * [ ]   **5.1** Configurar Content Collection `blog` con esquemas de Zod.

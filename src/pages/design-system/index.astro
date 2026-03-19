@@ -22,7 +22,7 @@ const allProducts = await getCollection('products');
 						category={product.data.category}
 						luxury_score={product.data.luxury_score}
 						image={product.data.image}
-						href={`/catalogo/${product.slug}`}
+						href={`/catalogo/${product.id}`}
 					/>
 				</div>
 			))}
