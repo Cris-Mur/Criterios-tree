@@ -1,0 +1,29 @@
+---
+import Button from './Button.astro';
+import '@styles/components/hero-actions.css';
+
+interface Props {
+	primaryHref?: string;
+	primaryLabel?: string;
+	secondaryHref?: string;
+	secondaryLabel?: string;
+	class?: string;
+}
+
+const {
+	primaryHref = "/catalogo",
+	primaryLabel = "Explorar Catálogo",
+	secondaryHref = "#historia",
+	secondaryLabel = "Nuestra Historia",
+	class: className
+} = Astro.props;
+---
+
+<div class:list={['hero-actions', className]}>
+	<Button href={primaryHref} variant="solid">
+		{primaryLabel}
+	</Button>
+	<Button href={secondaryHref} variant="outline">
+		{secondaryLabel}
+	</Button>
+</div>

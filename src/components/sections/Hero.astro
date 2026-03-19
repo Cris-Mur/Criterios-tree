@@ -1,8 +1,8 @@
 ---
 import SectionContainer from '@components/layout/SectionContainer.astro';
-import Button from '@components/ui/Button.astro';
-import { Image, getImage } from 'astro:assets';
-import logoImage from '@assets/branding/logo.png';
+import HeroLogo from '@components/ui/HeroLogo.astro';
+import HeroActions from '@components/ui/HeroActions.astro';
+import { getImage } from 'astro:assets';
 import bgImage from '@assets/branding/hero-bg.jpg';
 import '@styles/components/hero.css';
 
@@ -26,16 +26,7 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 	style={`--hero-bg: url(${optimizedBg.src})`}
 >
 	<div class="hero__content">
-		<div class="hero__branding">
-			<Image 
-				src={logoImage} 
-				alt="Criterios Logo" 
-				width={180} 
-				height={180} 
-				class="hero__logo"
-				loading="eager"
-			/>
-		</div>
+		<HeroLogo />
 		
 		<h1 class="hero__title text-glow">
 			{title}
@@ -45,14 +36,7 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 			{subtitle}
 		</p>
 		
-		<div class="hero__actions">
-			<Button href="/catalogo" variant="solid" class="hero__btn">
-				Explorar Catálogo
-			</Button>
-			<Button variant="outline" href="#historia">
-				Nuestra Historia
-			</Button>
-		</div>
+		<HeroActions />
 	</div>
 
 	<div class="hero__background-overlay"></div>

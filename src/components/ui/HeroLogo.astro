@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import logoImage from '@assets/branding/logo.png';
+import '@styles/components/hero-logo.css';
+
+interface Props {
+	width?: number;
+	height?: number;
+	class?: string;
+}
+
+const { width = 180, height = 180, class: className } = Astro.props;
+---
+
+<div class:list={['hero-logo', className]}>
+	<Image 
+		src={logoImage} 
+		alt="Criterios Logo" 
+		width={width} 
+		height={height} 
+		class="hero-logo__image"
+		loading="eager"
+	/>
+</div>
