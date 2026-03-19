@@ -184,5 +184,10 @@
     }
   },
   "active": "1fa038dc913927ea",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "Design-System-Criterios.md",
+    "DATA_ARCHITECTURE.md",
+    "CONTENT_MANIFEST.md",
+    "BACKLOG_DETAIL.md"
+  ]
 }

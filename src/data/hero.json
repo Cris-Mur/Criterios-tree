@@ -4,11 +4,11 @@
 	"actions": {
 		"primary": {
 			"label": "Explorar Catálogo",
-			"href": "/catalogo"
+			"href": "/catalogo/"
 		},
 		"secondary": {
 			"label": "Nuestra Historia",
-			"href": "/blog/nuestra-historia"
+			"href": "/blog/nuestra-historia/"
 		}
 	}
 }
