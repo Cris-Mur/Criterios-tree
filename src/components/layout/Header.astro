@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import logoImage from '@assets/branding/logo.png';
+import Button from '@components/ui/Button.astro';
+import '@styles/components/header.css';
+
+const navLinks = [
+	{ href: '/', label: 'Inicio' },
+	{ href: '/catalogo', label: 'Catálogo' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/nosotros', label: 'Nosotros' },
+];
+
+const pathname = Astro.url.pathname;
+const isCurrentPage = (href: string) => {
+	if (href === '/' && pathname === '/') return true;
+	if (href !== '/' && pathname.startsWith(href)) return true;
+	return false;
+};
+---
+
+<header class="header">
+	<div class="header__container container">
+		<a href="/" class="header__logo-link">
+			<Image src={logoImage} alt="Criterios Logo" width={50} height={50} class="header__logo" />
+		</a>
+
+		<nav class="header__nav">
+			<ul class="header__nav-list">
+				{navLinks.map(({ href, label }) => (
+					<li>
+						<a 
+							href={href} 
+							class:list={[
+								'header__nav-link', 
+								{ 'header__nav-link--active': isCurrentPage(href) }
+							]}
+						>
+							{label}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+
+		<div class="header__actions">
+			<Button href="https://wa.me/573208722922" variant="outline" class="header__cta" target="_blank">
+				WhatsApp
+			</Button>
+			
+			<button class="header__menu-toggle" aria-label="Menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</div>
+</header>
+
+<script>
+	// Lógica básica para el scroll effect
+	const header = document.querySelector('.header');
+	window.addEventListener('scroll', () => {
+		if (window.scrollY > 50) {
+			header?.classList.add('header--scrolled');
+		} else {
+			header?.classList.remove('header--scrolled');
+		}
+	});
+</script>
