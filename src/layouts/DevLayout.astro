@@ -1,0 +1,50 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	title?: string;
+}
+
+const { title = "Design System Suite | Criterios" } = Astro.props;
+---
+
+<BaseLayout title={title}>
+	<div class="dev-container">
+		<header class="dev-header">
+			<h1 class="text-glow">Criterios Design System Lab</h1>
+			<p>Explorador de componentes Atómicos y Esquemas de Datos</p>
+		</header>
+		<main class="dev-main">
+			<slot />
+		</main>
+	</div>
+</BaseLayout>
+
+<style>
+	.dev-container {
+		background-color: var(--color-void);
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		padding: var(--space-md);
+	}
+	.dev-header {
+		border-bottom: 1px solid var(--color-gold-glow);
+		padding-bottom: var(--space-sm);
+		margin-bottom: var(--space-md);
+	}
+	.dev-header h1 {
+		font-size: 2rem;
+		margin-bottom: var(--space-xs);
+	}
+	.dev-header p {
+		color: var(--color-gold);
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+	}
+	.dev-main {
+		flex: 1;
+	}
+</style>

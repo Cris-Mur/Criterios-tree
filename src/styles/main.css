@@ -1,0 +1,95 @@
+/* 🌌 Criterios Design System (CDS v1.1) - Main Styles */
+
+:root {
+  /* Color Palette - Luxury / Galactic */
+  --color-gold: #D4AF37;
+  --color-gold-glow: rgba(212, 175, 55, 0.4);
+  --color-deep-space: #050505;
+  --color-stardust: #FFFFFF;
+  --color-nebula-purple: #4B0082;
+  --color-void: #000000;
+  
+  /* Semantic Colors */
+  --bg-primary: var(--color-deep-space);
+  --text-primary: var(--color-stardust);
+  --text-secondary: var(--color-gold);
+  --accent: var(--color-gold);
+
+  /* Typography */
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+
+  /* Effects */
+  --glow-gold: 0 0 15px var(--color-gold-glow);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-sm);
+}
+
+.text-glow {
+  text-shadow: var(--glow-gold);
+}
+
+.luxury-border {
+  border: 1px solid var(--color-gold);
+  box-shadow: var(--glow-gold);
+}

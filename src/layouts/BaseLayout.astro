@@ -1,0 +1,41 @@
+---
+import '@fontsource/cinzel';
+import '@fontsource/inter';
+import '@styles/main.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "Criterios Tree | Luxury Experience",
+	description = "Descubre la excelencia en panadería artesanal y concienciación con Criterios."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/webp" href="/favicon.webp" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		
+		<!-- Open Graph / SEO Base -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		/* Ajustes específicos de Layout si fueran necesarios */
+	}
+</style>

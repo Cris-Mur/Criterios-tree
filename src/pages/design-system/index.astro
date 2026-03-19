@@ -1,0 +1,120 @@
+---
+import DevLayout from '@layouts/DevLayout.astro';
+import Button from '@components/ui/Button.astro';
+import SectionContainer from '@components/layout/SectionContainer.astro';
+---
+
+<DevLayout title="Design System | Criterios Tree">
+	<section class="ds-section">
+		<h2 class="section-title">Estructura de Secciones (Containers)</h2>
+		<div class="sample-grid">
+			<SectionContainer variant="stardust" class="luxury-border">
+				<h3 class="text-glow">Section: Stardust</h3>
+				<p>Contenedor estándar con patrón galáctico sutil y espaciado consistente.</p>
+				<Button variant="outline">Prueba de botón</Button>
+			</SectionContainer>
+			
+			<div style="margin-top: 2rem;">
+				<SectionContainer variant="nebula" class="luxury-border">
+					<h3 class="text-glow">Section: Nebula</h3>
+					<p>Contenedor con gradiente de profundidad galáctica.</p>
+				</SectionContainer>
+			</div>
+		</div>
+	</section>
+
+	<section class="ds-section">
+		<h2 class="section-title">Botones</h2>
+		<div class="ui-samples">
+			<div class="sample-item">
+				<p class="sample-label">Solid (Default)</p>
+				<Button>Explorar Catálogo</Button>
+			</div>
+			<div class="sample-item">
+				<p class="sample-label">Outline</p>
+				<Button variant="outline">Ver Historia</Button>
+			</div>
+			<div class="sample-item">
+				<p class="sample-label">Como Enlace (a)</p>
+				<Button href="https://wa.me/573208722922" target="_blank">WhatsApp</Button>
+			</div>
+		</div>
+	</section>
+	<section class="ds-section">
+		<h2 class="section-title">Colores Principales</h2>
+		<div class="color-grid">
+			<div class="color-item" style="background-color: var(--color-gold);">
+				<span>Gold</span>
+				<code>#D4AF37</code>
+			</div>
+			<div class="color-item" style="background-color: var(--color-deep-space); border: 1px solid var(--color-gold);">
+				<span>Deep Space</span>
+				<code>#050505</code>
+			</div>
+			<div class="color-item" style="background-color: var(--color-nebula-purple);">
+				<span>Nebula Purple</span>
+				<code>#4B0082</code>
+			</div>
+		</div>
+	</section>
+
+	<section class="ds-section">
+		<h2 class="section-title">Tipografía</h2>
+		<div class="typography-sample">
+			<h1 class="font-cinzel">Cinzel - Heading 1 (Luxury Display)</h1>
+			<p class="font-inter">Inter - Body Text (Legibility focus). Este es el texto que usaremos para descripciones y contenido general en Criterios.</p>
+		</div>
+	</section>
+
+	<section class="ds-section">
+		<h2 class="section-title">Utilidades de UI</h2>
+		<div class="ui-samples">
+			<div class="sample-box luxury-border">Luxury Border Effect</div>
+			<div class="sample-box text-glow">Text Glow Effect</div>
+		</div>
+	</section>
+</DevLayout>
+
+<style>
+	.ds-section {
+		margin-bottom: var(--space-xl);
+	}
+	.section-title {
+		font-size: 1.5rem;
+		border-left: 4px solid var(--color-gold);
+		padding-left: var(--space-sm);
+		margin-bottom: var(--space-md);
+	}
+	.color-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+		gap: var(--space-md);
+	}
+	.color-item {
+		height: 100px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border-radius: 8px;
+		font-family: var(--font-body);
+		font-size: 0.8rem;
+		color: #fff;
+		text-align: center;
+		padding: var(--space-xs);
+	}
+	.color-item span { font-weight: bold; margin-bottom: 4px; }
+	.color-item code { opacity: 0.8; }
+
+	.typography-sample h1 { font-size: 2.5rem; margin-bottom: var(--space-sm); }
+	
+	.ui-samples {
+		display: flex;
+		gap: var(--space-lg);
+		flex-wrap: wrap;
+	}
+	.sample-box {
+		padding: var(--space-md) var(--space-lg);
+		font-family: var(--font-heading);
+	}
+</style>
