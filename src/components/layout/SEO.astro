@@ -1,0 +1,26 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	ogType?: string;
+}
+
+const { 
+	title, 
+	description, 
+	ogType = "website" 
+} = Astro.props;
+---
+
+<meta name="description" content={description} />
+
+<!-- Open Graph / SEO -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="Criterios Tree" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
