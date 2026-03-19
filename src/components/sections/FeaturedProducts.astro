@@ -1,0 +1,66 @@
+---
+/**
+ * Componente FeaturedProducts: Vitrina de los 3 productos con mayor Luxury Score.
+ */
+import { getCollection } from 'astro:content';
+import SectionContainer from '@components/layout/SectionContainer.astro';
+import ProductCard from '@components/ui/ProductCard.astro';
+import Button from '@components/ui/Button.astro';
+import '@styles/components/featured-products.css';
+
+const allProducts = await getCollection('products', ({ data }) => !data.draft);
+
+// Obtenemos los 3 productos destacados (mayor luxury_score)
+const featured = allProducts
+	.sort((a, b) => b.data.luxury_score - a.data.luxury_score)
+	.slice(0, 3);
+---
+
+<SectionContainer variant="stardust" class="featured-products">
+	<div class="featured-products__header js-reveal">
+		<p>Selección Ancestral</p>
+		<h2 class="text-glow">Nuestras Creaciones</h2>
+	</div>
+
+	<div class="featured-products__grid js-featured-grid">
+		{featured.map(product => (
+			<div class="js-product-item">
+				<ProductCard 
+					title={product.data.title}
+					description={product.data.description}
+					price={product.data.price}
+					category={product.data.category}
+					luxury_score={product.data.luxury_score}
+					image={product.data.image}
+					href={`/catalogo/${product.id}`}
+				/>
+			</div>
+		))}
+	</div>
+
+	<div class="featured-products__footer js-reveal">
+		<Button href="/catalogo" variant="outline">
+			Ver Catálogo Completo
+		</Button>
+	</div>
+</SectionContainer>
+
+<script>
+	import { animations } from '@utils/animations';
+
+	// Animamos la aparición de las tarjetas en cascada
+	animations.reveal('.js-product-item', {
+		stagger: 0.2,
+		y: 50,
+		scrollTrigger: {
+			trigger: '.js-featured-grid',
+			start: "top 80%"
+		}
+	});
+
+	// Animamos los textos de cabecera y pie
+	animations.reveal('.js-reveal', {
+		y: 20,
+		stagger: 0.3
+	});
+</script>

@@ -1,10 +1,15 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/sections/Hero.astro';
+import FeaturedProducts from '@components/sections/FeaturedProducts.astro';
+
+const title = "Criterios Tree | Sabor y Bienestar Ancestral";
+const description = "Descubre la repostería artesanal diseñada para elevar tus sentidos. Productos con alta vibración y conocimiento ancestral.";
 ---
 
-<BaseLayout>
+<BaseLayout title={title} description={description}>
 	<main>
 		<Hero />
+		<FeaturedProducts />
 	</main>
 </BaseLayout>
