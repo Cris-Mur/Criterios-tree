@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import Button from '@components/ui/Button.astro';
 import stores from '@data/stores.json';
+import bgStores from '@assets/gallery/9.webp';
 import '@styles/pages/stores.css';
 
 const title = "Dónde Comprar | Criterios Tree";
@@ -11,12 +13,11 @@ const description = "Encuentra nuestros puntos de venta físicos y canales digit
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<SectionContainer variant="nebula" class="stores-hero">
-			<div class="stores-hero__header" style="text-align: center; padding: var(--space-xl) 0;">
-				<h1 class="text-glow">Puntos de Venta</h1>
-				<p style="color: var(--color-gold); font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px;">Criterios Tree en tu Ciudad</p>
-			</div>
-		</SectionContainer>
+		<PageHeader 
+			title="Puntos de Venta" 
+			subtitle="Criterios Tree en tu Ciudad" 
+			bgImage={bgStores}
+		/>
 
 		<SectionContainer variant="stardust">
 			<div class="stores-grid">

@@ -2,15 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import ProductCard from '@components/ui/ProductCard.astro';
+import bgCatalog from '@assets/gallery/6.webp';
 import '@styles/pages/catalogo.css';
 
-// Obtener productos que no sean borradores
-const allProducts = await getCollection('products', ({ data }) => {
-  return data.draft !== true;
-});
-
-// Ordenar por Luxury Score (de mayor a menor)
+const allProducts = await getCollection('products', ({ data }) => !data.draft);
 const sortedProducts = allProducts.sort((a, b) => b.data.luxury_score - a.data.luxury_score);
 
 const title = "Catálogo Galáctico | Criterios Tree";
@@ -19,12 +16,11 @@ const description = "Explora nuestra selección de repostería artesanal y produ
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<SectionContainer variant="nebula" class="catalog-hero">
-			<div class="catalog-hero__header">
-				<h1 class="text-glow">Nuestra Vitrina</h1>
-				<p>Selección curada de productos ancestrales con alta vibración.</p>
-			</div>
-		</SectionContainer>
+		<PageHeader 
+			title="Nuestra Vitrina" 
+			subtitle="Selección curada de productos ancestrales" 
+			bgImage={bgCatalog}
+		/>
 
 		<SectionContainer variant="stardust" id="productos">
 			<div class="catalog-grid">

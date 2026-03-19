@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import aboutData from '@data/about.json';
 import { Image } from 'astro:assets';
 import historyImage from '@assets/gallery/4.webp';
+import bgAbout from '@assets/gallery/7.webp';
 import '@styles/pages/about.css';
 
 const title = "Nosotros | Criterios Tree";
@@ -12,12 +14,11 @@ const description = "Conoce la historia, visión y el propósito ancestral detr�
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<SectionContainer variant="nebula">
-			<div class="about-hero" style="text-align: center; padding: var(--space-xl) 0;">
-				<h1 class="text-glow js-reveal">{aboutData.hero.title}</h1>
-				<p class="js-reveal" style="color: var(--color-gold); font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px;">{aboutData.hero.subtitle}</p>
-			</div>
-		</SectionContainer>
+		<PageHeader 
+			title={aboutData.hero.title}
+			subtitle={aboutData.hero.subtitle}
+			bgImage={bgAbout}
+		/>
 
 		<SectionContainer variant="stardust">
 			<div class="about-history">
