@@ -1,11 +1,33 @@
 ---
+import { getCollection } from 'astro:content';
 import DevLayout from '@layouts/DevLayout.astro';
 import Button from '@components/ui/Button.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
 import Hero from '@components/sections/Hero.astro';
+import ProductCard from '@components/ui/ProductCard.astro';
+
+const allProducts = await getCollection('products');
 ---
 
 <DevLayout title="Design System | Criterios Tree">
+	<section class="ds-section">
+		<h2 class="section-title">Componentes de Negocio</h2>
+		<div class="product-grid">
+			{allProducts.map(product => (
+				<div class="sample-item">
+					<ProductCard 
+						title={product.data.title}
+						description={product.data.description}
+						price={product.data.price}
+						category={product.data.category}
+						luxury_score={product.data.luxury_score}
+						image={product.data.image}
+						href={`/catalogo/${product.slug}`}
+					/>
+				</div>
+			))}
+		</div>
+	</section>
 	<section class="ds-section">
 		<h2 class="section-title">Secciones Principales</h2>
 		<div class="sample-grid">
@@ -88,6 +110,11 @@ import Hero from '@components/sections/Hero.astro';
 <style>
 	.ds-section {
 		margin-bottom: var(--space-xl);
+	}
+	.product-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: var(--space-lg);
 	}
 	.section-title {
 		font-size: 1.5rem;
