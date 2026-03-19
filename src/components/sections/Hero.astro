@@ -1,5 +1,4 @@
 ---
-import SectionContainer from '@components/layout/SectionContainer.astro';
 import HeroLogo from '@components/ui/HeroLogo.astro';
 import HeroActions from '@components/ui/HeroActions.astro';
 import { getImage } from 'astro:assets';
@@ -19,8 +18,7 @@ const {
 const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 ---
 
-<SectionContainer 
-	variant="nebula" 
+<section 
 	class="hero" 
 	style={`--hero-bg: url(${optimizedBg.src})`}
 >
@@ -42,7 +40,7 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 		</div>
 		<div class="hero__background-overlay"></div>
 	</div>
-</SectionContainer>
+</section>
 
 <script>
 	import { animations } from '@utils/animations';
@@ -56,15 +54,32 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 	];
 
 	if (hero && logo) {
-		// Usamos nuestra API abstraída para el timeline de scroll
 		const tl = animations.createScrollTimeline(hero);
 
-		// Definimos la secuencia cinematográfica
+		// 1. Parallax sutil en el fondo
+		tl.to(hero, {
+			backgroundPositionY: "20%",
+			ease: "none"
+		}, 0);
+
+		// 2. Logo sube, escala y aumenta su brillo
 		tl.fromTo(logo, 
-			{ y: "35vh", scale: 0.7, opacity: 0.4 }, 
-			{ y: "0vh", scale: 1.4, opacity: 1, duration: 1 }
+			{ 
+				y: "35vh", 
+				scale: 0.7, 
+				opacity: 0.4,
+				filter: "drop-shadow(0 0 5px var(--color-gold-glow))" 
+			}, 
+			{ 
+				y: "0vh", 
+				scale: 1.4, 
+				opacity: 1, 
+				filter: "drop-shadow(0 0 25px var(--color-gold-glow))",
+				duration: 1 
+			}, 0
 		);
 
+		// 3. Revelación coordinada de textos
 		tl.to(textElements, {
 			opacity: 1,
 			y: 0,
