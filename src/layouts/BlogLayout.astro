@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import { Image } from 'astro:assets';
 import '@styles/layouts/blog-layout.css';
 
@@ -22,21 +23,15 @@ const formattedDate = pubDate.toLocaleDateString('es-ES', {
 });
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} ogImage={image.src}>
 	<main>
 		<article class="post">
 			<header class="post__header">
-				<SectionContainer variant="nebula" class="post__hero">
-					<div class="post__meta">
-						<time datetime={pubDate.toISOString()}>{formattedDate}</time>
-						<span>•</span>
-						<span>{author}</span>
-					</div>
-					<h1 class="text-glow">{title}</h1>
-					<div class="post__tags">
-						{tags.map(tag => <span class="post__tag">#{tag}</span>)}
-					</div>
-				</SectionContainer>
+				<PageHeader 
+					title={title} 
+					subtitle={`${formattedDate} • ${author}`} 
+					bgImage={image}
+				/>
 			</header>
 
 			<SectionContainer variant="stardust" class="post__content-wrapper">

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
+import PageHeader from '@components/layout/PageHeader.astro';
 import Button from '@components/ui/Button.astro';
 import { Image } from 'astro:assets';
 import '@styles/pages/product-detail.css';
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 const { Content } = await render(product);
 
-const title = `${product.data.title} | Criterios Tree`;
+const title = product.data.title;
 const description = product.data.description;
 
 // Generar mensaje dinámico para WhatsApp
@@ -25,9 +26,16 @@ const whatsappMessage = encodeURIComponent(`Hola Criterios! Me interesa el produ
 const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} ogImage={product.data.image.src}>
 	<main>
-		<SectionContainer variant="nebula" class="product-detail">
+		<!-- Cabecera estandarizada con la imagen del producto como fondo sutil -->
+		<PageHeader 
+			title={product.data.title} 
+			subtitle={product.data.category} 
+			bgImage={product.data.image}
+		/>
+
+		<SectionContainer variant="stardust" class="product-detail">
 			<div class="product-detail__grid">
 				<div class="product-detail__image-wrapper">
 					<Image 
@@ -44,7 +52,7 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 						<a href="/catalogo/">Catálogo</a> / <span>{product.data.category}</span>
 					</nav>
 					
-					<h1 class="text-glow">{product.data.title}</h1>
+					<h2 class="text-glow">Ficha Técnica</h2>
 					
 					<div class="product-detail__meta">
 						<div class="score-badge">
