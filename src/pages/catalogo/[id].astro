@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
 import Button from '@components/ui/Button.astro';
 import { Image } from 'astro:assets';
+import '@styles/pages/product-detail.css';
 
 export async function getStaticPaths() {
 	const products = await getCollection('products');
@@ -73,98 +74,3 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 		</SectionContainer>
 	</main>
 </BaseLayout>
-
-<style>
-	.product-detail {
-		padding-top: var(--space-xl);
-		min-height: 90vh;
-	}
-
-	.product-detail__grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: var(--space-lg);
-		align-items: start;
-	}
-
-	.product-detail__image-wrapper {
-		width: 100%;
-		max-width: 600px;
-		margin: 0 auto;
-	}
-
-	.product-detail__image {
-		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		object-fit: cover;
-	}
-
-	.breadcrumb {
-		font-family: var(--font-heading);
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 2px;
-		margin-bottom: var(--space-sm);
-		opacity: 0.7;
-	}
-
-	.breadcrumb a:hover {
-		color: var(--color-gold);
-	}
-
-	.product-detail__info h1 {
-		font-size: clamp(2.5rem, 8vw, 4rem);
-		margin-bottom: var(--space-sm);
-	}
-
-	.product-detail__meta {
-		display: flex;
-		align-items: center;
-		gap: var(--space-md);
-		margin-bottom: var(--space-md);
-	}
-
-	.score-badge {
-		background: var(--color-gold-glow);
-		padding: 4px 12px;
-		border-radius: 4px;
-		border: 1px solid var(--color-gold);
-		font-family: var(--font-heading);
-		font-size: 0.9rem;
-	}
-
-	.product-detail__price {
-		font-family: var(--font-heading);
-		font-size: 1.5rem;
-		color: var(--color-gold);
-		font-weight: bold;
-	}
-
-	.product-detail__description {
-		font-size: 1.1rem;
-		line-height: 1.6;
-		margin-bottom: var(--space-md);
-	}
-
-	.product-detail__body {
-		font-family: var(--font-body);
-		color: rgba(255, 255, 255, 0.8);
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-		padding-top: var(--space-md);
-		margin-bottom: var(--space-lg);
-	}
-
-	.product-detail__actions {
-		display: flex;
-		gap: var(--space-md);
-		flex-wrap: wrap;
-	}
-
-	@media (min-width: 992px) {
-		.product-detail__grid {
-			grid-template-columns: 1fr 1fr;
-			gap: var(--space-xl);
-		}
-	}
-</style>

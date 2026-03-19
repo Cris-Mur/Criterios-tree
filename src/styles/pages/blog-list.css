@@ -1,0 +1,33 @@
+.blog-hero {
+	padding: var(--space-xl) 0 var(--space-lg);
+	text-align: center;
+}
+
+.blog-hero__header h1 {
+	font-size: clamp(2.5rem, 10vw, 4rem);
+	margin-bottom: var(--space-sm);
+}
+
+.blog-hero__header p {
+	font-family: var(--font-heading);
+	color: var(--color-gold);
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	font-size: 0.9rem;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.blog-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-xl);
+	padding: var(--space-md) 0;
+}
+
+@media (min-width: 768px) {
+	.blog-grid {
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: var(--space-xl) var(--space-lg);
+	}
+}
