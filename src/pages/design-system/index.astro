@@ -5,13 +5,16 @@ import Button from '@components/ui/Button.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
 import Hero from '@components/sections/Hero.astro';
 import ProductCard from '@components/ui/ProductCard.astro';
+import BlogCard from '@components/ui/BlogCard.astro';
 
 const allProducts = await getCollection('products');
+const allPosts = await getCollection('blog');
 ---
 
 <DevLayout title="Design System | Criterios Tree">
 	<section class="ds-section">
 		<h2 class="section-title">Componentes de Negocio</h2>
+		<h3 class="subsection-title">Catálogo</h3>
 		<div class="product-grid">
 			{allProducts.map(product => (
 				<div class="sample-item">
@@ -23,6 +26,23 @@ const allProducts = await getCollection('products');
 						luxury_score={product.data.luxury_score}
 						image={product.data.image}
 						href={`/catalogo/${product.id}`}
+					/>
+				</div>
+			))}
+		</div>
+
+		<h3 class="subsection-title" style="margin-top: var(--space-xl);">Blog (Concientización)</h3>
+		<div class="blog-grid">
+			{allPosts.map(post => (
+				<div class="sample-item">
+					<BlogCard 
+						title={post.data.title}
+						description={post.data.description}
+						pubDate={post.data.pubDate}
+						author={post.data.author}
+						image={post.data.image}
+						href={`/blog/${post.id}`}
+						tags={post.data.tags}
 					/>
 				</div>
 			))}
@@ -111,7 +131,7 @@ const allProducts = await getCollection('products');
 	.ds-section {
 		margin-bottom: var(--space-xl);
 	}
-	.product-grid {
+	.product-grid, .blog-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: var(--space-lg);
@@ -122,7 +142,16 @@ const allProducts = await getCollection('products');
 		padding-left: var(--space-sm);
 		margin-bottom: var(--space-md);
 	}
-	.color-grid {
+	.subsection-title {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		color: var(--color-gold);
+		margin-bottom: var(--space-sm);
+		text-transform: uppercase;
+		letter-spacing: 1px;
+	}
+	.sample-grid {
+
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 		gap: var(--space-md);

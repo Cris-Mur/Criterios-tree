@@ -1,0 +1,79 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionContainer from '@components/layout/SectionContainer.astro';
+import BlogCard from '@components/ui/BlogCard.astro';
+
+const allPosts = await getCollection('blog', ({ data }) => {
+	return data.draft !== true;
+});
+
+// Ordenar por fecha de publicación (más reciente primero)
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const title = "Blog de Concientización | Criterios Tree";
+const description = "Explora historias sobre el bienestar, nutrición consciente y el origen ancestral de nuestros bocado.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<SectionContainer variant="nebula" class="blog-hero">
+			<div class="blog-hero__header">
+				<h1 class="text-glow">Concientización</h1>
+				<p>Artículos sobre bienestar, nutrición y cultura ancestral.</p>
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="stardust">
+			<div class="blog-grid">
+				{sortedPosts.map(post => (
+					<BlogCard 
+						title={post.data.title}
+						description={post.data.description}
+						pubDate={post.data.pubDate}
+						author={post.data.author}
+						image={post.data.image}
+						href={`/blog/${post.id}`}
+						tags={post.data.tags}
+					/>
+				))}
+			</div>
+		</SectionContainer>
+	</main>
+</BaseLayout>
+
+<style>
+	.blog-hero {
+		padding: var(--space-xl) 0 var(--space-lg);
+		text-align: center;
+	}
+
+	.blog-hero__header h1 {
+		font-size: clamp(2.5rem, 10vw, 4rem);
+		margin-bottom: var(--space-sm);
+	}
+
+	.blog-hero__header p {
+		font-family: var(--font-heading);
+		color: var(--color-gold);
+		text-transform: uppercase;
+		letter-spacing: 3px;
+		font-size: 0.9rem;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.blog-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--space-xl);
+		padding: var(--space-md) 0;
+	}
+
+	@media (min-width: 768px) {
+		.blog-grid {
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+			gap: var(--space-xl) var(--space-lg);
+		}
+	}
+</style>
