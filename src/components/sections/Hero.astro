@@ -1,8 +1,9 @@
 ---
 import HeroLogo from '@components/ui/HeroLogo.astro';
 import HeroActions from '@components/ui/HeroActions.astro';
-import { getImage } from 'astro:assets';
+import { imageEngine } from '@utils/images';
 import bgImage from '@assets/branding/hero-bg.jpg';
+import heroData from '@data/hero.json';
 import '@styles/components/hero.css';
 
 interface Props {
@@ -11,20 +12,25 @@ interface Props {
 }
 
 const { 
-	title = "El Sabor del Conocimiento Ancestral.", 
-	subtitle = "Repostería artesanal para el bienestar. Descubre una experiencia de sabor galáctico diseñada para tu equilibrio." 
+	title = heroData.title, 
+	subtitle = heroData.subtitle 
 } = Astro.props;
 
-const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
+const optimizedBg = await imageEngine.getHeroBackground(bgImage);
 ---
 
 <section 
-	class="hero" 
+	class="hero js-hero-container" 
 	style={`--hero-bg: url(${optimizedBg.src})`}
 >
 	<div class="hero__sticky">
+		<div class="hero__background js-hero-bg"></div>
+		<div class="hero__background-overlay"></div>
+
 		<div class="hero__content">
-			<HeroLogo class="js-hero-logo" />
+			<div class="hero__logo-container js-hero-logo-container">
+				<HeroLogo class="hero-logo-wrapper" />
+			</div>
 			
 			<h1 class="hero__title text-glow js-hero-title">
 				{title}
@@ -35,51 +41,112 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 			</p>
 			
 			<div class="hero__actions-wrapper js-hero-actions">
-				<HeroActions />
+				<HeroActions 
+					primaryLabel={heroData.actions.primary.label}
+					primaryHref={heroData.actions.primary.href}
+					secondaryLabel={heroData.actions.secondary.label}
+					secondaryHref={heroData.actions.secondary.href}
+				/>
 			</div>
 		</div>
-		<div class="hero__background-overlay"></div>
 	</div>
 </section>
 
 <script>
 	import { animations } from '@utils/animations';
+	import { gsap } from 'gsap';
 
-	const hero = document.querySelector('.hero') as HTMLElement;
-	const logo = document.querySelector('.js-hero-logo') as HTMLElement;
+	const hero = document.querySelector('.js-hero-container') as HTMLElement;
+	const heroBg = document.querySelector('.js-hero-bg') as HTMLElement;
+	const logoContainer = document.querySelector('.js-hero-logo-container') as HTMLElement;
+	const logoImg = document.querySelector('.hero-logo-wrapper img') as HTMLElement;
+	
 	const textElements = [
 		'.js-hero-title',
 		'.js-hero-subtitle',
 		'.js-hero-actions'
 	];
 
-	if (hero && logo) {
-		const tl = animations.createScrollTimeline(hero);
+	if (hero && heroBg && logoContainer && logoImg) {
+		const isMobile = window.innerWidth <= 768;
 
-		// 1. Parallax sutil en el fondo
-		tl.to(hero, {
-			backgroundPositionY: "20%",
-			ease: "none"
-		}, 0);
+		// 1. Animación Idle: Giro de moneda
+		const idleRotation = gsap.to(logoImg, {
+			rotationY: 360,
+			duration: 4,
+			repeat: -1,
+			ease: "none",
+		});
 
-		// 2. Logo sube, escala y aumenta su brillo
-		tl.fromTo(logo, 
-			{ 
-				y: "35vh", 
-				scale: 0.7, 
-				opacity: 0.4,
-				filter: "drop-shadow(0 0 5px var(--color-gold-glow))" 
-			}, 
-			{ 
-				y: "0vh", 
-				scale: 1.4, 
-				opacity: 1, 
-				filter: "drop-shadow(0 0 25px var(--color-gold-glow))",
-				duration: 1 
-			}, 0
+		// 2. Efecto "Radioactivo"
+		const radioactiveGlow = gsap.fromTo(logoImg, 
+			{ filter: "drop-shadow(0 0 10px rgba(212, 175, 55, 0.5))" },
+			{
+				filter: "drop-shadow(0 0 45px rgba(212, 175, 55, 0.9))",
+				duration: 2,
+				repeat: -1,
+				yoyo: true,
+				ease: "sine.inOut"
+			}
 		);
 
-		// 3. Revelación coordinada de textos
+		// ESTADO INICIAL LOGO
+		gsap.set(logoContainer, { 
+			opacity: 0.4, 
+			y: "30dvh", 
+			x: isMobile ? "0vw" : "-25vw", 
+			scale: 0.8 
+		});
+
+		// ESTADO INICIAL FONDO: Sincronizado con tus cambios (Contain + Scale 2)
+		gsap.set(heroBg, { 
+			filter: "blur(5px)",
+			scale: 2, // Empezamos con zoom fuerte
+			yPercent: isMobile ? 2 : 10 
+		});
+
+		const tl = animations.createScrollTimeline(hero, {
+			scrollTrigger: {
+				onUpdate: (self) => {
+					if (self.progress > 0.02) {
+						idleRotation.pause();
+						radioactiveGlow.pause();
+					} else {
+						idleRotation.play();
+						radioactiveGlow.play();
+					}
+				}
+			}
+		});
+
+		// 4. Animación del Fondo: Alejar el zoom (Scale 2 -> 1.15)
+		tl.to(heroBg, {
+			filter: "blur(0px)",
+			scale: isMobile ? 1.4 : 1.15, // Zoom final objetivo
+			xPercent: isMobile ? 0 : -5,
+			yPercent: 0, 
+			ease: "none",
+			duration: 1
+		}, 0);
+
+		// 5. Secuencia del Logo
+		tl.to(logoContainer, {
+			y: "0dvh",
+			x: "0vw",
+			scale: isMobile ? 1.2 : 1.4, 
+			opacity: 1, 
+			duration: 1 
+		}, 0);
+
+		// 6. Estabilización
+		tl.to(logoImg, {
+			rotationY: 0,
+			filter: "drop-shadow(0 0 35px rgba(212, 175, 55, 1))",
+			duration: 0.5,
+			ease: "power2.out"
+		}, 0);
+
+		// 7. Revelación de textos
 		tl.to(textElements, {
 			opacity: 1,
 			y: 0,
@@ -88,3 +155,28 @@ const optimizedBg = await getImage({ src: bgImage, format: 'webp' });
 		}, "-=0.4");
 	}
 </script>
+
+<style>
+	.hero__logo-container {
+		perspective: 1200px;
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		z-index: 20;
+	}
+
+	.hero__background {
+		position: absolute;
+		top: -10%;
+		left: -5%;
+		width: 110%;
+		height: 120%;
+		background-image: var(--hero-bg);
+		background-size: contain; /* Sincronizado con tus cambios */
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: 1;
+		pointer-events: none;
+		will-change: transform, filter;
+	}
+</style>

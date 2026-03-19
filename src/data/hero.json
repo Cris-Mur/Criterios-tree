@@ -1,0 +1,14 @@
+{
+	"title": "El Sabor del Conocimiento Ancestral.",
+	"subtitle": "Repostería artesanal para el bienestar. Descubre una experiencia de sabor galáctico diseñada para tu equilibrio.",
+	"actions": {
+		"primary": {
+			"label": "Explorar Catálogo",
+			"href": "/catalogo"
+		},
+		"secondary": {
+			"label": "Nuestra Historia",
+			"href": "/blog/nuestra-historia"
+		}
+	}
+}

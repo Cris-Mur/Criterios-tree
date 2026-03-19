@@ -11,19 +11,24 @@ interface Props {
 }
 
 const {
-	primaryHref = "/catalogo",
-	primaryLabel = "Explorar Catálogo",
-	secondaryHref = "#historia",
-	secondaryLabel = "Nuestra Historia",
+	primaryHref,
+	primaryLabel,
+	secondaryHref,
+	secondaryLabel,
 	class: className
 } = Astro.props;
 ---
 
 <div class:list={['hero-actions', className]}>
-	<Button href={primaryHref} variant="solid">
-		{primaryLabel}
-	</Button>
-	<Button href={secondaryHref} variant="outline">
-		{secondaryLabel}
-	</Button>
+	{primaryLabel && (
+		<Button href={primaryHref} variant="solid">
+			{primaryLabel}
+		</Button>
+	)}
+	
+	{secondaryLabel && (
+		<Button href={secondaryHref} variant="outline">
+			{secondaryLabel}
+		</Button>
+	)}
 </div>

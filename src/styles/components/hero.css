@@ -1,43 +1,36 @@
 .hero {
 	height: 250vh; 
 	position: relative;
-	background-image: var(--hero-bg);
-	background-size: cover;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
 	width: 100%;
-	padding: 0 !important; /* Eliminamos cualquier padding heredado */
+	padding: 0 !important;
+	background-color: var(--color-void);
 }
 
 .hero__sticky {
 	position: sticky;
 	top: 0;
-	height: 100vh;
+	height: 100dvh;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end; 
 	overflow: hidden;
 }
 
-.hero__content {
-	position: relative;
-	z-index: 10;
-	max-width: 1200px; /* Aumentamos para dar más aire */
-	width: 100%;
-	margin: 0 auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: var(--space-md);
-	text-align: center;
-	padding: 0 var(--space-md);
-}
-
-.hero__title, .hero__subtitle, .hero__actions-wrapper {
-	opacity: 0;
-	transform: translateY(20px);
+.hero__background {
+	position: absolute;
+	top: -10%;
+	left: -5%;
+	width: 110%;
+	height: 120%;
+	background-image: var(--hero-bg);
+	background-size: contain; /* Cambio a contain */
+	background-position: center;
+	background-repeat: no-repeat;
+	z-index: 1;
+	pointer-events: none;
+	will-change: transform, filter;
+	transform-origin: center center; /* Aseguramos el origen para el zoom */
 }
 
 .hero__background-overlay {
@@ -46,13 +39,48 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: radial-gradient(circle at center, rgba(0, 0, 0, 0.4) 0%, var(--color-void) 100%);
+	background: radial-gradient(circle at center, rgba(0, 0, 0, 0.2) 0%, var(--color-void) 100%);
 	pointer-events: none;
-	z-index: 5;
+	z-index: 2;
+}
+
+.hero__content {
+	position: relative;
+	z-index: 10;
+	max-width: 600px;
+	width: 100%;
+	margin-right: var(--space-xl);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end; 
+	gap: var(--space-md);
+	text-align: right;
+	padding: 0 var(--space-md);
+}
+
+.hero__logo-container {
+	perspective: 1200px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.hero__title, .hero__subtitle, .hero__actions-wrapper {
+	opacity: 0;
+	transform: translateY(20px);
 }
 
 @media (max-width: 768px) {
 	.hero {
 		height: 200vh;
+	}
+	.hero__sticky {
+		justify-content: center;
+	}
+	.hero__content {
+		margin-right: 0;
+		align-items: center;
+		text-align: center;
+		max-width: 100%;
 	}
 }
