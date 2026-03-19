@@ -32,14 +32,14 @@ const featured = allProducts
 					category={product.data.category}
 					luxury_score={product.data.luxury_score}
 					image={product.data.image}
-					href={`/catalogo/${product.id}`}
+					href={`/catalogo/${product.id}/`}
 				/>
 			</div>
 		))}
 	</div>
 
 	<div class="featured-products__footer js-reveal">
-		<Button href="/catalogo" variant="outline">
+		<Button href="/catalogo/" variant="outline">
 			Ver Catálogo Completo
 		</Button>
 	</div>

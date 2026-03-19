@@ -4,11 +4,11 @@ import SectionContainer from '@components/layout/SectionContainer.astro';
 import PageHeader from '@components/layout/PageHeader.astro';
 import Button from '@components/ui/Button.astro';
 import stores from '@data/stores.json';
+import siteData from '@data/site.json';
 import bgStores from '@assets/gallery/9.webp';
 import '@styles/pages/stores.css';
 
-const title = "Dónde Comprar | Criterios Tree";
-const description = "Encuentra nuestros puntos de venta físicos y canales digitales oficiales.";
+const { title, description } = siteData.seo.tiendas;
 ---
 
 <BaseLayout title={title} description={description}>

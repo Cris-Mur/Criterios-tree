@@ -2,14 +2,16 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/sections/Hero.astro';
 import FeaturedProducts from '@components/sections/FeaturedProducts.astro';
+import WhereToBuyPreview from '@components/sections/WhereToBuyPreview.astro';
+import siteData from '@data/site.json';
 
-const title = "Criterios Tree | Sabor y Bienestar Ancestral";
-const description = "Descubre la repostería artesanal diseñada para elevar tus sentidos. Productos con alta vibración y conocimiento ancestral.";
+const { title, description } = siteData.seo.home;
 ---
 
 <BaseLayout title={title} description={description}>
 	<main>
 		<Hero />
 		<FeaturedProducts />
+		<WhereToBuyPreview />
 	</main>
 </BaseLayout>

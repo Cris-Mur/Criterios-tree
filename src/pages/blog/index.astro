@@ -5,13 +5,13 @@ import SectionContainer from '@components/layout/SectionContainer.astro';
 import PageHeader from '@components/layout/PageHeader.astro';
 import BlogCard from '@components/ui/BlogCard.astro';
 import bgBlog from '@assets/gallery/8.webp';
+import siteData from '@data/site.json';
 import '@styles/pages/blog-list.css';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const title = "Blog de Concientización | Criterios Tree";
-const description = "Explora historias sobre el bienestar, nutrición consciente y el origen ancestral de nuestros bocado.";
+const { title, description } = siteData.seo.blog;
 ---
 
 <BaseLayout title={title} description={description}>

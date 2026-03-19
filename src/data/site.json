@@ -1,0 +1,30 @@
+{
+	"global": {
+		"siteName": "Criterios Tree",
+		"baseTitle": "Luxury Experience",
+		"defaultDescription": "Fusionamos el conocimiento ancestral con la repostería artesanal de alta gama.",
+		"ogImage": "/og-image-default.webp"
+	},
+	"seo": {
+		"home": {
+			"title": "Criterios Tree | Repostería Ancestral y Bienestar Galáctico",
+			"description": "Descubre una experiencia de sabor diseñada para tu equilibrio físico y espiritual con nuestra repostería de alta gama."
+		},
+		"catalogo": {
+			"title": "Catálogo Galáctico | Nuestra Vitrina Ancestral",
+			"description": "Explora nuestra selección curada de repostería artesanal y productos de bienestar."
+		},
+		"blog": {
+			"title": "Concientización | El Blog de Criterios Tree",
+			"description": "Artículos sobre bienestar, nutrición y cultura ancestral para una vida en equilibrio."
+		},
+		"nosotros": {
+			"title": "Nuestra Esencia | La Historia de Criterios Tree",
+			"description": "Conoce el origen, la visión y el propósito ancestral detrás de nuestra repostería artesanal."
+		},
+		"tiendas": {
+			"title": "Puntos de Venta | Encuentra Criterios Tree",
+			"description": "Localiza nuestras boutiques físicas y canales oficiales de venta digital."
+		}
+	}
+}

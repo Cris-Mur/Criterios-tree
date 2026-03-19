@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Icon from '@components/ui/Icon.astro';
 import logoImage from '@assets/branding/logo.png';
+import navData from '@data/navigation.json';
 import '@styles/components/footer.css';
 
 const currentYear = new Date().getFullYear();
@@ -18,8 +19,8 @@ const currentYear = new Date().getFullYear();
 				class="footer__logo"
 			/>
 			<div class="footer__info">
-				<h2 class="text-glow">Criterios Tree</h2>
-				<p>Conocimiento Ancestral para tu Bienestar.</p>
+				<h2 class="text-glow">{navData.credits.brand} Tree</h2>
+				<p>{navData.credits.slogan}</p>
 			</div>
 		</div>
 
@@ -27,31 +28,27 @@ const currentYear = new Date().getFullYear();
 			<div class="footer__nav-group">
 				<h3>Explorar</h3>
 				<ul>
-					<li><a href="/">Inicio</a></li>
-					<li><a href="/catalogo">Catálogo</a></li>
-					<li><a href="/blog">Concientización</a></li>
+					{navData.navigation.map(link => (
+						<li><a href={link.href}>{link.label}</a></li>
+					))}
 				</ul>
 			</div>
 
 			<div class="footer__nav-group">
 				<h3>Conecta</h3>
 				<div class="footer__socials">
-					<a href="https://www.instagram.com/criterios._/" target="_blank" aria-label="Instagram">
-						<Icon name="instagram_line" width={24} height={24} />
-					</a>
-					<a href="https://www.facebook.com/Criterios.DI" target="_blank" aria-label="Facebook">
-						<Icon name="facebook_logo" width={24} height={24} />
-					</a>
-					<a href="https://wa.me/573208722922" target="_blank" aria-label="WhatsApp">
-						<Icon name="whatsapp_line" width={24} height={24} />
-					</a>
+					{navData.socials.map(social => (
+						<a href={social.url} target="_blank" aria-label={social.id}>
+							<Icon name={social.name} width={24} height={24} />
+						</a>
+					))}
 				</div>
 			</div>
 		</nav>
 	</div>
 
 	<div class="footer__bottom container">
-		<p>&copy; {currentYear} Criterios - Todos los derechos reservados.</p>
-		<p class="footer__credits">Built with Excellence by <a href="https://github.com/cris-mur" target="_blank">NativeCore</a></p>
+		<p>&copy; {currentYear} {navData.credits.brand} - Todos los derechos reservados.</p>
+		<p class="footer__credits">Built with Excellence by <a href={navData.credits.authorUrl} target="_blank">{navData.credits.author}</a></p>
 	</div>
 </footer>

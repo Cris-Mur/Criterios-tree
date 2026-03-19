@@ -3,13 +3,13 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import SectionContainer from '@components/layout/SectionContainer.astro';
 import PageHeader from '@components/layout/PageHeader.astro';
 import aboutData from '@data/about.json';
+import siteData from '@data/site.json';
 import { Image } from 'astro:assets';
 import historyImage from '@assets/gallery/4.webp';
 import bgAbout from '@assets/gallery/7.webp';
 import '@styles/pages/about.css';
 
-const title = "Nosotros | Criterios Tree";
-const description = "Conoce la historia, visión y el propósito ancestral detrás de Criterios Tree.";
+const { title, description } = siteData.seo.nosotros;
 ---
 
 <BaseLayout title={title} description={description}>

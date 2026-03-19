@@ -3,25 +3,38 @@ import BaseHead from '@components/layout/BaseHead.astro';
 import SEO from '@components/layout/SEO.astro';
 import Header from '@components/layout/Header.astro';
 import Footer from '@components/layout/Footer.astro';
+import siteData from '@data/site.json';
 
 interface Props {
 	title?: string;
 	description?: string;
 	ogType?: string;
+	ogImage?: string;
 }
 
 const { 
-	title = "Criterios Tree | Luxury Experience",
-	description = "Descubre la excelencia en panadería artesanal y concienciación con Criterios.",
-	ogType
+	title = siteData.global.baseTitle,
+	description = siteData.global.defaultDescription,
+	ogType,
+	ogImage = siteData.global.ogImage
 } = Astro.props;
+
+// Combinamos el título si no es el principal
+const finalTitle = title === siteData.global.siteName 
+	? title 
+	: `${title} | ${siteData.global.siteName}`;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={title} />
-		<SEO title={title} description={description} ogType={ogType} />
+		<BaseHead title={finalTitle} />
+		<SEO 
+			title={finalTitle} 
+			description={description} 
+			ogType={ogType} 
+			ogImage={ogImage}
+		/>
 	</head>
 	<body>
 		<Header />
@@ -32,6 +45,6 @@ const {
 
 <style is:global>
 	body {
-		padding-top: 80px; /* Espacio para el header fixed */
+		padding-top: 80px;
 	}
 </style>

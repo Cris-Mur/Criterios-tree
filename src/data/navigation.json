@@ -1,0 +1,20 @@
+{
+	"navigation": [
+		{ "label": "Inicio", "href": "/" },
+		{ "label": "Catálogo", "href": "/catalogo/" },
+		{ "label": "Blog", "href": "/blog/" },
+		{ "label": "Nosotros", "href": "/nosotros/" },
+		{ "label": "Tiendas", "href": "/donde-comprar/" }
+	],
+	"socials": [
+		{ "id": "instagram", "name": "instagram_line", "url": "https://www.instagram.com/criterios._/" },
+		{ "id": "facebook", "name": "facebook_logo", "url": "https://www.facebook.com/Criterios.DI" },
+		{ "id": "whatsapp", "name": "whatsapp_line", "url": "https://wa.me/573208722922" }
+	],
+	"credits": {
+		"brand": "Criterios",
+		"slogan": "Conocimiento Ancestral para tu Bienestar.",
+		"author": "NativeCore",
+		"authorUrl": "https://github.com/cris-mur"
+	}
+}
