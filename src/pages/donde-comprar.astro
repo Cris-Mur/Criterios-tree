@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionContainer from '@components/layout/SectionContainer.astro';
+import Button from '@components/ui/Button.astro';
+import stores from '@data/stores.json';
+import '@styles/pages/stores.css';
+
+const title = "Dónde Comprar | Criterios Tree";
+const description = "Encuentra nuestros puntos de venta físicos y canales digitales oficiales.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<SectionContainer variant="nebula" class="stores-hero">
+			<div class="stores-hero__header" style="text-align: center; padding: var(--space-xl) 0;">
+				<h1 class="text-glow">Puntos de Venta</h1>
+				<p style="color: var(--color-gold); font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px;">Criterios Tree en tu Ciudad</p>
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="stardust">
+			<div class="stores-grid">
+				{stores.map(store => (
+					<article class="store-card luxury-border js-reveal">
+						<header class="store-card__header">
+							<span class="store-card__badge">{store.isDigital ? 'Digital' : 'Físico'}</span>
+							<h2 class="text-glow">{store.name}</h2>
+						</header>
+
+						<ul class="store-card__details">
+							<li>
+								<span>Ubicación</span>
+								<span>{store.address}</span>
+							</li>
+							<li>
+								<span>Horario</span>
+								<span>{store.hours}</span>
+							</li>
+							<li>
+								<span>Contacto</span>
+								<span>{store.phone}</span>
+							</li>
+						</ul>
+
+						<div class="store-card__actions">
+							<Button 
+								href={store.mapLink} 
+								variant={store.isDigital ? 'solid' : 'outline'} 
+								target="_blank"
+								class="store-card__btn"
+							>
+								{store.isDigital ? 'Contactar ahora' : 'Cómo llegar'}
+							</Button>
+						</div>
+					</article>
+				))}
+			</div>
+		</SectionContainer>
+	</main>
+</BaseLayout>
+
+<script>
+	import { animations } from '@utils/animations';
+	animations.reveal('.js-reveal', { stagger: 0.2 });
+</script>

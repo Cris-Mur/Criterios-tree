@@ -1,0 +1,30 @@
+{
+	"hero": {
+		"title": "Nuestra Esencia",
+		"subtitle": "Tradición, Ciencia y el Sabor del Equilibrio."
+	},
+	"history": {
+		"title": "Un Legado Ancestral",
+		"text": "Criterios Tree nació de la visión de fusionar el conocimiento de nuestros antepasados con la repostería artesanal moderna. No somos solo una marca, somos un movimiento hacia la nutrición consciente.",
+		"image": "/src/assets/gallery/4.webp"
+	},
+	"market": {
+		"title": "Presencia y Trayectoria",
+		"stats": [
+			{ "label": "Años de Historia", "value": "5+" },
+			{ "label": "Creaciones Únicas", "value": "20+" },
+			{ "label": "Puntos de Alianza", "value": "10+" }
+		]
+	},
+	"purpose": {
+		"title": "Nuestro Propósito",
+		"mission": "Elevar la experiencia de bienestar a través de sabores que nutren el alma y el cuerpo.",
+		"vision": "Ser el referente galáctico de la repostería artesanal consciente en toda la región."
+	},
+	"timeline": [
+		{ "year": "2019", "event": "Nace la visión de Criterios Tree en un pequeño taller artesanal." },
+		{ "year": "2021", "event": "Lanzamiento de nuestra primera línea de repostería con conocimiento ancestral." },
+		{ "year": "2023", "event": "Apertura de nuestra boutique principal y expansión a canales digitales." },
+		{ "year": "2024", "event": "Consolidación como referente de nutrición consciente y bienestar galáctico." }
+	]
+}

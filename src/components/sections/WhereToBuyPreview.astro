@@ -1,0 +1,22 @@
+---
+import SectionContainer from '@components/layout/SectionContainer.astro';
+import Button from '@components/ui/Button.astro';
+import '@styles/components/where-to-buy-preview.css';
+---
+
+<SectionContainer variant="nebula" class="where-to-buy-preview">
+	<div class="wtb-preview__content js-wtb-reveal">
+		<div class="wtb-preview__text">
+			<p class="wtb-preview__info">Disponibilidad Inmediata</p>
+			<h2 class="wtb-preview__title text-glow">Encuentra tu bocado ancestral cerca de ti</h2>
+		</div>
+		<Button href="/donde-comprar" variant="solid">
+			Ver Puntos de Venta
+		</Button>
+	</div>
+</SectionContainer>
+
+<script>
+	import { animations } from '@utils/animations';
+	animations.reveal('.js-wtb-reveal', { y: 20 });
+</script>

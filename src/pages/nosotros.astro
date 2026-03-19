@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import SectionContainer from '@components/layout/SectionContainer.astro';
+import aboutData from '@data/about.json';
+import { Image } from 'astro:assets';
+import historyImage from '@assets/gallery/4.webp';
+import '@styles/pages/about.css';
+
+const title = "Nosotros | Criterios Tree";
+const description = "Conoce la historia, visión y el propósito ancestral detrás de Criterios Tree.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<SectionContainer variant="nebula">
+			<div class="about-hero" style="text-align: center; padding: var(--space-xl) 0;">
+				<h1 class="text-glow js-reveal">{aboutData.hero.title}</h1>
+				<p class="js-reveal" style="color: var(--color-gold); font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 3px;">{aboutData.hero.subtitle}</p>
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="stardust">
+			<div class="about-history">
+				<div class="about-history__content js-reveal">
+					<h2 class="text-glow">{aboutData.history.title}</h2>
+					<p style="font-size: 1.2rem; line-height: 1.8; margin-top: var(--space-md);">
+						{aboutData.history.text}
+					</p>
+				</div>
+				<div class="about-history__image-wrapper luxury-border js-reveal">
+					<Image src={historyImage} alt="Historia Criterios" width={600} height={400} />
+				</div>
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="nebula">
+			<div style="text-align: center; margin-bottom: var(--space-xl);">
+				<h2 class="text-glow js-reveal">Nuestra Evolución</h2>
+			</div>
+			<div class="about-timeline">
+				{aboutData.timeline.map(item => (
+					<div class="timeline-item js-reveal">
+						<div class="timeline-content">
+							<h3 class="text-glow">{item.year}</h3>
+							<p>{item.event}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="stardust">
+			<div class="about-stats">
+				{aboutData.market.stats.map(stat => (
+					<div class="stat-item js-reveal">
+						<h3 class="text-glow">{stat.value}</h3>
+						<p>{stat.label}</p>
+					</div>
+				))}
+			</div>
+		</SectionContainer>
+
+		<SectionContainer variant="nebula">
+			<div class="about-purpose">
+				<div class="purpose-box js-reveal">
+					<h3 class="text-glow">Misión</h3>
+					<p>{aboutData.purpose.mission}</p>
+				</div>
+				<div class="purpose-box js-reveal">
+					<h3 class="text-glow">Visión</h3>
+					<p>{aboutData.purpose.vision}</p>
+				</div>
+			</div>
+		</SectionContainer>
+	</main>
+</BaseLayout>
+
+<script>
+	import { animations } from '@utils/animations';
+	animations.reveal('.js-reveal', { stagger: 0.15 });
+</script>

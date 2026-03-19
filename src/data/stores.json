@@ -1,0 +1,20 @@
+[
+	{
+		"id": "tienda-principal",
+		"name": "Criterios Tree - Boutique",
+		"address": "Calle de los Sabores 123, Bogotá",
+		"mapLink": "https://maps.google.com/?q=Bogota",
+		"hours": "Lun - Sáb: 9am - 7pm",
+		"isDigital": false,
+		"phone": "+57 320 872 2922"
+	},
+	{
+		"id": "tienda-virtual",
+		"name": "Canal WhatsApp Directo",
+		"address": "Atención Personalizada Digital",
+		"mapLink": "https://wa.me/573208722922",
+		"hours": "Todos los días: 8am - 9pm",
+		"isDigital": true,
+		"phone": "+57 320 872 2922"
+	}
+]

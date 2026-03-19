@@ -1,0 +1,38 @@
+.where-to-buy-preview {
+	background: linear-gradient(90deg, var(--color-void) 0%, var(--color-deep-space) 100%);
+	border-top: 1px solid var(--color-gold-glow);
+	border-bottom: 1px solid var(--color-gold-glow);
+	padding: var(--space-xl) 0;
+}
+
+.wtb-preview__content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: var(--space-md);
+}
+
+.wtb-preview__title {
+	font-size: clamp(1.5rem, 4vw, 2.5rem);
+	max-width: 700px;
+}
+
+.wtb-preview__info {
+	color: var(--color-gold);
+	font-family: var(--font-heading);
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+	.wtb-preview__content {
+		flex-direction: row;
+		justify-content: space-between;
+		text-align: left;
+	}
+	.wtb-preview__title {
+		margin: 0;
+	}
+}

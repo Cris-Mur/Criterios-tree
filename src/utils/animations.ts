@@ -48,19 +48,33 @@ class AnimationEngine {
 	}
 
 	/**
-	 * Animación de revelación estándar.
+	 * Animación de revelación mejorada para uno o múltiples elementos.
 	 */
-	public reveal(element: string | HTMLElement, options: any = {}) {
-		return this.gsap.from(element, {
-			opacity: 0,
-			y: options.y || 30,
-			duration: options.duration || 1,
-			stagger: options.stagger || 0.2,
-			scrollTrigger: {
-				trigger: element,
-				start: "top 85%",
-				...options.scrollTrigger
-			}
+	public reveal(selector: string | HTMLElement | HTMLElement[], options: any = {}) {
+		if (typeof window === 'undefined') return;
+
+		const elements = typeof selector === 'string' 
+			? gsap.utils.toArray(selector) 
+			: (Array.isArray(selector) ? selector : [selector]);
+
+		if (!elements.length) return;
+
+		// Si es una colección, aplicamos ScrollTrigger individualmente a cada elemento
+		// para que cada uno se revele cuando entre en su propio punto de activación.
+		elements.forEach((el: any, index: number) => {
+			this.gsap.from(el, {
+				opacity: 0,
+				y: options.y || 30,
+				duration: options.duration || 1,
+				delay: options.stagger ? index * options.stagger : 0,
+				scrollTrigger: {
+					trigger: el,
+					start: "top 90%", // Punto de activación más bajo para mejor visibilidad
+					toggleActions: "play none none none",
+					once: true, // Solo se anima una vez
+					...options.scrollTrigger
+				}
+			});
 		});
 	}
 }
