@@ -40,10 +40,10 @@ Este documento desglosa las tareas maestras sincronizadas en el ERP (Dolibarr) e
 * [x]   **5.3** Implementar página de listado del Blog (`/blog`).
 * [x]   **5.4** Crear Layout específico para artículos del Blog con soporte para Markdown.
 
-- [ ] ## 📱 PJ2-TSK-06: [DEV] Footer & Canal de Conversión
-* [ ]   **6.1** Desarrollar `Footer.astro` con enlaces a redes y canales de venta.
-* [ ]   **6.2** Crear utilidad `whatsappLink.ts` para generar mensajes personalizados por producto.
-* [ ]   **6.3** Implementar botón flotante de contacto (opcional para mobile).
+- [x] ## 📱 PJ2-TSK-06: [DEV] Footer & Canal de Conversión
+* [x]   **6.1** Desarrollar `Footer.astro` con enlaces a redes y canales de venta.
+* [x]   **6.2** Crear utilidad `whatsappLink.ts` para generar mensajes personalizados por producto.
+* [x]   **6.3** Implementar botón flotante de contacto (opcional para mobile).
 
 - [ ] ## 🔍 PJ2-TSK-07: [QA/SEO] Optimización & Auditoría
 * [ ]   **7.1** Configurar metadatos SEO globales y por página (OpenGraph/Twitter).
