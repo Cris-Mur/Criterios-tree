@@ -3,7 +3,13 @@
 		"siteName": "Criterios Tree",
 		"baseTitle": "Luxury Experience",
 		"defaultDescription": "Fusionamos el conocimiento ancestral con la repostería artesanal de alta gama.",
-		"ogImage": "/og-image-default.webp"
+		"ogImage": "/og-image-default.webp",
+		"contact": {
+			"phone": "573208722922",
+			"email": "contacto@criterios-tree.com",
+			"instagram": "https://www.instagram.com/criterios._/",
+			"facebook": "https://www.facebook.com/Criterios.DI"
+		}
 	},
 	"seo": {
 		"home": {

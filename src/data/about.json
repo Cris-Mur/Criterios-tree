@@ -23,8 +23,17 @@
 	},
 	"timeline": [
 		{ "year": "2019", "event": "Nace la visión de Criterios Tree en un pequeño taller artesanal." },
-		{ "year": "2021", "event": "Lanzamiento de nuestra primera línea de repostería con conocimiento ancestral." },
-		{ "year": "2023", "event": "Apertura de nuestra boutique principal y expansión a canales digitales." },
-		{ "year": "2024", "event": "Consolidación como referente de nutrición consciente y bienestar galáctico." }
+		{
+			"year": "2021",
+			"event": "Lanzamiento de nuestra primera línea de repostería con conocimiento ancestral."
+		},
+		{
+			"year": "2023",
+			"event": "Apertura de nuestra boutique principal y expansión a canales digitales."
+		},
+		{
+			"year": "2024",
+			"event": "Consolidación como referente de nutrición consciente y bienestar galáctico."
+		}
 	]
 }

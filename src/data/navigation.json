@@ -7,7 +7,11 @@
 		{ "label": "Tiendas", "href": "/donde-comprar/" }
 	],
 	"socials": [
-		{ "id": "instagram", "name": "instagram_line", "url": "https://www.instagram.com/criterios._/" },
+		{
+			"id": "instagram",
+			"name": "instagram_line",
+			"url": "https://www.instagram.com/criterios._/"
+		},
 		{ "id": "facebook", "name": "facebook_logo", "url": "https://www.facebook.com/Criterios.DI" },
 		{ "id": "whatsapp", "name": "whatsapp_line", "url": "https://wa.me/573208722922" }
 	],
