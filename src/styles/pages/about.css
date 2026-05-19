@@ -66,7 +66,7 @@
 }
 
 .about-timeline::before {
-	content: '';
+	content: "";
 	position: absolute;
 	left: 50%;
 	top: 0;
@@ -93,7 +93,7 @@
 }
 
 .timeline-item::after {
-	content: '';
+	content: "";
 	position: absolute;
 	width: 12px;
 	height: 12px;

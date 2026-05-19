@@ -27,8 +27,13 @@
 }
 
 /* Data Health Styles */
-.status-ok { color: #4CAF50; }
-.status-error { color: #ff6b6b; font-weight: bold; }
+.status-ok {
+	color: #4caf50;
+}
+.status-error {
+	color: #ff6b6b;
+	font-weight: bold;
+}
 
 .di-table {
 	width: 100%;
@@ -37,7 +42,8 @@
 	background: rgba(0, 0, 0, 0.2);
 }
 
-.di-table th, .di-table td {
+.di-table th,
+.di-table td {
 	padding: 12px;
 	border: 1px solid rgba(255, 255, 255, 0.05);
 	text-align: left;
@@ -78,11 +84,18 @@
 	padding: var(--space-xs);
 }
 
-.color-item span { font-weight: bold; margin-bottom: 4px; }
-.color-item code { opacity: 0.8; }
+.color-item span {
+	font-weight: bold;
+	margin-bottom: 4px;
+}
+.color-item code {
+	opacity: 0.8;
+}
 
 /* Grid de componentes */
-.sample-grid, .product-grid, .blog-grid {
+.sample-grid,
+.product-grid,
+.blog-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	gap: var(--space-lg);
