@@ -1,34 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
-import DevLayout from '@layouts/DevLayout.astro';
-import Button from '@components/ui/Button.astro';
-import Icon from '@components/ui/Icon.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import ProductCard from '@components/ui/ProductCard.astro';
-import BlogCard from '@components/ui/BlogCard.astro';
-import Hero from '@components/sections/Hero.astro';
-import bgSample from '@assets/gallery/6.webp';
-import '@styles/pages/design-system.css';
+import { getCollection } from "astro:content";
+import DevLayout from "@layouts/DevLayout.astro";
+import Button from "@components/ui/Button.astro";
+import Icon from "@components/ui/Icon.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import ProductCard from "@components/ui/ProductCard.astro";
+import BlogCard from "@components/ui/BlogCard.astro";
+import Hero from "@components/sections/Hero.astro";
+import bgSample from "@assets/gallery/6.webp";
+import "@styles/pages/design-system.css";
 
-const allProducts = await getCollection('products');
-const allPosts = await getCollection('blog');
+const allProducts = await getCollection("products");
+const allPosts = await getCollection("blog");
 ---
 
 <DevLayout title="Design System | Criterios Tree">
 	<div class="ds-container container">
-		
 		<!-- 1. FOUNDATIONS -->
 		<section class="ds-section">
 			<h2 class="section-title">Foundations</h2>
-			
+
 			<h3 class="subsection-title">Paleta de Colores</h3>
 			<div class="color-grid">
 				<div class="color-item" style="background-color: var(--color-gold);">
 					<span>Gold</span>
 					<code>#D4AF37</code>
 				</div>
-				<div class="color-item" style="background-color: var(--color-deep-space); border: 1px solid var(--color-gold);">
+				<div
+					class="color-item"
+					style="background-color: var(--color-deep-space); border: 1px solid var(--color-gold);"
+				>
 					<span>Deep Space</span>
 					<code>#050505</code>
 				</div>
@@ -45,14 +47,16 @@ const allPosts = await getCollection('blog');
 			<h3 class="subsection-title" style="margin-top: var(--space-lg);">Tipografía</h3>
 			<div class="typography-sample">
 				<h1 style="font-family: var(--font-heading);">Cinzel - Heading 1</h1>
-				<p style="font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8;">Inter - Body Text. Estándar de lectura para descripciones y contenido narrativo.</p>
+				<p style="font-family: var(--font-body); font-size: 1.1rem; opacity: 0.8;">
+					Inter - Body Text. Estándar de lectura para descripciones y contenido narrativo.
+				</p>
 			</div>
 		</section>
 
 		<!-- 2. ATOMS & UI -->
 		<section class="ds-section">
 			<h2 class="section-title">Atoms & UI</h2>
-			
+
 			<div class="sample-grid">
 				<div class="sample-item">
 					<p class="sample-label">Botones</p>
@@ -61,7 +65,7 @@ const allPosts = await getCollection('blog');
 						<Button variant="outline">Outline Action</Button>
 					</div>
 				</div>
-				
+
 				<div class="sample-item">
 					<p class="sample-label">Iconos locales</p>
 					<div style="display: flex; gap: 1.5rem; color: var(--color-gold);">
@@ -76,51 +80,55 @@ const allPosts = await getCollection('blog');
 		<!-- 3. MOLECULES & ORGANISMS -->
 		<section class="ds-section">
 			<h2 class="section-title">Molecules & Organisms</h2>
-			
+
 			<h3 class="subsection-title">Product Showcase</h3>
 			<div class="product-grid">
-				{allProducts.slice(0, 2).map(product => (
-					<div class="sample-item">
-						<ProductCard 
-							title={product.data.title}
-							description={product.data.description}
-							price={product.data.price}
-							category={product.data.category}
-							luxury_score={product.data.luxury_score}
-							image={product.data.image}
-							href={`/catalogo/${product.id}/`}
-						/>
-					</div>
-				))}
+				{
+					allProducts.slice(0, 2).map((product) => (
+						<div class="sample-item">
+							<ProductCard
+								title={product.data.title}
+								description={product.data.description}
+								price={product.data.price}
+								category={product.data.category}
+								luxury_score={product.data.luxury_score}
+								image={product.data.image}
+								href={`/catalogo/${product.id}/`}
+							/>
+						</div>
+					))
+				}
 			</div>
 
 			<h3 class="subsection-title" style="margin-top: var(--space-xl);">Blog Previews</h3>
 			<div class="blog-grid">
-				{allPosts.slice(0, 2).map(post => (
-					<div class="sample-item">
-						<BlogCard 
-							title={post.data.title}
-							description={post.data.description}
-							pubDate={post.data.pubDate}
-							author={post.data.author}
-							image={post.data.image}
-							href={`/blog/${post.id}/`}
-							tags={post.data.tags}
-						/>
-					</div>
-				))}
+				{
+					allPosts.slice(0, 2).map((post) => (
+						<div class="sample-item">
+							<BlogCard
+								title={post.data.title}
+								description={post.data.description}
+								pubDate={post.data.pubDate}
+								author={post.data.author}
+								image={post.data.image}
+								href={`/blog/${post.id}/`}
+								tags={post.data.tags}
+							/>
+						</div>
+					))
+				}
 			</div>
 		</section>
 
 		<!-- 4. TEMPLATES & SECTIONS -->
 		<section class="ds-section">
 			<h2 class="section-title">Templates & Sections</h2>
-			
+
 			<h3 class="subsection-title">Page Header Component</h3>
 			<div class="luxury-border" style="overflow: hidden; margin-bottom: var(--space-xl);">
-				<PageHeader 
-					title="Título de Página" 
-					subtitle="Subtítulo descriptivo de alta gama" 
+				<PageHeader
+					title="Título de Página"
+					subtitle="Subtítulo descriptivo de alta gama"
 					bgImage={bgSample}
 				/>
 			</div>
@@ -130,6 +138,5 @@ const allPosts = await getCollection('blog');
 				<Hero />
 			</div>
 		</section>
-
 	</div>
 </DevLayout>

@@ -5,6 +5,7 @@ Este documento define las reglas de ingeniería, arquitectura y estilo para la c
 ---
 
 ## 🏗️ 1. Arquitectura del Repositorio
+
 Se seguirá la estructura estándar de Astro, optimizada para **Content Collections**.
 
 ```text
@@ -29,15 +30,18 @@ Se seguirá la estructura estándar de Astro, optimizada para **Content Collecti
 ---
 
 ## 🎨 2. Estilo de Código y UI
+
 Para garantizar la mantenibilidad y el rendimiento:
 
 ### CSS & Styling
+
 - **Enfoque:** Vanilla CSS con variables nativas (`:root`).
 - **Nomenclatura:** BEM (Block Element Modifier) para clases complejas.
 - **Variables Críticas:** Colores del CDS v1.1 (#D4AF37, #050505, etc.) definidos en `styles/main.css`.
 - **Rendimiento:** Evitar librerías pesadas de animaciones; preferir CSS Transitions y Web Animations API.
 
 ### JavaScript / TypeScript
+
 - **Estándar:** ECMAScript moderno (ES2022+).
 - **Tipado:** Uso obligatorio de TypeScript para Props de componentes.
 - **Responsabilidad:** Lógica mínima por componente. Funciones auxiliares en `src/utils/`.
@@ -45,6 +49,7 @@ Para garantizar la mantenibilidad y el rendimiento:
 ---
 
 ## ⚙️ 3. Configuración Base de Astro
+
 - **Output:** `static` (SSG - Static Site Generation).
 - **Imágenes:** Uso del componente `<Image />` de Astro para optimización automática a WebP/AVIF.
 - **SEO:** Inyección obligatoria de Meta Tags (OpenGraph, Twitter Cards) en `BaseLayout.astro`.
@@ -53,6 +58,7 @@ Para garantizar la mantenibilidad y el rendimiento:
 ---
 
 ## 🛡️ 4. Reglas de Gestión Operativa (COO)
+
 Para cumplir con la política **POL-ARC**:
 
 1.  **Commits:** Formato `[TYPE][VERB][DESCRIPTION]` (Ej: `[FEAT][Add][Implementation of Hero section]`).
@@ -65,11 +71,14 @@ Para cumplir con la política **POL-ARC**:
 ---
 
 ## 📦 5. Dependencias Permitidas
-*Evitar el "Dependency Hell".*
+
+_Evitar el "Dependency Hell"._
+
 - **Core:** Astro.
 - **Validation:** Zod (nativo en Astro Collections).
 - **Icons:** Astro-Icon (vía SVGs locales).
 - **Fonts:** Fontsource (para Cinzel e Inter).
 
 ---
-*NativeCore - Eficiencia en el Código, Excelencia en el Producto.*
+
+_NativeCore - Eficiencia en el Código, Excelencia en el Producto._

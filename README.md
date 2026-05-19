@@ -5,9 +5,11 @@ Repositorio oficial del ecosistema digital de **Criterios**, una plataforma de a
 ---
 
 ## 🚀 Arquitectura Técnica
+
 El proyecto implementa **Atomic Design** y **Island Architecture** para maximizar el rendimiento y la mantenibilidad.
 
 ### Tecnologías Core
+
 - **Framework:** Astro 6.0.0 (SSG)
 - **Lenguaje:** TypeScript (Strict Mode)
 - **Gestor de Paquetes:** pnpm
@@ -41,25 +43,30 @@ El proyecto implementa **Atomic Design** y **Island Architecture** para maximiza
 ## 🛠️ Desarrollo
 
 ### Instalación
+
 ```bash
 pnpm install
 ```
 
 ### Comandos Disponibles
-| Comando | Acción |
-| :--- | :--- |
-| `pnpm dev` | Inicia el servidor de desarrollo en `localhost:4321` |
-| `pnpm build` | Genera el sitio estático optimizado en `./dist/` |
-| `pnpm preview` | Previsualiza la build de producción localmente |
-| `pnpm astro ...` | Ejecuta comandos de la CLI de Astro |
+
+| Comando          | Acción                                               |
+| :--------------- | :--------------------------------------------------- |
+| `pnpm dev`       | Inicia el servidor de desarrollo en `localhost:4321` |
+| `pnpm build`     | Genera el sitio estático optimizado en `./dist/`     |
+| `pnpm preview`   | Previsualiza la build de producción localmente       |
+| `pnpm astro ...` | Ejecuta comandos de la CLI de Astro                  |
 
 ---
 
 ## 🎨 Design System (CDS v1.1)
+
 El diseño se basa en una estética **Luxury/Galactic**:
+
 - **Primario:** Gold (#D4AF37)
 - **Fondo:** Deep Space (#050505)
 - **Tipografía:** Cinzel (Títulos) e Inter (Cuerpo)
 
 ---
-*Desarrollado con rigor técnico por NativeCore.*
+
+_Desarrollado con rigor técnico por NativeCore._
