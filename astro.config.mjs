@@ -1,10 +1,10 @@
-import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://criterios-tree.com',
+	site: "https://criterios-tree.com",
 	integrations: [sitemap()],
-	output: 'static',
-	trailingSlash: 'always'
+	output: "static",
+	trailingSlash: "always"
 });

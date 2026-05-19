@@ -1,49 +1,55 @@
 ---
-import BaseHead from '@components/layout/BaseHead.astro';
-import SEO from '@components/layout/SEO.astro';
-import Header from '@components/layout/Header.astro';
-import Footer from '@components/layout/Footer.astro';
-import siteData from '@data/site.json';
+import BaseHead from "@components/layout/BaseHead.astro";
+import SEO from "@components/layout/SEO.astro";
+import Header from "@components/layout/Header.astro";
+import Footer from "@components/layout/Footer.astro";
+import siteData from "@data/site.json";
 
+/**
+ * Props para BaseLayout
+ */
 interface Props {
+	/** Título de la página. Por defecto usa el definido en site.json. */
 	title?: string;
+	/** Descripción SEO. Por defecto usa la definida en site.json. */
 	description?: string;
+	/** Tipo de contenido OpenGraph (ej: 'website', 'article'). */
 	ogType?: string;
+	/** URL de la imagen para compartir en redes sociales. */
 	ogImage?: string;
 }
 
-const { 
+const {
 	title = siteData.global.baseTitle,
 	description = siteData.global.defaultDescription,
 	ogType,
 	ogImage = siteData.global.ogImage
 } = Astro.props;
 
-// Combinamos el título si no es el principal
-const finalTitle = title === siteData.global.siteName 
-	? title 
-	: `${title} | ${siteData.global.siteName}`;
+// Combinamos el título si no es el principal para mejorar el SEO branding
+const finalTitle =
+	title === siteData.global.siteName ? title : `${title} | ${siteData.global.siteName}`;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
 		<BaseHead title={finalTitle} />
-		<SEO 
-			title={finalTitle} 
-			description={description} 
-			ogType={ogType} 
-			ogImage={ogImage}
-		/>
+		<SEO title={finalTitle} description={description} ogType={ogType} ogImage={ogImage} />
 	</head>
 	<body>
 		<Header />
+		<!-- El slot permite inyectar el contenido específico de cada página -->
 		<slot />
 		<Footer />
 	</body>
 </html>
 
 <style is:global>
+	/**
+	 * Compensación para el Header fijo.
+	 * Asegura que el contenido no quede oculto bajo la navegación.
+	 */
 	body {
 		padding-top: 80px;
 	}

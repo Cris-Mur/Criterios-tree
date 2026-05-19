@@ -1,24 +1,20 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import aboutData from '@data/about.json';
-import siteData from '@data/site.json';
-import { Image } from 'astro:assets';
-import historyImage from '@assets/gallery/4.webp';
-import bgAbout from '@assets/gallery/7.webp';
-import '@styles/pages/about.css';
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import aboutData from "@data/about.json";
+import siteData from "@data/site.json";
+import { Image } from "astro:assets";
+import historyImage from "@assets/gallery/4.webp";
+import bgAbout from "@assets/gallery/7.webp";
+import "@styles/pages/about.css";
 
 const { title, description } = siteData.seo.nosotros;
 ---
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<PageHeader 
-			title={aboutData.hero.title}
-			subtitle={aboutData.hero.subtitle}
-			bgImage={bgAbout}
-		/>
+		<PageHeader title={aboutData.hero.title} subtitle={aboutData.hero.subtitle} bgImage={bgAbout} />
 
 		<SectionContainer variant="stardust">
 			<div class="about-history">
@@ -39,25 +35,29 @@ const { title, description } = siteData.seo.nosotros;
 				<h2 class="text-glow js-reveal">Nuestra Evolución</h2>
 			</div>
 			<div class="about-timeline">
-				{aboutData.timeline.map(item => (
-					<div class="timeline-item js-reveal">
-						<div class="timeline-content">
-							<h3 class="text-glow">{item.year}</h3>
-							<p>{item.event}</p>
+				{
+					aboutData.timeline.map((item) => (
+						<div class="timeline-item js-reveal">
+							<div class="timeline-content">
+								<h3 class="text-glow">{item.year}</h3>
+								<p>{item.event}</p>
+							</div>
 						</div>
-					</div>
-				))}
+					))
+				}
 			</div>
 		</SectionContainer>
 
 		<SectionContainer variant="stardust">
 			<div class="about-stats">
-				{aboutData.market.stats.map(stat => (
-					<div class="stat-item js-reveal">
-						<h3 class="text-glow">{stat.value}</h3>
-						<p>{stat.label}</p>
-					</div>
-				))}
+				{
+					aboutData.market.stats.map((stat) => (
+						<div class="stat-item js-reveal">
+							<h3 class="text-glow">{stat.value}</h3>
+							<p>{stat.label}</p>
+						</div>
+					))
+				}
 			</div>
 		</SectionContainer>
 
@@ -77,6 +77,6 @@ const { title, description } = siteData.seo.nosotros;
 </BaseLayout>
 
 <script>
-	import { animations } from '@utils/animations';
-	animations.reveal('.js-reveal', { stagger: 0.15 });
+	import { animations } from "@utils/animations";
+	animations.reveal(".js-reveal", { stagger: 0.15 });
 </script>

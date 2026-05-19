@@ -1,68 +1,81 @@
 ---
-import { getCollection, render } from 'astro:content';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import Button from '@components/ui/Button.astro';
-import { Image } from 'astro:assets';
-import '@styles/pages/product-detail.css';
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import Button from "@components/ui/Button.astro";
+import { Image } from "astro:assets";
+import "@styles/pages/product-detail.css";
 
+/**
+ * Genera las rutas estáticas para todos los productos de la colección.
+ */
 export async function getStaticPaths() {
-	const products = await getCollection('products');
-	return products.map(product => ({
+	const products = await getCollection("products");
+	return products.map((product) => ({
 		params: { id: product.id },
-		props: { product },
+		props: { product }
 	}));
+}
+
+/**
+ * Props recibidas desde getStaticPaths.
+ */
+interface Props {
+	product: CollectionEntry<"products">;
 }
 
 const { product } = Astro.props;
 const { Content } = await render(product);
 
-const title = product.data.title;
-const description = product.data.description;
+const { title, description, category, luxury_score, price, image } = product.data;
 
-// Generar mensaje dinámico para WhatsApp
-const whatsappMessage = encodeURIComponent(`Hola Criterios! Me interesa el producto: ${product.data.title}. Quisiera más información.`);
+// Generar mensaje dinámico para WhatsApp para facilitar la conversión directa
+const whatsappMessage = encodeURIComponent(
+	`Hola Criterios! Me interesa el producto: ${title}. Quisiera más información.`
+);
 const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 ---
 
-<BaseLayout title={title} description={description} ogImage={product.data.image.src}>
+<BaseLayout title={title} description={description} ogImage={image.src}>
 	<main>
 		<!-- Cabecera estandarizada con la imagen del producto como fondo sutil -->
-		<PageHeader 
-			title={product.data.title} 
-			subtitle={product.data.category} 
-			bgImage={product.data.image}
-		/>
+		<PageHeader title={title} subtitle={category} bgImage={image} />
 
 		<SectionContainer variant="stardust" class="product-detail">
 			<div class="product-detail__grid">
 				<div class="product-detail__image-wrapper">
-					<Image 
-						src={product.data.image} 
-						alt={product.data.title} 
-						width={600} 
-						height={600} 
+					<Image
+						src={image}
+						alt={title}
+						width={600}
+						height={600}
 						class="product-detail__image luxury-border"
+						loading="eager"
 					/>
 				</div>
-				
+
 				<div class="product-detail__info">
 					<nav class="breadcrumb">
-						<a href="/catalogo/">Catálogo</a> / <span>{product.data.category}</span>
+						<a href="/catalogo/">Catálogo</a> / <span>{category}</span>
 					</nav>
-					
+
 					<h2 class="text-glow">Ficha Técnica</h2>
-					
+
 					<div class="product-detail__meta">
 						<div class="score-badge">
-							<span>Luxury Score: <strong>{product.data.luxury_score.toFixed(1)}</strong></span>
+							<span>Luxury Score: <strong>{luxury_score.toFixed(1)}</strong></span>
 						</div>
-						{product.data.price && <span class="product-detail__price">${product.data.price.toFixed(2)}</span>}
+						{
+							price !== undefined && (
+								<span class="product-detail__price">${price.toFixed(2)}</span>
+							)
+						}
 					</div>
 
 					<p class="product-detail__description">
-						{product.data.description}
+						{description}
 					</p>
 
 					<div class="product-detail__body">
@@ -73,9 +86,7 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 						<Button href={whatsappLink} variant="solid" target="_blank">
 							Solicitar vía WhatsApp
 						</Button>
-						<Button href="/catalogo/" variant="outline">
-							Volver al Catálogo
-						</Button>
+						<Button href="/catalogo/" variant="outline"> Volver al Catálogo </Button>
 					</div>
 				</div>
 			</div>

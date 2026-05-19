@@ -1,37 +1,70 @@
 ---
-import { Image } from 'astro:assets';
-import Button from './Button.astro';
-import '@styles/components/product-card.css';
+import { Image } from "astro:assets";
+import Button from "./Button.astro";
+import "@styles/components/product-card.css";
 
+/**
+ * Componente ProductCard
+ * Representación visual de un producto dentro de rejillas o listas.
+ * Incluye visualización del Luxury Score y categorías.
+ *
+ * @example
+ * <ProductCard
+ *   title="Brownie Ancestral"
+ *   description="Relajación profunda con cacao orgánico."
+ *   price={25.00}
+ *   category="Repostería"
+ *   luxury_score={9.5}
+ *   image={metadataDeImagen}
+ *   href="/catalogo/brownie-ancestral/"
+ * />
+ */
 interface Props {
+	/** Título comercial del producto. */
 	title: string;
+	/** Descripción breve orientada a la venta. */
 	description: string;
+	/** Precio numérico (opcional). */
 	price?: number;
+	/** Categoría del producto para el badge superior. */
 	category: string;
+	/** Puntuación de exclusividad/lujo (1-10). Afecta el color del badge. */
 	luxury_score: number;
+	/** Metadatos de la imagen (objeto de importación de Astro Assets). */
 	image: ImageMetadata;
+	/** Enlace a la página de detalle del producto. */
 	href: string;
 }
 
 const { title, description, price, category, luxury_score, image, href } = Astro.props;
 
-// Lógica para determinar el color del badge según el score
-const getScoreColor = (score: number) => {
-	if (score >= 9) return 'var(--color-gold)';
-	if (score >= 7) return 'var(--color-stardust)';
-	return 'rgba(255,255,255,0.6)';
+/**
+ * Determina el color CSS de la variable --score-color basado en el Luxury Score.
+ * @param score - Valor de 1 a 10.
+ * @returns Un string con la variable CSS o color RGBA.
+ */
+const getScoreColor = (score: number): string => {
+	if (score >= 9) return "var(--color-gold)";
+	if (score >= 7) return "var(--color-stardust)";
+	return "rgba(255,255,255,0.6)";
+};
+
+/**
+ * Formatea el precio para el mercado colombiano (sin decimales, separador de miles).
+ * @param val - Valor numérico.
+ */
+const formatPrice = (val: number): string => {
+	return new Intl.NumberFormat("es-CO", {
+		style: "currency",
+		currency: "COP",
+		maximumFractionDigits: 0
+	}).format(val);
 };
 ---
 
 <article class="card luxury-border">
 	<div class="card__image-container">
-		<Image 
-			src={image} 
-			alt={title} 
-			width={400} 
-			height={300} 
-			class="card__image"
-		/>
+		<Image src={image} alt={title} width={400} height={300} class="card__image" />
 		<div class="card__badge" style={`--score-color: ${getScoreColor(luxury_score)}`}>
 			<span class="card__score">{luxury_score.toFixed(1)}</span>
 			<span class="card__label">Luxury Score</span>
@@ -43,14 +76,22 @@ const getScoreColor = (score: number) => {
 			<span class="card__category">{category}</span>
 			<h3 class="card__title">{title}</h3>
 		</header>
-		
+
 		<p class="card__description">{description}</p>
-		
+
+		<div class="card__pricing-area">
+			{
+				price !== undefined && (
+					<div class="card__price-row">
+						<span class="card__price-label">Inversión Ancestral</span>
+						<span class="card__price text-glow">{formatPrice(price)}</span>
+					</div>
+				)
+			}
+		</div>
+
 		<footer class="card__footer">
-			{price && <span class="card__price">${price.toFixed(2)}</span>}
-			<Button href={href} variant="outline" class="card__btn">
-				Ver Detalles
-			</Button>
+			<Button href={href} variant="outline" class="card__btn"> Ver Detalles </Button>
 		</footer>
 	</div>
 </article>

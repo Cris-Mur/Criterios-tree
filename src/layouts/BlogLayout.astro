@@ -1,54 +1,71 @@
 ---
-import BaseLayout from './BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import { Image } from 'astro:assets';
-import '@styles/layouts/blog-layout.css';
+import BaseLayout from "./BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import { Image } from "astro:assets";
+import "@styles/layouts/blog-layout.css";
 
+/**
+ * Props para BlogLayout
+ */
 interface Props {
+	/** Título del artículo. */
 	title: string;
+	/** Resumen o descripción SEO del post. */
 	description: string;
+	/** Fecha de publicación del artículo. */
 	pubDate: Date;
+	/** Nombre del autor. */
 	author: string;
+	/** Imagen de portada (objeto ImageMetadata). */
 	image: ImageMetadata;
+	/** Etiquetas opcionales para categorización. */
 	tags?: string[];
 }
 
 const { title, description, pubDate, author, image, tags = [] } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('es-ES', {
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
+// Formateo de fecha localizado para una lectura más natural
+const formattedDate = pubDate.toLocaleDateString("es-ES", {
+	year: "numeric",
+	month: "long",
+	day: "numeric"
 });
 ---
 
-<BaseLayout title={title} description={description} ogImage={image.src}>
+<BaseLayout title={title} description={description} ogImage={image.src} ogType="article">
 	<main>
 		<article class="post">
 			<header class="post__header">
-				<PageHeader 
-					title={title} 
-					subtitle={`${formattedDate} • ${author}`} 
-					bgImage={image}
-				/>
+				<PageHeader title={title} subtitle={`${formattedDate} • ${author}`} bgImage={image} />
 			</header>
 
 			<SectionContainer variant="stardust" class="post__content-wrapper">
 				<div class="post__image-container luxury-border">
-					<Image 
-						src={image} 
-						alt={title} 
-						width={1000} 
-						height={500} 
+					<Image
+						src={image}
+						alt={title}
+						width={1000}
+						height={500}
 						class="post__image"
+						loading="eager"
 					/>
 				</div>
+
+				{
+					tags && tags.length > 0 && (
+						<div class="post__tags">
+							{tags.map((tag) => (
+								<span class="post__tag">#{tag}</span>
+							))}
+						</div>
+					)
+				}
 
 				<div class="post__content">
 					<slot />
 				</div>
-				
+
 				<footer class="post__footer">
 					<a href="/blog/" class="post__back">← Volver al Blog</a>
 				</footer>

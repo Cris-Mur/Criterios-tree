@@ -1,56 +1,83 @@
 ---
-import { Image } from 'astro:assets';
-import '@styles/components/blog-card.css';
+import { Image } from "astro:assets";
+import "@styles/components/blog-card.css";
 
+/**
+ * Componente BlogCard
+ * Tarjeta de previsualización para artículos del blog.
+ * Incluye metadatos como fecha formateada, autor y etiquetas.
+ *
+ * @example
+ * <BlogCard
+ *   title="Nutrición Consciente"
+ *   description="Descubre el poder de los ingredientes ancestrales."
+ *   pubDate={new Date()}
+ *   author="Criterios Team"
+ *   image={metadataImagen}
+ *   href="/blog/nutricion-consciente"
+ *   tags={["Salud", "Ancestral"]}
+ * />
+ */
 interface Props {
+	/** Título del artículo. */
 	title: string;
+	/** Resumen corto del contenido. */
 	description: string;
+	/** Fecha de publicación. */
 	pubDate: Date;
+	/** Nombre del autor. */
 	author: string;
+	/** Imagen de portada (Astro ImageMetadata). */
 	image: ImageMetadata;
+	/** Enlace al artículo completo. */
 	href: string;
+	/** Lista de etiquetas/categorías opcionales. */
 	tags?: string[];
 }
 
 const { title, description, pubDate, author, image, href, tags = [] } = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('es-ES', {
-	year: 'numeric',
-	month: 'long',
-	day: 'numeric',
+// Formateo de fecha para el mercado hispanohablante
+const formattedDate = pubDate.toLocaleDateString("es-ES", {
+	year: "numeric",
+	month: "long",
+	day: "numeric"
 });
 ---
 
 <article class="blog-card">
-	<a href={href} class="blog-card__link">
+	<a href={href} class="blog-card__link" aria-label={`Leer más sobre ${title}`}>
 		<div class="blog-card__image-container luxury-border">
-			<Image 
-				src={image} 
-				alt={title} 
-				width={600} 
-				height={400} 
+			<Image
+				src={image}
+				alt={title}
+				width={600}
+				height={400}
 				class="blog-card__image"
+				loading="lazy"
 			/>
 		</div>
-		
+
 		<div class="blog-card__content">
 			<div class="blog-card__meta">
 				<time datetime={pubDate.toISOString()}>{formattedDate}</time>
-				<span class="blog-card__separator">|</span>
+				<span class="blog-card__separator" aria-hidden="true">|</span>
 				<span>{author}</span>
 			</div>
-			
+
 			<h3 class="blog-card__title text-glow">{title}</h3>
-			
+
 			<p class="blog-card__description">{description}</p>
-			
-			{tags.length > 0 && (
-				<div class="blog-card__tags">
-					{tags.map(tag => (
-						<span class="blog-card__tag">#{tag}</span>
-					))}
-				</div>
-			)}
+
+			{
+				tags.length > 0 && (
+					<div class="blog-card__tags">
+						{tags.map((tag: string) => (
+							<span class="blog-card__tag">#{tag}</span>
+						))}
+					</div>
+				)
+			}
 		</div>
 	</a>
 </article>

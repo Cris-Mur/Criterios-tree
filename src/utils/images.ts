@@ -1,11 +1,11 @@
-import { getImage } from 'astro:assets';
+import { getImage } from "astro:assets";
 
 interface ImageTransformOptions {
 	src: ImageMetadata;
 	width?: number;
 	height?: number;
-	quality?: number | 'low' | 'mid' | 'high' | 'max';
-	format?: 'webp' | 'avif' | 'png' | 'jpg';
+	quality?: number | "low" | "mid" | "high" | "max";
+	format?: "webp" | "avif" | "png" | "jpg";
 }
 
 /**
@@ -24,16 +24,15 @@ export const imageEngine = {
 			max: 100
 		};
 
-		const finalQuality = typeof options.quality === 'string' 
-			? qualityMap[options.quality] 
-			: (options.quality || 80);
+		const finalQuality =
+			typeof options.quality === "string" ? qualityMap[options.quality] : options.quality || 80;
 
 		return await getImage({
 			src: options.src,
 			width: options.width,
 			height: options.height,
 			quality: finalQuality,
-			format: options.format || 'webp'
+			format: options.format || "webp"
 		});
 	},
 
@@ -44,8 +43,8 @@ export const imageEngine = {
 		return this.transform({
 			src,
 			width: 1920,
-			quality: 'high',
-			format: 'webp'
+			quality: "high",
+			format: "webp"
 		});
 	}
 };

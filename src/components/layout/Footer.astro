@@ -1,9 +1,19 @@
 ---
-import { Image } from 'astro:assets';
-import Icon from '@components/ui/Icon.astro';
-import logoImage from '@assets/branding/logo.png';
-import navData from '@data/navigation.json';
-import '@styles/components/footer.css';
+import { Image } from "astro:assets";
+import Icon from "@components/ui/Icon.astro";
+import logoImage from "@assets/branding/logo.png";
+import navDataRaw from "@data/navigation.json";
+import type { NavigationData } from "@utils/schemas";
+import "@styles/components/footer.css";
+
+/**
+ * Componente Footer
+ * Pie de página global que centraliza branding, navegación secundaria y redes sociales.
+ * Los datos se consumen de `src/data/navigation.json`.
+ */
+
+// Casteamos los datos de navegación para asegurar el tipado en el linter
+const navData = navDataRaw as NavigationData;
 
 const currentYear = new Date().getFullYear();
 ---
@@ -11,37 +21,37 @@ const currentYear = new Date().getFullYear();
 <footer class="footer luxury-border">
 	<div class="footer__content container">
 		<div class="footer__branding">
-			<Image 
-				src={logoImage} 
-				alt="Criterios Logo" 
-				width={80} 
-				height={80} 
-				class="footer__logo"
-			/>
+			<Image src={logoImage} alt="Criterios Logo" width={80} height={80} class="footer__logo" />
 			<div class="footer__info">
 				<h2 class="text-glow">{navData.credits.brand} Tree</h2>
 				<p>{navData.credits.slogan}</p>
 			</div>
 		</div>
 
-		<nav class="footer__nav">
+		<nav class="footer__nav" aria-label="Navegación del pie de página">
 			<div class="footer__nav-group">
 				<h3>Explorar</h3>
 				<ul>
-					{navData.navigation.map(link => (
-						<li><a href={link.href}>{link.label}</a></li>
-					))}
+					{
+						navData.navigation.map((link: { href: string; label: string }) => (
+							<li>
+								<a href={link.href}>{link.label}</a>
+							</li>
+						))
+					}
 				</ul>
 			</div>
 
 			<div class="footer__nav-group">
 				<h3>Conecta</h3>
 				<div class="footer__socials">
-					{navData.socials.map(social => (
-						<a href={social.url} target="_blank" aria-label={social.id}>
-							<Icon name={social.name} width={24} height={24} />
-						</a>
-					))}
+					{
+						navData.socials.map((social: { url: string; id: string; name: string }) => (
+							<a href={social.url} target="_blank" aria-label={`Seguir en ${social.id}`}>
+								<Icon name={social.name} width={24} height={24} />
+							</a>
+						))
+					}
 				</div>
 			</div>
 		</nav>
@@ -49,6 +59,10 @@ const currentYear = new Date().getFullYear();
 
 	<div class="footer__bottom container">
 		<p>&copy; {currentYear} {navData.credits.brand} - Todos los derechos reservados.</p>
-		<p class="footer__credits">Built with Excellence by <a href={navData.credits.authorUrl} target="_blank">{navData.credits.author}</a></p>
+		<p class="footer__credits">
+			Built with Excellence by <a href={navData.credits.authorUrl} target="_blank" rel="noopener"
+				>{navData.credits.author}</a
+			>
+		</p>
 	</div>
 </footer>

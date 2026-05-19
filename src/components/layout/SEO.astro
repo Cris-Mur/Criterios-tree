@@ -1,19 +1,33 @@
 ---
+/**
+ * Componente SEO
+ * Inyecta metatags esenciales para posicionamiento en buscadores (SEO) y redes sociales (OpenGraph/Twitter).
+ * Se integra dentro del <head> en BaseLayout.
+ */
 interface Props {
+	/** Título SEO de la página. */
 	title: string;
+	/** Meta descripción para buscadores (max 160 caracteres). */
 	description: string;
+	/** Tipo de contenido OpenGraph. Por defecto: 'website'. */
 	ogType?: string;
+	/** URL absoluta o relativa de la imagen para compartir. */
 	ogImage?: string;
+	/** URL canónica de la página para evitar contenido duplicado. */
 	canonicalURL?: string;
 }
 
-const { 
-	title, 
-	description, 
+const {
+	title,
+	description,
 	ogType = "website",
-	ogImage = "/og-image-default.webp", // Imagen de marca por defecto
+	ogImage = "/og-image-default.webp",
 	canonicalURL = Astro.url.href
 } = Astro.props;
+
+/** Generamos la URL absoluta de la imagen basándonos en la configuración del sitio */
+const siteURL = Astro.site ?? new URL(Astro.url.origin);
+const socialImageURL = new URL(ogImage, siteURL);
 ---
 
 <!-- SEO Standar -->
@@ -26,7 +40,7 @@ const {
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalURL} />
-<meta property="og:image" content={new URL(ogImage, Astro.site)} />
+<meta property="og:image" content={socialImageURL} />
 <meta property="og:site_name" content="Criterios Tree" />
 
 <!-- Twitter -->
@@ -34,4 +48,4 @@ const {
 <meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(ogImage, Astro.site)} />
+<meta property="twitter:image" content={socialImageURL} />

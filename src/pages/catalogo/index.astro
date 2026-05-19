@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import ProductCard from '@components/ui/ProductCard.astro';
-import bgCatalog from '@assets/gallery/6.webp';
-import siteData from '@data/site.json';
-import '@styles/pages/catalogo.css';
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import ProductCard from "@components/ui/ProductCard.astro";
+import bgCatalog from "@assets/gallery/6.webp";
+import siteData from "@data/site.json";
+import "@styles/pages/catalogo.css";
 
-const allProducts = await getCollection('products', ({ data }) => !data.draft);
+const allProducts = await getCollection("products", ({ data }) => !data.draft);
 const sortedProducts = allProducts.sort((a, b) => b.data.luxury_score - a.data.luxury_score);
 
 const { title, description } = siteData.seo.catalogo;
@@ -16,25 +16,27 @@ const { title, description } = siteData.seo.catalogo;
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<PageHeader 
-			title="Nuestra Vitrina" 
-			subtitle="Selección curada de productos ancestrales" 
+		<PageHeader
+			title="Nuestra Vitrina"
+			subtitle="Selección curada de productos ancestrales"
 			bgImage={bgCatalog}
 		/>
 
 		<SectionContainer variant="stardust" id="productos">
 			<div class="catalog-grid">
-				{sortedProducts.map(product => (
-					<ProductCard 
-						title={product.data.title}
-						description={product.data.description}
-						price={product.data.price}
-						category={product.data.category}
-						luxury_score={product.data.luxury_score}
-						image={product.data.image}
-						href={`/catalogo/${product.id}/`}
-					/>
-				))}
+				{
+					sortedProducts.map((product) => (
+						<ProductCard
+							title={product.data.title}
+							description={product.data.description}
+							price={product.data.price}
+							category={product.data.category}
+							luxury_score={product.data.luxury_score}
+							image={product.data.image}
+							href={`/catalogo/${product.id}/`}
+						/>
+					))
+				}
 			</div>
 		</SectionContainer>
 	</main>

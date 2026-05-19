@@ -1,30 +1,36 @@
 ---
-import '@styles/components/button.css';
+import "@styles/components/button.css";
+import type { HTMLAttributes } from "astro/types";
 
-interface Props {
-	href?: string;
-	variant?: 'solid' | 'outline';
+/**
+ * Componente Button
+ * Bloque básico de interacción que puede comportarse como un enlace (<a>) o un botón (<button>).
+ * Cumple con el estándar de Atomic Design (Atom).
+ *
+ * @example
+ * <Button href="/catalogo" variant="solid">Ver catálogo</Button>
+ * <Button type="submit">Enviar</Button>
+ */
+
+interface BaseProps {
+	/** Estilo visual del botón. Por defecto: "solid". */
+	variant?: "solid" | "outline";
+	/** Clases CSS adicionales. */
 	class?: string;
-	[x: string]: any;
 }
 
-const { 
-	href, 
-	variant = 'solid', 
-	class: className, 
-	...rest 
-} = Astro.props;
+// Definimos Props como una unión para evitar conflictos entre atributos de <a> y <button>
+type Props = (BaseProps & HTMLAttributes<"button"> & { href?: never }) | (BaseProps & HTMLAttributes<"a"> & { href: string });
 
-const Tag = href ? 'a' : 'button';
+const { href, variant = "solid", class: className, ...rest } = Astro.props as any;
+
+/** El Tag se decide dinámicamente: 'a' si tiene href, de lo contrario 'button'. */
+const Tag = href ? "a" : "button";
 ---
 
-<Tag 
-	href={href} 
-	class:list={[
-		'btn', 
-		`btn--${variant}`, 
-		className
-	]} 
+<Tag
+	href={href}
+	class:list={["btn", `btn--${variant}`, className]}
 	{...rest}
 >
 	<slot />

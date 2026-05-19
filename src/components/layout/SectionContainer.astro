@@ -1,36 +1,43 @@
 ---
-import '@styles/components/section-container.css';
+import "@styles/components/section-container.css";
+import type { HTMLAttributes } from "astro/types";
 
-interface Props {
+/**
+ * Componente SectionContainer
+ * Contenedor estructural para bloques de contenido en las páginas.
+ * Proporciona un espaciado consistente y variantes de fondo temáticas.
+ * Cumple con el estándar de Atomic Design (Template/Organism).
+ *
+ * @example
+ * <SectionContainer id="featured" variant="stardust" fullWidth={false}>
+ *   <h2>Contenido</h2>
+ * </SectionContainer>
+ */
+interface Props extends HTMLAttributes<"section"> {
+	/** ID único para anclajes o identificación. */
 	id?: string;
+	/** Clases CSS adicionales. */
 	class?: string;
+	/** Estilos en línea (usar con precaución). */
 	style?: string;
-	variant?: 'default' | 'stardust' | 'nebula';
+	/** Variante visual que afecta el fondo y texturas. */
+	variant?: "default" | "stardust" | "nebula";
+	/** Si es true, el contenido interno ignora los márgenes del contenedor. */
 	fullWidth?: boolean;
-	[x: string]: any;
 }
 
-const { 
-	id, 
-	class: className, 
+const {
+	id,
+	class: className,
 	style,
-	variant = 'default',
+	variant = "default",
 	fullWidth = false,
 	...rest
 } = Astro.props;
 ---
 
-<section 
-	id={id} 
-	class:list={[
-		'section',
-		`section--${variant}`,
-		className
-	]}
-	style={style}
-	{...rest}
->
-	<div class:list={['section__content', { 'section__content--full': fullWidth }]}>
+<section id={id} class:list={["section", `section--${variant}`, className]} style={style} {...rest}>
+	<div class:list={["section__content", { "section__content--full": fullWidth }]}>
 		<slot />
 	</div>
 </section>

@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import BlogCard from '@components/ui/BlogCard.astro';
-import bgBlog from '@assets/gallery/8.webp';
-import siteData from '@data/site.json';
-import '@styles/pages/blog-list.css';
+import { getCollection } from "astro:content";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import BlogCard from "@components/ui/BlogCard.astro";
+import bgBlog from "@assets/gallery/8.webp";
+import siteData from "@data/site.json";
+import "@styles/pages/blog-list.css";
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const { title, description } = siteData.seo.blog;
@@ -16,25 +16,27 @@ const { title, description } = siteData.seo.blog;
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<PageHeader 
-			title="Concientización" 
-			subtitle="Bienestar, nutrición y cultura ancestral" 
+		<PageHeader
+			title="Concientización"
+			subtitle="Bienestar, nutrición y cultura ancestral"
 			bgImage={bgBlog}
 		/>
 
 		<SectionContainer variant="stardust">
 			<div class="blog-grid">
-				{sortedPosts.map(post => (
-					<BlogCard 
-						title={post.data.title}
-						description={post.data.description}
-						pubDate={post.data.pubDate}
-						author={post.data.author}
-						image={post.data.image}
-						href={`/blog/${post.id}`}
-						tags={post.data.tags}
-					/>
-				))}
+				{
+					sortedPosts.map((post) => (
+						<BlogCard
+							title={post.data.title}
+							description={post.data.description}
+							pubDate={post.data.pubDate}
+							author={post.data.author}
+							image={post.data.image}
+							href={`/blog/${post.id}/`}
+							tags={post.data.tags}
+						/>
+					))
+				}
 			</div>
 		</SectionContainer>
 	</main>

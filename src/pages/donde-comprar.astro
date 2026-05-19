@@ -1,66 +1,64 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
-import SectionContainer from '@components/layout/SectionContainer.astro';
-import PageHeader from '@components/layout/PageHeader.astro';
-import Button from '@components/ui/Button.astro';
-import stores from '@data/stores.json';
-import siteData from '@data/site.json';
-import bgStores from '@assets/gallery/9.webp';
-import '@styles/pages/stores.css';
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import PageHeader from "@components/layout/PageHeader.astro";
+import Button from "@components/ui/Button.astro";
+import stores from "@data/stores.json";
+import siteData from "@data/site.json";
+import bgStores from "@assets/gallery/9.webp";
+import "@styles/pages/stores.css";
 
 const { title, description } = siteData.seo.tiendas;
 ---
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<PageHeader 
-			title="Puntos de Venta" 
-			subtitle="Criterios Tree en tu Ciudad" 
-			bgImage={bgStores}
-		/>
+		<PageHeader title="Puntos de Venta" subtitle="Criterios Tree en tu Ciudad" bgImage={bgStores} />
 
 		<SectionContainer variant="stardust">
 			<div class="stores-grid">
-				{stores.map(store => (
-					<article class="store-card luxury-border js-reveal">
-						<header class="store-card__header">
-							<span class="store-card__badge">{store.isDigital ? 'Digital' : 'Físico'}</span>
-							<h2 class="text-glow">{store.name}</h2>
-						</header>
+				{
+					stores.map((store) => (
+						<article class="store-card luxury-border js-reveal">
+							<header class="store-card__header">
+								<span class="store-card__badge">{store.isDigital ? "Digital" : "Físico"}</span>
+								<h2 class="text-glow">{store.name}</h2>
+							</header>
 
-						<ul class="store-card__details">
-							<li>
-								<span>Ubicación</span>
-								<span>{store.address}</span>
-							</li>
-							<li>
-								<span>Horario</span>
-								<span>{store.hours}</span>
-							</li>
-							<li>
-								<span>Contacto</span>
-								<span>{store.phone}</span>
-							</li>
-						</ul>
+							<ul class="store-card__details">
+								<li>
+									<span>Ubicación</span>
+									<span>{store.address}</span>
+								</li>
+								<li>
+									<span>Horario</span>
+									<span>{store.hours}</span>
+								</li>
+								<li>
+									<span>Contacto</span>
+									<span>{store.phone}</span>
+								</li>
+							</ul>
 
-						<div class="store-card__actions">
-							<Button 
-								href={store.mapLink} 
-								variant={store.isDigital ? 'solid' : 'outline'} 
-								target="_blank"
-								class="store-card__btn"
-							>
-								{store.isDigital ? 'Contactar ahora' : 'Cómo llegar'}
-							</Button>
-						</div>
-					</article>
-				))}
+							<div class="store-card__actions">
+								<Button
+									href={store.mapLink}
+									variant={store.isDigital ? "solid" : "outline"}
+									target="_blank"
+									class="store-card__btn"
+								>
+									{store.isDigital ? "Contactar ahora" : "Cómo llegar"}
+								</Button>
+							</div>
+						</article>
+					))
+				}
 			</div>
 		</SectionContainer>
 	</main>
 </BaseLayout>
 
 <script>
-	import { animations } from '@utils/animations';
-	animations.reveal('.js-reveal', { stagger: 0.2 });
+	import { animations } from "@utils/animations";
+	animations.reveal(".js-reveal", { stagger: 0.2 });
 </script>

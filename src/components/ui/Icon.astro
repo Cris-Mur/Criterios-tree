@@ -1,45 +1,56 @@
 ---
-import '@styles/components/icon.css';
+import "@styles/components/icon.css";
 
 /**
- * Componente Icon: Renderiza SVGs locales de src/assets/icons/
- * Uso: <Icon name="facebook_logo" width={24} height={24} />
+ * Componente Icon
+ * Renderiza SVGs locales ubicados en `src/assets/icons/`.
+ * Utiliza carga ansiosa (`eager: true`) para evitar parpadeos en el renderizado estático.
+ *
+ * @example
+ * <Icon name="facebook_logo" width={32} height={32} />
  */
 interface Props {
+	/** Nombre del archivo SVG sin la extensión .svg. Debe existir en `src/assets/icons/`. */
 	name: string;
+	/** Ancho del icono en píxeles. Por defecto: 24. */
 	width?: number | string;
+	/** Alto del icono en píxeles. Por defecto: 24. */
 	height?: number | string;
+	/** Clases CSS adicionales para el contenedor. */
 	class?: string;
 }
 
 const { name, width = 24, height = 24, class: className } = Astro.props;
 
-// Cargamos dinámicamente el contenido del SVG
-let svgContent = '';
+// Cargamos dinámicamente el contenido del SVG desde el sistema de archivos de src/assets/icons
+let svgContent = "";
 try {
-	const icons = import.meta.glob('/src/assets/icons/*.svg', { 
-		query: '?raw', 
-		import: 'default',
-		eager: true 
+	const icons = import.meta.glob<string>("/src/assets/icons/*.svg", {
+		query: "?raw",
+		import: "default",
+		eager: true
 	});
 	const path = `/src/assets/icons/${name}.svg`;
-	svgContent = icons[path] || '';
-	
+	svgContent = icons[path] || "";
+
 	if (!svgContent) {
-		console.warn(`[Icon] No se encontró el icono: ${name}`);
+		console.warn(`[Icon] No se encontró el icono: ${name} en la ruta ${path}`);
 	}
-} catch (e) {
-	console.error(`[Icon] Error cargando el icono: ${name}`, e);
+} catch (error) {
+	const errorMessage = error instanceof Error ? error.message : String(error);
+	console.error(`[Icon] Error cargando el icono "${name}": ${errorMessage}`);
 }
 ---
 
-{svgContent ? (
-	<div 
-		class:list={['icon-wrapper', className]} 
-		style={`width: ${width}px; height: ${height}px;`}
-		data-icon={name}
-		role="img"
-		aria-hidden="true"
-		set:html={svgContent}
-	/>
-) : null}
+{
+	svgContent ? (
+		<div
+			class:list={["icon-wrapper", className]}
+			style={`width: ${width}px; height: ${height}px;`}
+			data-icon={name}
+			role="img"
+			aria-hidden="true"
+			set:html={svgContent}
+		/>
+	) : null
+}
