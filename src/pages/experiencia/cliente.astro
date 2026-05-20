@@ -5,10 +5,11 @@
  * Prefills tracking ID (cid) from URL parameter, uses Netlify forms.
  */
 import BaseLayout from "@layouts/BaseLayout.astro";
+import commonUI from "@data/ui/common.json";
+import legalData from "@data/legal.json";
 import "@styles/pages/feedback.css";
 
-// Prefill Client/Tracking ID from URL parameter (cid)
-const cid = Astro.url.searchParams.get("cid") || "";
+const { forms } = commonUI;
 
 // Page metadata
 const title = "Bitácora de Experiencia";
@@ -18,9 +19,9 @@ const description = "Portal premium para registrar tu bitácora de experiencia g
 <BaseLayout title={title} description={description}>
 	<main class="feedback-container js-reveal">
 		<header class="feedback-header">
-			<h1 class="feedback-title text-glow">Bitácora de Experiencia</h1>
+			<h1 class="feedback-title text-glow">{forms.client.title}</h1>
 			<p class="feedback-subtitle">
-				Tu experiencia global guía nuestra búsqueda incesante de la excelencia y el deleite gastronómico.
+				{forms.client.subtitle}
 			</p>
 		</header>
 
@@ -36,11 +37,11 @@ const description = "Portal premium para registrar tu bitácora de experiencia g
 				<input type="hidden" name="form-name" value="feedback-cliente" />
 
 				{/* Tracking Code ID */}
-				<input type="hidden" name="cid" value={cid} />
+				<input type="hidden" name="cid" id="cid-input" value="" />
 
 				{/* Overall Satisfaction Gold Stars */}
 				<div class="form-group">
-					<span class="form-label">Satisfacción General</span>
+					<span class="form-label">{forms.client.labelRating}</span>
 					<div class="star-rating-container">
 						<div class="star-rating">
 							<input type="radio" id="star5" name="satisfaccion" value="5" required />
@@ -60,7 +61,7 @@ const description = "Portal premium para registrar tu bitácora de experiencia g
 				{/* Overall Experience Feedback (Max 250 characters) */}
 				<div class="form-group">
 					<label for="experience-feedback" class="form-label">
-						Tu Experiencia <span class="form-label-desc">(Máx 250 caracteres)</span>
+						{forms.client.labelExperience} <span class="form-label-desc">{forms.client.labelExperienceDesc}</span>
 					</label>
 					<textarea
 						id="experience-feedback"
@@ -68,7 +69,7 @@ const description = "Portal premium para registrar tu bitácora de experiencia g
 						class="form-textarea"
 						maxlength="250"
 						required
-						placeholder="Comparte en detalle tu experiencia general en el servicio, empaque, atención o el sabor de nuestros productos..."
+						placeholder={forms.client.placeholderExperience}
 					></textarea>
 					<div class="counter-container">
 						<span id="char-counter" class="char-counter">0/250</span>
@@ -76,41 +77,21 @@ const description = "Portal premium para registrar tu bitácora de experiencia g
 				</div>
 
 				{/* Legal Disclaimer */}
-				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;">
-					Al enviar este formulario, aceptas que recopilemos estos datos para el control interno de calidad de nuestra fábrica. Consulta los <a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">Términos, Condiciones y Privacidad</a>.
-				</p>
+				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;" set:html={forms.common.disclaimer.replace('{link}', `<a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">${legalData.title}</a>`)} />
 
 				{/* Submit Button */}
-				<button type="submit" class="submit-btn">Registrar Bitácora</button>
+				<button type="submit" class="submit-btn">{forms.client.submit}</button>
 			</form>
 		</section>
 	</main>
 </BaseLayout>
 
 <script>
-	// Character Counter JS Logic
-	const feedbackTextarea = document.getElementById("experience-feedback") as HTMLTextAreaElement | null;
-	const charCounter = document.getElementById("char-counter") as HTMLSpanElement | null;
-
-	if (feedbackTextarea && charCounter) {
-		feedbackTextarea.addEventListener("input", () => {
-			const currentLength = feedbackTextarea.value.length;
-			charCounter.textContent = `${currentLength}/250`;
-
-			// Visual indicator thresholds
-			if (currentLength >= 225) {
-				charCounter.classList.add("near-limit");
-			} else {
-				charCounter.classList.remove("near-limit");
-			}
-
-			if (currentLength >= 250) {
-				charCounter.classList.add("at-limit");
-			} else {
-				charCounter.classList.remove("at-limit");
-			}
-		});
-	}
+	import { initFeedbackForm } from "@scripts/experience/feedback";
+	
+	document.addEventListener("DOMContentLoaded", () => {
+		initFeedbackForm("experience-feedback", "char-counter", 250);
+	});
 
 	// Trigger animations if present
 	import { animations } from "@utils/animations";

@@ -1,6 +1,6 @@
 {
 	"title": "Mayoría de Edad",
-	"message": "Este sitio web contiene información sobre productos destinados únicamente a personas mayores de edad. Al ingresar, confirmás que tenés al menos el mínimo de edad reglamentaria.",
+	"message": "Este sitio web contiene información sobre productos destinados únicamente a personas mayores de edad. Al ingresar, confirmás que tenés al menos {minAge} años.",
 	"actions": {
 		"accept": {
 			"label": "Soy mayor de edad"

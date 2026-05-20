@@ -6,7 +6,12 @@ import SectionContainer from "@components/layout/SectionContainer.astro";
 import PageHeader from "@components/layout/PageHeader.astro";
 import Button from "@components/ui/Button.astro";
 import { Image } from "astro:assets";
+import navDataRaw from "@data/navigation.json";
+import type { NavigationData } from "@utils/schemas";
+import commonUI from "@data/ui/common.json";
 import "@styles/pages/product-detail.css";
+
+const navData = navDataRaw as NavigationData;
 
 /**
  * Genera las rutas estáticas para todos los productos de la colección.
@@ -37,6 +42,7 @@ const { product } = Astro.props;
 const { Content } = await render(product);
 
 const { title, description, category, luxury_score, price, image } = product.data;
+const { catalog } = commonUI;
 
 // Procesar stock dinámicamente mediante variables de entorno
 const outOfStockIds = (import.meta.env.OUT_OF_STOCK_PRODUCTS || "")
@@ -75,21 +81,21 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 					/>
 					{
 						!inStock && (
-							<span class="product-detail__stock-badge">Agotado</span>
+							<span class="product-detail__stock-badge">{catalog.outOfStock}</span>
 						)
 					}
 				</div>
 
 				<div class="product-detail__info">
 					<nav class="breadcrumb">
-						<a href="/catalogo/">Catálogo</a> / <span>{category}</span>
+						<a href="/catalogo/">{navData.navigation.find(n => n.href === '/catalogo/')?.label || 'Catálogo'}</a> / <span>{category}</span>
 					</nav>
 
-					<h2 class="text-glow">Ficha Técnica</h2>
+					<h2 class="text-glow">{catalog.technicalSheet}</h2>
 
 					<div class="product-detail__meta">
 						<div class="score-badge">
-							<span>Luxury Score: <strong>{luxury_score.toFixed(1)}</strong></span>
+							<span>{catalog.luxuryScore}: <strong>{luxury_score.toFixed(1)}</strong></span>
 						</div>
 						{
 							price !== undefined && (
@@ -110,15 +116,15 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 						{
 							inStock ? (
 								<Button href={whatsappLink} variant="solid" target="_blank">
-									Solicitar vía WhatsApp
+									{catalog.whatsappCTA}
 								</Button>
 							) : (
 								<Button disabled class="btn--disabled" variant="solid">
-									Temporalmente Agotado
+									{catalog.temporarilyOutOfStock}
 								</Button>
 							)
 						}
-						<Button href="/catalogo/" variant="outline"> Volver al Catálogo </Button>
+						<Button href="/catalogo/" variant="outline"> {catalog.back} </Button>
 					</div>
 				</div>
 			</div>

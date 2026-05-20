@@ -20,5 +20,17 @@
 		"slogan": "Conocimiento Ancestral para tu Bienestar.",
 		"author": "NativeCore",
 		"authorUrl": "https://github.com/cris-mur"
+	},
+	"ui": {
+		"header": {
+			"cta": "WhatsApp"
+		},
+		"footer": {
+			"explore": "Explorar",
+			"connect": "Conecta",
+			"rights": "Todos los derechos reservados",
+			"legal": "Términos y Condiciones",
+			"builtWith": "Built with Excellence by"
+		}
 	}
 }

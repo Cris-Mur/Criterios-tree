@@ -1,0 +1,18 @@
+{
+	"featured": {
+		"overline": "Selección Ancestral",
+		"title": "Nuestras Creaciones",
+		"button": {
+			"label": "Ver Catálogo Completo",
+			"href": "/catalogo/"
+		}
+	},
+	"whereToBuy": {
+		"overline": "Disponibilidad Inmediata",
+		"title": "Encuentra tu bocado ancestral cerca de ti",
+		"button": {
+			"label": "Ver Puntos de Venta",
+			"href": "/donde-comprar/"
+		}
+	}
+}

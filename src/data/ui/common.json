@@ -1,0 +1,63 @@
+{
+	"catalog": {
+		"back": "Volver al Catálogo",
+		"outOfStock": "Agotado",
+		"technicalSheet": "Ficha Técnica",
+		"luxuryScore": "Luxury Score",
+		"whatsappCTA": "Solicitar vía WhatsApp",
+		"temporarilyOutOfStock": "Temporalmente Agotado"
+	},
+	"forms": {
+		"product": {
+			"title": "Auditoría Sensorial",
+			"subtitle": "Ayúdanos a perfeccionar nuestras creaciones compartiendo tu valiosa experiencia sensorial.",
+			"dropdownDefault": "Selecciona un producto...",
+			"labelProduct": "Productos Seleccionados",
+			"labelRating": "Calificación General",
+			"labelNotes": "Comentarios Sensoriales",
+			"labelNotesDesc": "(Opcional)",
+			"placeholderNotes": "Describe la textura, aroma, sabor o presentación del producto...",
+			"labelName": "Tu Nombre o Iniciales",
+			"labelAge": "Rango de Edad",
+			"dropdownAgeDefault": "Selecciona tu rango de edad...",
+			"submit": "Enviar Auditoría"
+		},
+		"client": {
+			"title": "Bitácora de Experiencia",
+			"subtitle": "Tu experiencia global guía nuestra búsqueda incesante de la excelencia y el deleite gastronómico.",
+			"labelRating": "Satisfacción General",
+			"labelExperience": "Tu Experiencia",
+			"labelExperienceDesc": "(Máx 250 caracteres)",
+			"placeholderExperience": "Comparte en detalle tu experiencia general en el servicio, empaque, atención o el sabor de nuestros productos...",
+			"submit": "Registrar Bitácora"
+		},
+		"common": {
+			"disclaimer": "Al enviar este formulario, aceptas que recopilemos estos datos para el control interno de calidad de nuestra fábrica. Consulta los {link}."
+		}
+	},
+	"admin": {
+		"title": "Panel de Enlaces",
+		"subtitle": "Herramienta de control de calidad para generar códigos de trazabilidad y auditar la experiencia del cliente.",
+		"generatorTitle": "Generar Códigos de Trazabilidad",
+		"lotLabel": "Descriptor de Lote o Cliente",
+		"lotPlaceholder": "Ej: Lote 204 - Chocolate Amargo, Cliente Gourmet...",
+		"generateBtn": "Generar Enlaces Sensoriales",
+		"linksGeneratedFor": "Enlaces Generados para:",
+		"labelProdLink": "1. Auditoría Sensorial (Producto)",
+		"labelClientLink": "2. Bitácora de Experiencia (Cliente)",
+		"copyBtn": "Copiar",
+		"historyTitle": "Historial de Códigos",
+		"clearAllBtn": "Limpiar Todo",
+		"thCode": "Código (CID)",
+		"thDescriptor": "Descriptor",
+		"thDate": "Fecha",
+		"thLinks": "Enlaces Rápidos",
+		"thActions": "Acciones",
+		"noHistoryMsg": "No se han generado códigos en esta sesión todavía.",
+		"copySuccess": "¡Copiado!",
+		"deleteConfirm": "¿Estás seguro de que deseas eliminar todo el historial de códigos generados?",
+		"deleteLabel": "Eliminar",
+		"copyProd": "Copiar Producto",
+		"copyClient": "Copiar Bitácora"
+	}
+}

@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear();
 
 		<nav class="footer__nav" aria-label="Navegación del pie de página">
 			<div class="footer__nav-group">
-				<h3>Explorar</h3>
+				<h3>{navData.ui.footer.explore}</h3>
 				<ul>
 					{
 						navData.navigation.map((link: { href: string; label: string }) => (
@@ -43,7 +43,7 @@ const currentYear = new Date().getFullYear();
 			</div>
 
 			<div class="footer__nav-group">
-				<h3>Conecta</h3>
+				<h3>{navData.ui.footer.connect}</h3>
 				<div class="footer__socials">
 					{
 						navData.socials.map((social: { url: string; id: string; name: string }) => (
@@ -59,11 +59,11 @@ const currentYear = new Date().getFullYear();
 
 	<div class="footer__bottom container">
 		<p>
-			&copy; {currentYear} {navData.credits.brand} - Todos los derechos reservados. | 
-			<a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: none; transition: var(--transition-smooth);" onmouseover="this.style.textShadow='0 0 8px var(--color-gold-glow)'" onmouseout="this.style.textShadow='none'">Términos y Condiciones</a>
+			&copy; {currentYear} {navData.credits.brand} - {navData.ui.footer.rights}. | 
+			<a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: none; transition: var(--transition-smooth);" onmouseover="this.style.textShadow='0 0 8px var(--color-gold-glow)'" onmouseout="this.style.textShadow='none'">{navData.ui.footer.legal}</a>
 		</p>
 		<p class="footer__credits">
-			Built with Excellence by <a href={navData.credits.authorUrl} target="_blank" rel="noopener"
+			{navData.ui.footer.builtWith} <a href={navData.credits.authorUrl} target="_blank" rel="noopener"
 				>{navData.credits.author}</a
 			>
 		</p>

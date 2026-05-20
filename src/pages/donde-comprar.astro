@@ -5,10 +5,12 @@ import PageHeader from "@components/layout/PageHeader.astro";
 import Button from "@components/ui/Button.astro";
 import stores from "@data/stores.json";
 import siteData from "@data/site.json";
+import storesUI from "@data/ui/stores.json";
 import bgStores from "@assets/gallery/9.webp";
 import "@styles/pages/stores.css";
 
 const { title, description } = siteData.seo.tiendas;
+const { labels } = storesUI;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -25,21 +27,23 @@ const { title, description } = siteData.seo.tiendas;
 					stores.map((store) => (
 						<article class="store-card luxury-border js-reveal">
 							<header class="store-card__header">
-								<span class="store-card__badge">{store.isDigital ? "Digital" : "Físico"}</span>
+								<span class="store-card__badge">
+									{store.isDigital ? labels.digital : labels.physical}
+								</span>
 								<h2 class="text-glow">{store.name}</h2>
 							</header>
 
 							<ul class="store-card__details">
 								<li>
-									<span>Ubicación</span>
+									<span>{labels.location}</span>
 									<span>{store.address}</span>
 								</li>
 								<li>
-									<span>Horario</span>
+									<span>{labels.hours}</span>
 									<span>{store.hours}</span>
 								</li>
 								<li>
-									<span>Contacto</span>
+									<span>{labels.contact}</span>
 									<span>{store.phone}</span>
 								</li>
 							</ul>
@@ -51,7 +55,7 @@ const { title, description } = siteData.seo.tiendas;
 									target="_blank"
 									class="store-card__btn"
 								>
-									{store.isDigital ? "Contactar ahora" : "Cómo llegar"}
+									{store.isDigital ? labels.ctaDigital : labels.ctaPhysical}
 								</Button>
 							</div>
 						</article>
@@ -63,6 +67,5 @@ const { title, description } = siteData.seo.tiendas;
 </BaseLayout>
 
 <script>
-	import { animations } from "@utils/animations";
-	animations.reveal(".js-reveal", { stagger: 0.2 });
+	import "@scripts/animations";
 </script>

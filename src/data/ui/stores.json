@@ -1,0 +1,11 @@
+{
+	"labels": {
+		"location": "Ubicación",
+		"hours": "Horario",
+		"contact": "Contacto",
+		"digital": "Digital",
+		"physical": "Físico",
+		"ctaDigital": "Contactar ahora",
+		"ctaPhysical": "Cómo llegar"
+	}
+}

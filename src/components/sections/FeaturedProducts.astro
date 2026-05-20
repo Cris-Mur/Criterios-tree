@@ -10,6 +10,7 @@ import type { CollectionEntry } from "astro:content";
 import SectionContainer from "@components/layout/SectionContainer.astro";
 import ProductCard from "@components/ui/ProductCard.astro";
 import Button from "@components/ui/Button.astro";
+import homeData from "@data/home.json";
 import "@styles/components/featured-products.css";
 
 /** Obtenemos solo los productos que no son borradores */
@@ -22,12 +23,14 @@ const allProducts: CollectionEntry<"products">[] = await getCollection(
 const featured = [...allProducts]
 	.sort((a, b) => b.data.luxury_score - a.data.luxury_score)
 	.slice(0, 3);
+
+const { overline, title, button } = homeData.featured;
 ---
 
 <SectionContainer variant="stardust" class="featured-products">
 	<div class="featured-products__header js-reveal">
-		<p class="text-glow">Selección Ancestral</p>
-		<h2 class="text-glow">Nuestras Creaciones</h2>
+		<p class="text-glow">{overline}</p>
+		<h2 class="text-glow">{title}</h2>
 	</div>
 
 	<div class="featured-products__grid js-featured-grid">
@@ -49,26 +52,10 @@ const featured = [...allProducts]
 	</div>
 
 	<div class="featured-products__footer js-reveal">
-		<Button href="/catalogo/" variant="outline"> Ver Catálogo Completo </Button>
+		<Button href={button.href} variant="outline"> {button.label} </Button>
 	</div>
 </SectionContainer>
 
 <script>
-	import { animations } from "@utils/animations";
-
-	/** Animamos la aparición de las tarjetas en cascada al entrar en el viewport */
-	animations.reveal(".js-product-item", {
-		stagger: 0.2,
-		y: 50,
-		scrollTrigger: {
-			trigger: ".js-featured-grid",
-			start: "top 80%"
-		}
-	});
-
-	/** Animamos los textos de cabecera y pie con un retraso secuencial */
-	animations.reveal(".js-reveal", {
-		y: 20,
-		stagger: 0.3
-	});
+	import "@scripts/components/featured-products";
 </script>

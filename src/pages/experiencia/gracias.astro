@@ -4,8 +4,10 @@
  * Branded thank-you page displayed after submitting any experience form.
  */
 import BaseLayout from "@layouts/BaseLayout.astro";
+import thanksData from "@data/ui/thanks.json";
 import "@styles/pages/feedback.css";
 
+const { title: pageTitle, subtitle, invitation, actions } = thanksData;
 const title = "Muchas Gracias";
 const description = "Agradecemos tu valiosa retroalimentación para seguir perfeccionando Criterios.";
 ---
@@ -13,33 +15,34 @@ const description = "Agradecemos tu valiosa retroalimentación para seguir perfe
 <BaseLayout title={title} description={description}>
 	<main class="feedback-container js-reveal" style="text-align: center; margin: calc(var(--space-xl) * 1.5) auto;">
 		<header class="feedback-header">
-			<h1 class="feedback-title text-glow">¡Muchas Gracias!</h1>
+			<h1 class="feedback-title text-glow">{pageTitle}</h1>
 			<p class="feedback-subtitle" style="font-size: 1.15rem; margin-top: 1rem;">
-				Tu auditoría y comentarios han sido registrados con éxito. Cada detalle nos ayuda a elevar el estándar artesanal de nuestras creaciones.
+				{subtitle}
 			</p>
 		</header>
 
 		<section class="feedback-card" style="margin-top: var(--space-md);">
 			<p style="color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-md);">
-				¿Deseas volver a explorar nuestra exquisita selección o conocer más sobre nuestra historia?
+				{invitation}
 			</p>
 			
 			<div style="display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap;">
-				<a href="/" class="submit-btn" style="text-decoration: none; display: inline-block; margin-top: 0; padding: 10px 20px; font-size: 0.85rem;">
-					Inicio
-				</a>
-				<a href="/catalogo/" class="submit-btn" style="text-decoration: none; display: inline-block; margin-top: 0; padding: 10px 20px; font-size: 0.85rem; background: rgba(255, 255, 255, 0.05); color: var(--color-gold); border-color: rgba(212, 175, 55, 0.3);">
-					Catálogo
-				</a>
+				{
+					actions.map((action) => (
+						<a 
+							href={action.href} 
+							class="submit-btn" 
+							style={`text-decoration: none; display: inline-block; margin-top: 0; padding: 10px 20px; font-size: 0.85rem; ${action.variant === 'secondary' ? 'background: rgba(255, 255, 255, 0.05); color: var(--color-gold); border-color: rgba(212, 175, 55, 0.3);' : ''}`}
+						>
+							{action.label}
+						</a>
+					))
+				}
 			</div>
 		</section>
 	</main>
 </BaseLayout>
 
 <script>
-	// Trigger animations if present
-	import { animations } from "@utils/animations";
-	if (animations && typeof animations.reveal === "function") {
-		animations.reveal(".js-reveal", { stagger: 0.2 });
-	}
+	import "@scripts/animations";
 </script>

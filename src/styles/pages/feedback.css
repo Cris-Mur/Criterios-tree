@@ -418,3 +418,55 @@
 	color: rgba(255, 255, 255, 0.4);
 	font-style: italic;
 }
+
+/* Product Selection Chips (Multi-select) */
+.product-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-xs);
+	margin-top: 0.5rem;
+}
+
+.product-chip {
+	position: relative;
+	cursor: pointer;
+}
+
+.product-chip input {
+	position: absolute;
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.product-chip__label {
+	display: inline-block;
+	padding: 8px 16px;
+	background: rgba(255, 255, 255, 0.03);
+	border: 1px solid rgba(212, 175, 55, 0.2);
+	border-radius: 20px;
+	color: rgba(255, 255, 255, 0.7);
+	font-family: var(--font-body);
+	font-size: 0.85rem;
+	transition: var(--transition-smooth);
+	user-select: none;
+}
+
+.product-chip:hover .product-chip__label {
+	background: rgba(212, 175, 55, 0.05);
+	border-color: rgba(212, 175, 55, 0.5);
+	color: #fff;
+}
+
+.product-chip input:checked + .product-chip__label {
+	background: var(--color-gold);
+	color: #000;
+	border-color: var(--color-gold);
+	font-weight: 600;
+	box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.product-chip input:focus-visible + .product-chip__label {
+	outline: 2px solid var(--color-gold);
+	outline-offset: 2px;
+}

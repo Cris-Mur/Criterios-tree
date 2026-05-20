@@ -1,0 +1,51 @@
+{
+	"title": "Términos, Condiciones y Privacidad",
+	"description": "Políticas de privacidad y términos de recopilación de datos sensoriales.",
+	"lastUpdate": "20 de mayo, 2026",
+	"sections": [
+		{
+			"id": 1,
+			"title": "Transparencia y Consentimiento",
+			"content": "En <strong>Criterios</strong>, nos apasiona la excelencia organoléptica de nuestras recetas ancestrales. Toda información compartida a través de nuestras auditorías sensoriales y bitácoras de experiencia se recopila de manera libre, consciente y voluntaria por parte del catador."
+		},
+		{
+			"id": 2,
+			"title": "Datos que Recopilamos",
+			"content": "Para fines de calibración de calidad y desarrollo de recetas exclusivas, recopilamos únicamente los siguientes datos:",
+			"items": [
+				"Calificaciones de experiencia con productos y satisfacción general de marca.",
+				"Notas, apreciaciones sensoriales y comentarios cualitativos abiertos de los productos.",
+				"Iniciales o nombre del catador (campo completamente opcional).",
+				"Rango de edad (campo completamente opcional, para análisis demográfico de preferencias).",
+				"<strong>Identificador de Control (CID)</strong>: Un código alfanumérico generado de forma anónima para asociar los lotes de producción con la respuesta del catador, sin realizar perfilamiento explícito del cliente."
+			]
+		},
+		{
+			"id": 3,
+			"title": "Uso Exclusivo de la Información",
+			"content": "La información recopilada se destina <strong>exclusivamente</strong> al análisis interno por parte de nuestro equipo de maestros reposteros y chocolateros en la fábrica de Criterios. Bajo ninguna circunstancia comercializaremos, cederemos o compartiremos sus datos con terceros con fines publicitarios o lucrativos externos."
+		},
+		{
+			"id": 4,
+			"title": "Derechos del Catador (ARCO)",
+			"content": "Usted tiene pleno derecho a solicitar la rectificación, acceso o eliminación de sus registros en cualquier momento. Para ejercer este derecho, simplemente envíenos una solicitud de eliminación citando el identificador único de control (CID) de su enlace."
+		}
+	],
+	"actions": {
+		"message": "¿Te gustaría compartir tu experiencia ahora mismo?",
+		"links": [
+			{
+				"label": "Calificar un producto",
+				"href": "/experiencia/producto/",
+				"cid": "CT-AUTONOMO-PROD",
+				"variant": "primary"
+			},
+			{
+				"label": "Contarnos tu experiencia",
+				"href": "/experiencia/cliente/",
+				"cid": "CT-AUTONOMO-CLIENTE",
+				"variant": "secondary"
+			}
+		]
+	}
+}

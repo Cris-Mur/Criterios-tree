@@ -1,0 +1,17 @@
+{
+	"title": "¡Muchas Gracias!",
+	"subtitle": "Tu auditoría y comentarios han sido registrados con éxito. Cada detalle nos ayuda a elevar el estándar artesanal de nuestras creaciones.",
+	"invitation": "¿Deseas volver a explorar nuestra exquisita selección o conocer más sobre nuestra historia?",
+	"actions": [
+		{
+			"label": "Inicio",
+			"href": "/",
+			"variant": "primary"
+		},
+		{
+			"label": "Catálogo",
+			"href": "/catalogo/",
+			"variant": "secondary"
+		}
+	]
+}

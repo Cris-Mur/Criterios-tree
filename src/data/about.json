@@ -6,7 +6,8 @@
 	"history": {
 		"title": "Un Legado Ancestral",
 		"text": "Criterios Tree nació de la visión de fusionar el conocimiento de nuestros antepasados con la repostería artesanal moderna. No somos solo una marca, somos un movimiento hacia la nutrición consciente.",
-		"image": "/src/assets/gallery/4.webp"
+		"image": "/src/assets/gallery/4.webp",
+		"imageAlt": "Historia Criterios"
 	},
 	"market": {
 		"title": "Presencia y Trayectoria",
