@@ -32,7 +32,7 @@ const { title, description } = siteData.seo.nosotros;
 
 		<SectionContainer variant="nebula">
 			<div style="text-align: center; margin-bottom: var(--space-xl);">
-				<h2 class="text-glow js-reveal">Nuestra Evolución</h2>
+				<h2 class="text-glow js-reveal">{aboutData.timelineTitle}</h2>
 			</div>
 			<div class="about-timeline">
 				{
@@ -64,11 +64,11 @@ const { title, description } = siteData.seo.nosotros;
 		<SectionContainer variant="nebula">
 			<div class="about-purpose">
 				<div class="purpose-box js-reveal">
-					<h3 class="text-glow">Misión</h3>
+					<h3 class="text-glow">{aboutData.purpose.missionTitle}</h3>
 					<p>{aboutData.purpose.mission}</p>
 				</div>
 				<div class="purpose-box js-reveal">
-					<h3 class="text-glow">Visión</h3>
+					<h3 class="text-glow">{aboutData.purpose.visionTitle}</h3>
 					<p>{aboutData.purpose.vision}</p>
 				</div>
 			</div>

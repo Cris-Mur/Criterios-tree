@@ -12,8 +12,15 @@ import "@styles/pages/product-detail.css";
  * Genera las rutas estáticas para todos los productos de la colección.
  */
 export async function getStaticPaths() {
+	const excludeIds = (import.meta.env.EXCLUDE_PRODUCTS || "")
+		.split(",")
+		.map((id: string) => id.trim())
+		.filter(Boolean);
+
 	const products = await getCollection("products");
-	return products.map((product) => ({
+	const filteredProducts = products.filter((product) => !excludeIds.includes(product.id));
+
+	return filteredProducts.map((product) => ({
 		params: { id: product.id },
 		props: { product }
 	}));
@@ -30,6 +37,14 @@ const { product } = Astro.props;
 const { Content } = await render(product);
 
 const { title, description, category, luxury_score, price, image } = product.data;
+
+// Procesar stock dinámicamente mediante variables de entorno
+const outOfStockIds = (import.meta.env.OUT_OF_STOCK_PRODUCTS || "")
+	.split(",")
+	.map((id: string) => id.trim())
+	.filter(Boolean);
+
+const inStock = product.data.inStock && !outOfStockIds.includes(product.id);
 
 // Generar mensaje dinámico para WhatsApp para facilitar la conversión directa
 const whatsappMessage = encodeURIComponent(
@@ -51,9 +66,18 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 						alt={title}
 						width={600}
 						height={600}
-						class="product-detail__image luxury-border"
+						class:list={[
+							"product-detail__image",
+							"luxury-border",
+							{ "product-detail__image--out-of-stock": !inStock }
+						]}
 						loading="eager"
 					/>
+					{
+						!inStock && (
+							<span class="product-detail__stock-badge">Agotado</span>
+						)
+					}
 				</div>
 
 				<div class="product-detail__info">
@@ -83,9 +107,17 @@ const whatsappLink = `https://wa.me/573208722922?text=${whatsappMessage}`;
 					</div>
 
 					<div class="product-detail__actions">
-						<Button href={whatsappLink} variant="solid" target="_blank">
-							Solicitar vía WhatsApp
-						</Button>
+						{
+							inStock ? (
+								<Button href={whatsappLink} variant="solid" target="_blank">
+									Solicitar vía WhatsApp
+								</Button>
+							) : (
+								<Button disabled class="btn--disabled" variant="solid">
+									Temporalmente Agotado
+								</Button>
+							)
+						}
 						<Button href="/catalogo/" variant="outline"> Volver al Catálogo </Button>
 					</div>
 				</div>

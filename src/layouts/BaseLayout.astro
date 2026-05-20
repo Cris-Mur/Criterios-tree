@@ -3,6 +3,7 @@ import BaseHead from "@components/layout/BaseHead.astro";
 import SEO from "@components/layout/SEO.astro";
 import Header from "@components/layout/Header.astro";
 import Footer from "@components/layout/Footer.astro";
+import AgeDisclaimer from "@components/ui/AgeDisclaimer.astro";
 import siteData from "@data/site.json";
 
 /**
@@ -42,6 +43,7 @@ const finalTitle =
 		<!-- El slot permite inyectar el contenido específico de cada página -->
 		<slot />
 		<Footer />
+		<AgeDisclaimer />
 	</body>
 </html>
 

@@ -13,7 +13,11 @@ const { title, description } = siteData.seo.tiendas;
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<PageHeader title="Puntos de Venta" subtitle="Criterios Tree en tu Ciudad" bgImage={bgStores} />
+		<PageHeader
+			title={title.split(" | ")[0]}
+			subtitle={`${siteData.global.siteName} en tu Ciudad`}
+			bgImage={bgStores}
+		/>
 
 		<SectionContainer variant="stardust">
 			<div class="stores-grid">

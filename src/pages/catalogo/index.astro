@@ -9,7 +9,22 @@ import siteData from "@data/site.json";
 import "@styles/pages/catalogo.css";
 
 const allProducts = await getCollection("products", ({ data }) => !data.draft);
-const sortedProducts = allProducts.sort((a, b) => b.data.luxury_score - a.data.luxury_score);
+
+// Leer y procesar variables de entorno para excluir productos y manejar stock
+const excludeIds = (import.meta.env.EXCLUDE_PRODUCTS || "")
+	.split(",")
+	.map((id: string) => id.trim())
+	.filter(Boolean);
+
+const outOfStockIds = (import.meta.env.OUT_OF_STOCK_PRODUCTS || "")
+	.split(",")
+	.map((id: string) => id.trim())
+	.filter(Boolean);
+
+// Filtrar productos excluidos
+const filteredProducts = allProducts.filter((product) => !excludeIds.includes(product.id));
+
+const sortedProducts = filteredProducts.sort((a, b) => b.data.luxury_score - a.data.luxury_score);
 
 const { title, description } = siteData.seo.catalogo;
 ---
@@ -17,25 +32,29 @@ const { title, description } = siteData.seo.catalogo;
 <BaseLayout title={title} description={description}>
 	<main>
 		<PageHeader
-			title="Nuestra Vitrina"
-			subtitle="Selección curada de productos ancestrales"
+			title={title.split(" | ")[1]}
+			subtitle={description}
 			bgImage={bgCatalog}
 		/>
 
 		<SectionContainer variant="stardust" id="productos">
 			<div class="catalog-grid">
 				{
-					sortedProducts.map((product) => (
-						<ProductCard
-							title={product.data.title}
-							description={product.data.description}
-							price={product.data.price}
-							category={product.data.category}
-							luxury_score={product.data.luxury_score}
-							image={product.data.image}
-							href={`/catalogo/${product.id}/`}
-						/>
-					))
+					sortedProducts.map((product) => {
+						const isProductInStock = product.data.inStock && !outOfStockIds.includes(product.id);
+						return (
+							<ProductCard
+								title={product.data.title}
+								description={product.data.description}
+								price={product.data.price}
+								category={product.data.category}
+								luxury_score={product.data.luxury_score}
+								image={product.data.image}
+								href={`/catalogo/${product.id}/`}
+								inStock={isProductInStock}
+							/>
+						);
+					})
 				}
 			</div>
 		</SectionContainer>

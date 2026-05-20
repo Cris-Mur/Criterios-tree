@@ -67,9 +67,12 @@ export const AboutSchema = z.object({
 	}),
 	purpose: z.object({
 		title: z.string(),
+		missionTitle: z.string(),
 		mission: z.string(),
+		visionTitle: z.string(),
 		vision: z.string()
 	}),
+	timelineTitle: z.string(),
 	timeline: z.array(
 		z.object({
 			year: z.string(),
