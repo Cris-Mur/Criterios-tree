@@ -18,9 +18,12 @@
 	},
 	"purpose": {
 		"title": "Nuestro Propósito",
+		"missionTitle": "Misión",
 		"mission": "Elevar la experiencia de bienestar a través de sabores que nutren el alma y el cuerpo.",
+		"visionTitle": "Visión",
 		"vision": "Ser el referente galáctico de la repostería artesanal consciente en toda la región."
 	},
+	"timelineTitle": "Nuestra Evolución",
 	"timeline": [
 		{ "year": "2019", "event": "Nace la visión de Criterios Tree en un pequeño taller artesanal." },
 		{

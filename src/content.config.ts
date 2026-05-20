@@ -14,6 +14,7 @@ const products = defineCollection({
 			luxury_score: z.number().min(0).max(10).default(5),
 			image: image(),
 			isFeatured: z.boolean().default(false),
+			inStock: z.boolean().default(true),
 			draft: z.boolean().default(false)
 		})
 });

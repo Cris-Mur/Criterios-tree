@@ -34,9 +34,11 @@ interface Props {
 	image: ImageMetadata;
 	/** Enlace a la página de detalle del producto. */
 	href: string;
+	/** Estado de disponibilidad en stock. */
+	inStock?: boolean;
 }
 
-const { title, description, price, category, luxury_score, image, href } = Astro.props;
+const { title, description, price, category, luxury_score, image, href, inStock = true } = Astro.props;
 
 /**
  * Determina el color CSS de la variable --score-color basado en el Luxury Score.
@@ -62,12 +64,16 @@ const formatPrice = (val: number): string => {
 };
 ---
 
-<article class="card luxury-border">
+<article class:list={["card", "luxury-border", { "card--out-of-stock": !inStock }]}>
 	<div class="card__image-container">
 		<Image src={image} alt={title} width={400} height={300} class="card__image" />
+		{
+			!inStock && (
+				<span class="card__stock-badge">Agotado</span>
+			)
+		}
 		<div class="card__badge" style={`--score-color: ${getScoreColor(luxury_score)}`}>
 			<span class="card__score">{luxury_score.toFixed(1)}</span>
-			<span class="card__label">Luxury Score</span>
 		</div>
 	</div>
 

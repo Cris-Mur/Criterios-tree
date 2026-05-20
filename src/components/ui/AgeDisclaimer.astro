@@ -1,0 +1,111 @@
+---
+import "@styles/components/age-disclaimer.css";
+import { Image } from "astro:assets";
+import logoImage from "@assets/branding/logo.png";
+import Button from "@components/ui/Button.astro";
+import disclaimerData from "@data/ui/age-disclaimer.json";
+
+/**
+ * Componente AgeDisclaimer (Modal de Mayoría de Edad)
+ * Muestra una pantalla de bloqueo con un diseño lujoso y místico de acuerdo al CDS v1.1.
+ * Si el usuario confirma que es mayor de edad, se guarda su preferencia en `localStorage`.
+ * Cumple con la accesibilidad (WAI-ARIA) y evita flashes de contenido indeseados.
+ */
+
+interface Props {
+	/** Enlace al que se redirigirá si el usuario elige salir/negar su edad. */
+	redirectUrl?: string;
+	/** Edad mínima reglamentaria a mostrar en el disclaimer. */
+	minAge?: number;
+}
+
+const {
+	redirectUrl = disclaimerData.actions.reject.redirectUrl,
+	minAge = disclaimerData.config.minAge
+} = Astro.props;
+---
+
+<div
+	id="age-disclaimer"
+	class="age-disclaimer"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="disclaimer-title"
+	aria-describedby="disclaimer-desc"
+>
+	<div class="age-disclaimer__backdrop"></div>
+	<div class="age-disclaimer__content luxury-border">
+		<div class="age-disclaimer__logo-container">
+			<Image
+				src={logoImage}
+				alt="Criterios Logo"
+				width={80}
+				height={80}
+				class="age-disclaimer__logo"
+				loading="eager"
+			/>
+		</div>
+
+		<h2 id="disclaimer-title" class="age-disclaimer__title">{disclaimerData.title}</h2>
+		<p id="disclaimer-desc" class="age-disclaimer__message">
+			Este sitio web contiene información sobre productos destinados únicamente a personas mayores de edad.
+			Al ingresar, confirmás que tenés al menos <strong>{minAge} años</strong>.
+		</p>
+
+		<div class="age-disclaimer__actions">
+			<Button id="btn-accept-age" variant="solid" class="age-disclaimer__btn">
+				{disclaimerData.actions.accept.label}
+			</Button>
+			<Button
+				id="btn-reject-age"
+				href={redirectUrl}
+				variant="outline"
+				class="age-disclaimer__btn age-disclaimer__btn--exit"
+			>
+				{disclaimerData.actions.reject.label}
+			</Button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const STORAGE_KEY = "criterios-age-verified";
+
+	const initAgeDisclaimer = () => {
+		const disclaimer = document.getElementById("age-disclaimer");
+		const acceptBtn = document.getElementById("btn-accept-age");
+
+		if (!disclaimer) return;
+
+		// Verificamos si ya está validado de forma persistente
+		const isVerified = localStorage.getItem(STORAGE_KEY) === "true";
+		if (isVerified) {
+			disclaimer.style.display = "none";
+			return;
+		}
+
+		// Bloqueamos el scroll del body
+		document.body.classList.add("no-scroll");
+
+		// Activamos la animación de entrada
+		requestAnimationFrame(() => {
+			disclaimer.classList.add("age-disclaimer--visible");
+		});
+
+		// Evento al aceptar
+		acceptBtn?.addEventListener("click", () => {
+			localStorage.setItem(STORAGE_KEY, "true");
+			disclaimer.classList.remove("age-disclaimer--visible");
+			document.body.classList.remove("no-scroll");
+
+			// Esperamos que termine la transición CSS de 0.5s para ocultar el nodo
+			setTimeout(() => {
+				disclaimer.style.display = "none";
+			}, 500);
+		});
+	};
+
+	// Soporte para carga normal y navegación SPA de Astro (View Transitions / Swaps)
+	document.addEventListener("DOMContentLoaded", initAgeDisclaimer);
+	document.addEventListener("astro:after-swap", initAgeDisclaimer);
+</script>

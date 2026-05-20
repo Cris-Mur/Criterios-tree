@@ -17,8 +17,8 @@ const { title, description } = siteData.seo.blog;
 <BaseLayout title={title} description={description}>
 	<main>
 		<PageHeader
-			title="Concientización"
-			subtitle="Bienestar, nutrición y cultura ancestral"
+			title={title.split(" | ")[0]}
+			subtitle={description.split(" para ")[0]}
 			bgImage={bgBlog}
 		/>
 

@@ -58,7 +58,10 @@ const currentYear = new Date().getFullYear();
 	</div>
 
 	<div class="footer__bottom container">
-		<p>&copy; {currentYear} {navData.credits.brand} - Todos los derechos reservados.</p>
+		<p>
+			&copy; {currentYear} {navData.credits.brand} - Todos los derechos reservados. | 
+			<a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: none; transition: var(--transition-smooth);" onmouseover="this.style.textShadow='0 0 8px var(--color-gold-glow)'" onmouseout="this.style.textShadow='none'">Términos y Condiciones</a>
+		</p>
 		<p class="footer__credits">
 			Built with Excellence by <a href={navData.credits.authorUrl} target="_blank" rel="noopener"
 				>{navData.credits.author}</a

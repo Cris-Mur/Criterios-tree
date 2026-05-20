@@ -46,3 +46,15 @@
 .btn:active {
 	transform: translateY(0);
 }
+
+/* Disabled State */
+.btn:disabled,
+.btn--disabled {
+	opacity: 0.45;
+	filter: grayscale(85%);
+	cursor: not-allowed !important;
+	pointer-events: none;
+	box-shadow: none !important;
+	transform: none !important;
+}
+

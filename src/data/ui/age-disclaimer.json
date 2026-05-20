@@ -1,0 +1,16 @@
+{
+	"title": "Mayoría de Edad",
+	"message": "Este sitio web contiene información sobre productos destinados únicamente a personas mayores de edad. Al ingresar, confirmás que tenés al menos el mínimo de edad reglamentaria.",
+	"actions": {
+		"accept": {
+			"label": "Soy mayor de edad"
+		},
+		"reject": {
+			"label": "Salir",
+			"redirectUrl": "https://www.google.com"
+		}
+	},
+	"config": {
+		"minAge": 18
+	}
+}
