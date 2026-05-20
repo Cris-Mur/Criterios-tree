@@ -1,0 +1,120 @@
+---
+/**
+ * 🌌 Bitácora de Experiencia de Cliente
+ * Page for overall customer experience logging under the Criterios aesthetic.
+ * Prefills tracking ID (cid) from URL parameter, uses Netlify forms.
+ */
+import BaseLayout from "@layouts/BaseLayout.astro";
+import "@styles/pages/feedback.css";
+
+// Prefill Client/Tracking ID from URL parameter (cid)
+const cid = Astro.url.searchParams.get("cid") || "";
+
+// Page metadata
+const title = "Bitácora de Experiencia";
+const description = "Portal premium para registrar tu bitácora de experiencia general con la repostería de Criterios.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main class="feedback-container js-reveal">
+		<header class="feedback-header">
+			<h1 class="feedback-title text-glow">Bitácora de Experiencia</h1>
+			<p class="feedback-subtitle">
+				Tu experiencia global guía nuestra búsqueda incesante de la excelencia y el deleite gastronómico.
+			</p>
+		</header>
+
+		<section class="feedback-card">
+			<form
+				name="feedback-cliente"
+				method="POST"
+				data-netlify="true"
+				class="feedback-form"
+				action="/experiencia/gracias/"
+			>
+				{/* Hidden Netlify field names for form submissions */}
+				<input type="hidden" name="form-name" value="feedback-cliente" />
+
+				{/* Tracking Code ID */}
+				<input type="hidden" name="cid" value={cid} />
+
+				{/* Overall Satisfaction Gold Stars */}
+				<div class="form-group">
+					<span class="form-label">Satisfacción General</span>
+					<div class="star-rating-container">
+						<div class="star-rating">
+							<input type="radio" id="star5" name="satisfaccion" value="5" required />
+							<label for="star5" title="Excelente - 5 estrellas">★</label>
+							<input type="radio" id="star4" name="satisfaccion" value="4" />
+							<label for="star4" title="Muy bueno - 4 estrellas">★</label>
+							<input type="radio" id="star3" name="satisfaccion" value="3" />
+							<label for="star3" title="Bueno - 3 estrellas">★</label>
+							<input type="radio" id="star2" name="satisfaccion" value="2" />
+							<label for="star2" title="Regular - 2 estrellas">★</label>
+							<input type="radio" id="star1" name="satisfaccion" value="1" />
+							<label for="star1" title="Malo - 1 estrella">★</label>
+						</div>
+					</div>
+				</div>
+
+				{/* Overall Experience Feedback (Max 250 characters) */}
+				<div class="form-group">
+					<label for="experience-feedback" class="form-label">
+						Tu Experiencia <span class="form-label-desc">(Máx 250 caracteres)</span>
+					</label>
+					<textarea
+						id="experience-feedback"
+						name="comentarios_experiencia"
+						class="form-textarea"
+						maxlength="250"
+						required
+						placeholder="Comparte en detalle tu experiencia general en el servicio, empaque, atención o el sabor de nuestros productos..."
+					></textarea>
+					<div class="counter-container">
+						<span id="char-counter" class="char-counter">0/250</span>
+					</div>
+				</div>
+
+				{/* Legal Disclaimer */}
+				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;">
+					Al enviar este formulario, aceptas que recopilemos estos datos para el control interno de calidad de nuestra fábrica. Consulta los <a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">Términos, Condiciones y Privacidad</a>.
+				</p>
+
+				{/* Submit Button */}
+				<button type="submit" class="submit-btn">Registrar Bitácora</button>
+			</form>
+		</section>
+	</main>
+</BaseLayout>
+
+<script>
+	// Character Counter JS Logic
+	const feedbackTextarea = document.getElementById("experience-feedback") as HTMLTextAreaElement | null;
+	const charCounter = document.getElementById("char-counter") as HTMLSpanElement | null;
+
+	if (feedbackTextarea && charCounter) {
+		feedbackTextarea.addEventListener("input", () => {
+			const currentLength = feedbackTextarea.value.length;
+			charCounter.textContent = `${currentLength}/250`;
+
+			// Visual indicator thresholds
+			if (currentLength >= 225) {
+				charCounter.classList.add("near-limit");
+			} else {
+				charCounter.classList.remove("near-limit");
+			}
+
+			if (currentLength >= 250) {
+				charCounter.classList.add("at-limit");
+			} else {
+				charCounter.classList.remove("at-limit");
+			}
+		});
+	}
+
+	// Trigger animations if present
+	import { animations } from "@utils/animations";
+	if (animations && typeof animations.reveal === "function") {
+		animations.reveal(".js-reveal", { stagger: 0.2 });
+	}
+</script>

@@ -1,0 +1,166 @@
+---
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/**
+ * 🌌 Auditoría Sensorial de Producto
+ * Page for sensory product auditing under the Criterios aesthetic.
+ * Prefills tracking ID (cid) from URL parameter, uses Netlify forms.
+ */
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import "@styles/pages/feedback.css";
+
+// Retrieve active products (excluding drafts)
+const activeProducts = await getCollection("products", ({ data }) => !data.draft);
+const productTitles = activeProducts.map((product) => String(product.data.title));
+
+// Prefill Client/Tracking ID from URL parameter (cid)
+const cid = Astro.url.searchParams.get("cid") || "";
+
+// Page metadata
+const title = "Auditoría Sensorial de Producto";
+const description = "Portal premium de auditoría sensorial de producto para clientes exclusivos de Criterios.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main class="feedback-container js-reveal">
+		<header class="feedback-header">
+			<h1 class="feedback-title text-glow">Auditoría Sensorial</h1>
+			<p class="feedback-subtitle">
+				Ayúdanos a perfeccionar nuestras creaciones compartiendo tu valiosa experiencia sensorial.
+			</p>
+		</header>
+
+		<section class="feedback-card">
+			<form
+				name="feedback-producto"
+				method="POST"
+				data-netlify="true"
+				class="feedback-form"
+				action="/experiencia/gracias/"
+			>
+				{/* Hidden Netlify field names for form submissions */}
+				<input type="hidden" name="form-name" value="feedback-producto" />
+				
+				{/* Tracking Code ID */}
+				<input type="hidden" name="cid" value={cid} />
+
+				{/* Product Select Dropdown */}
+				<div class="form-group">
+					<label for="producto" class="form-label">Producto Evaluado</label>
+					<select id="producto" name="producto" class="form-select" required>
+						<option value="" disabled selected>Selecciona un producto...</option>
+						{
+							productTitles.map((prodTitle) => (
+								<option value={prodTitle}>{prodTitle}</option>
+							))
+						}
+					</select>
+				</div>
+
+				{/* Gold Star Rating */}
+				<div class="form-group">
+					<span class="form-label">Calificación General</span>
+					<div class="star-rating-container">
+						<div class="star-rating">
+							<input type="radio" id="star5" name="calificacion" value="5" required />
+							<label for="star5" title="Excelente - 5 estrellas">★</label>
+							<input type="radio" id="star4" name="calificacion" value="4" />
+							<label for="star4" title="Muy bueno - 4 estrellas">★</label>
+							<input type="radio" id="star3" name="calificacion" value="3" />
+							<label for="star3" title="Bueno - 3 estrellas">★</label>
+							<input type="radio" id="star2" name="calificacion" value="2" />
+							<label for="star2" title="Regular - 2 estrellas">★</label>
+							<input type="radio" id="star1" name="calificacion" value="1" />
+							<label for="star1" title="Malo - 1 estrella">★</label>
+						</div>
+					</div>
+				</div>
+
+				{/* Optional Sensory Notes (Limit 200 characters) */}
+				<div class="form-group">
+					<label for="sensory-notes" class="form-label">
+						Comentarios Sensoriales <span class="form-label-desc">(Opcional)</span>
+					</label>
+					<textarea
+						id="sensory-notes"
+						name="comentarios_sensoriales"
+						class="form-textarea"
+						maxlength="200"
+						placeholder="Describe la textura, aroma, sabor o presentación del producto..."
+					></textarea>
+					<div class="counter-container">
+						<span id="char-counter" class="char-counter">0/200</span>
+					</div>
+				</div>
+
+				{/* Optional Profile Initials / Name */}
+				<div class="form-group">
+					<label for="profile-name" class="form-label">
+						Tu Nombre o Iniciales <span class="form-label-desc">(Opcional)</span>
+					</label>
+					<input
+						type="text"
+						id="profile-name"
+						name="nombre_iniciales"
+						class="form-input"
+						placeholder="Ej: C.M."
+						maxlength="50"
+					/>
+				</div>
+
+				{/* Optional Age Group */}
+				<div class="form-group">
+					<label for="age-group" class="form-label">
+						Rango de Edad <span class="form-label-desc">(Opcional)</span>
+					</label>
+					<select id="age-group" name="rango_edad" class="form-select">
+						<option value="" selected>Selecciona tu rango de edad...</option>
+						<option value="18-25">18-25 años</option>
+						<option value="26-40">26-40 años</option>
+						<option value="41+">41+ años</option>
+					</select>
+				</div>
+
+				{/* Legal Disclaimer */}
+				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;">
+					Al enviar este formulario, aceptas que recopilemos estos datos para el control interno de calidad de nuestra fábrica. Consulta los <a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">Términos, Condiciones y Privacidad</a>.
+				</p>
+
+				{/* Submit Button */}
+				<button type="submit" class="submit-btn">Enviar Auditoría</button>
+			</form>
+		</section>
+	</main>
+</BaseLayout>
+
+<script>
+	// Character Counter JS Logic
+	const notesTextarea = document.getElementById("sensory-notes") as HTMLTextAreaElement | null;
+	const charCounter = document.getElementById("char-counter") as HTMLSpanElement | null;
+
+	if (notesTextarea && charCounter) {
+		notesTextarea.addEventListener("input", () => {
+			const currentLength = notesTextarea.value.length;
+			charCounter.textContent = `${currentLength}/200`;
+
+			// Visual indicator thresholds
+			if (currentLength >= 180) {
+				charCounter.classList.add("near-limit");
+			} else {
+				charCounter.classList.remove("near-limit");
+			}
+
+			if (currentLength >= 200) {
+				charCounter.classList.add("at-limit");
+			} else {
+				charCounter.classList.remove("at-limit");
+			}
+		});
+	}
+
+	// Trigger animations if present
+	import { animations } from "@utils/animations";
+	if (animations && typeof animations.reveal === "function") {
+		animations.reveal(".js-reveal", { stagger: 0.2 });
+	}
+</script>

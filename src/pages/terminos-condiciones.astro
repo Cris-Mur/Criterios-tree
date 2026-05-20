@@ -1,0 +1,79 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import SectionContainer from "@components/layout/SectionContainer.astro";
+import "@styles/pages/feedback.css";
+
+/**
+ * Página de Términos y Condiciones
+ * Centraliza la política de privacidad y tratamiento de datos para el sistema de feedback sensorial.
+ */
+---
+
+<BaseLayout title="Términos y Condiciones | Criterios" description="Políticas de privacidad y términos de recopilación de datos sensoriales.">
+	<main>
+		<SectionContainer variant="stardust" class="terms-page">
+			<div class="feedback-card" style="max-width: 800px; margin: 40px auto; padding: 40px;">
+				<h1 class="feedback-title text-glow" style="text-align: left; margin-bottom: 20px; font-size: 2rem;">
+					Términos, Condiciones y Privacidad
+				</h1>
+				<p class="feedback-subtitle" style="text-align: left; margin-bottom: 30px;">
+					Última actualización: 20 de mayo, 2026.
+				</p>
+				
+				<div class="terms-content" style="color: rgba(255, 255, 255, 0.8); line-height: 1.7; font-size: 0.95rem; display: flex; flex-direction: column; gap: 20px;">
+					<section>
+						<h2 style="color: var(--color-gold); font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+							1. Transparencia y Consentimiento
+						</h2>
+						<p>
+							En <strong>Criterios</strong>, nos apasiona la excelencia organoléptica de nuestras recetas ancestrales. Toda información compartida a través de nuestras auditorías sensoriales y bitácoras de experiencia se recopila de manera libre, consciente y voluntaria por parte del catador.
+						</p>
+					</section>
+
+					<section>
+						<h2 style="color: var(--color-gold); font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+							2. Datos que Recopilamos
+						</h2>
+						<p>
+							Para fines de calibración de calidad y desarrollo de recetas exclusivas, recopilamos únicamente los siguientes datos:
+						</p>
+						<ul style="padding-left: 20px; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; list-style-type: circle;">
+							<li>Calificaciones de experiencia con productos y satisfacción general de marca.</li>
+							<li>Notas, apreciaciones sensoriales y comentarios cualitativos abiertos de los productos.</li>
+							<li>Iniciales o nombre del catador (campo completamente opcional).</li>
+							<li>Rango de edad (campo completamente opcional, para análisis demográfico de preferencias).</li>
+							<li><strong>Identificador de Control (CID)</strong>: Un código alfanumérico generado de forma anónima para asociar los lotes de producción con la respuesta del catador, sin realizar perfilamiento explícito del cliente.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2 style="color: var(--color-gold); font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+							3. Uso Exclusivo de la Información
+						</h2>
+						<p>
+							La información recopilada se destina <strong>exclusivamente</strong> al análisis interno por parte de nuestro equipo de maestros reposteros y chocolateros en la fábrica de Criterios. Bajo ninguna circunstancia comercializaremos, cederemos o compartiremos sus datos con terceros con fines publicitarios o lucrativos externos.
+						</p>
+					</section>
+
+					<section>
+						<h2 style="color: var(--color-gold); font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+							4. Derechos del Catador (ARCO)
+						</h2>
+						<p>
+							Usted tiene pleno derecho a solicitar la rectificación, acceso o eliminación de sus registros en cualquier momento. Para ejercer este derecho, simplemente envíenos una solicitud de eliminación citando el identificador único de control (CID) de su enlace.
+						</p>
+					</section>
+				</div>
+				
+				<div style="margin-top: 40px; border-top: 1px solid rgba(212, 175, 55, 0.1); padding-top: 20px; display: flex; justify-content: flex-start; gap: var(--space-sm);">
+					<a href="/experiencia/producto/" class="submit-btn" style="text-decoration: none; padding: 10px 24px; font-size: 0.85rem;">
+						Auditoría de Producto
+					</a>
+					<a href="/experiencia/cliente/" class="submit-btn" style="text-decoration: none; padding: 10px 24px; font-size: 0.85rem; background: rgba(255,255,255,0.05); color: var(--color-gold); border-color: rgba(212, 175, 55, 0.3);">
+						Bitácora de Cliente
+					</a>
+				</div>
+			</div>
+		</SectionContainer>
+	</main>
+</BaseLayout>
