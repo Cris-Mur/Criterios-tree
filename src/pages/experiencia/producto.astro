@@ -7,14 +7,15 @@
  */
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import commonUI from "@data/ui/common.json";
+import legalData from "@data/legal.json";
 import "@styles/pages/feedback.css";
 
 // Retrieve active products (excluding drafts)
 const activeProducts = await getCollection("products", ({ data }) => !data.draft);
 const productTitles = activeProducts.map((product) => String(product.data.title));
 
-// Prefill Client/Tracking ID from URL parameter (cid)
-const cid = Astro.url.searchParams.get("cid") || "";
+const { forms } = commonUI;
 
 // Page metadata
 const title = "Auditoría Sensorial de Producto";
@@ -24,9 +25,9 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 <BaseLayout title={title} description={description}>
 	<main class="feedback-container js-reveal">
 		<header class="feedback-header">
-			<h1 class="feedback-title text-glow">Auditoría Sensorial</h1>
+			<h1 class="feedback-title text-glow">{forms.product.title}</h1>
 			<p class="feedback-subtitle">
-				Ayúdanos a perfeccionar nuestras creaciones compartiendo tu valiosa experiencia sensorial.
+				{forms.product.subtitle}
 			</p>
 		</header>
 
@@ -42,24 +43,26 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 				<input type="hidden" name="form-name" value="feedback-producto" />
 				
 				{/* Tracking Code ID */}
-				<input type="hidden" name="cid" value={cid} />
+				<input type="hidden" name="cid" id="cid-input" value="" />
 
-				{/* Product Select Dropdown */}
+				{/* Product Selection Chips (Multi-select) */}
 				<div class="form-group">
-					<label for="producto" class="form-label">Producto Evaluado</label>
-					<select id="producto" name="producto" class="form-select" required>
-						<option value="" disabled selected>Selecciona un producto...</option>
+					<label class="form-label">{forms.product.labelProduct}</label>
+					<div class="product-chips">
 						{
 							productTitles.map((prodTitle) => (
-								<option value={prodTitle}>{prodTitle}</option>
+								<label class="product-chip">
+									<input type="checkbox" name="productos_evaluados" value={prodTitle} />
+									<span class="product-chip__label">{prodTitle}</span>
+								</label>
 							))
 						}
-					</select>
+					</div>
 				</div>
 
 				{/* Gold Star Rating */}
 				<div class="form-group">
-					<span class="form-label">Calificación General</span>
+					<span class="form-label">{forms.product.labelRating}</span>
 					<div class="star-rating-container">
 						<div class="star-rating">
 							<input type="radio" id="star5" name="calificacion" value="5" required />
@@ -79,14 +82,14 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 				{/* Optional Sensory Notes (Limit 200 characters) */}
 				<div class="form-group">
 					<label for="sensory-notes" class="form-label">
-						Comentarios Sensoriales <span class="form-label-desc">(Opcional)</span>
+						{forms.product.labelNotes} <span class="form-label-desc">{forms.product.labelNotesDesc}</span>
 					</label>
 					<textarea
 						id="sensory-notes"
 						name="comentarios_sensoriales"
 						class="form-textarea"
 						maxlength="200"
-						placeholder="Describe la textura, aroma, sabor o presentación del producto..."
+						placeholder={forms.product.placeholderNotes}
 					></textarea>
 					<div class="counter-container">
 						<span id="char-counter" class="char-counter">0/200</span>
@@ -96,7 +99,7 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 				{/* Optional Profile Initials / Name */}
 				<div class="form-group">
 					<label for="profile-name" class="form-label">
-						Tu Nombre o Iniciales <span class="form-label-desc">(Opcional)</span>
+						{forms.product.labelName} <span class="form-label-desc">{forms.product.labelNotesDesc}</span>
 					</label>
 					<input
 						type="text"
@@ -111,10 +114,10 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 				{/* Optional Age Group */}
 				<div class="form-group">
 					<label for="age-group" class="form-label">
-						Rango de Edad <span class="form-label-desc">(Opcional)</span>
+						{forms.product.labelAge} <span class="form-label-desc">{forms.product.labelNotesDesc}</span>
 					</label>
 					<select id="age-group" name="rango_edad" class="form-select">
-						<option value="" selected>Selecciona tu rango de edad...</option>
+						<option value="" selected>{forms.product.dropdownAgeDefault}</option>
 						<option value="18-25">18-25 años</option>
 						<option value="26-40">26-40 años</option>
 						<option value="41+">41+ años</option>
@@ -122,41 +125,21 @@ const description = "Portal premium de auditoría sensorial de producto para cli
 				</div>
 
 				{/* Legal Disclaimer */}
-				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;">
-					Al enviar este formulario, aceptas que recopilemos estos datos para el control interno de calidad de nuestra fábrica. Consulta los <a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">Términos, Condiciones y Privacidad</a>.
-				</p>
+				<p class="form-disclaimer" style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); text-align: center; margin: var(--space-md) 0 10px 0; line-height: 1.4;" set:html={forms.common.disclaimer.replace('{link}', `<a href="/terminos-condiciones/" style="color: var(--color-gold); text-decoration: underline;" target="_blank">${legalData.title}</a>`)} />
 
 				{/* Submit Button */}
-				<button type="submit" class="submit-btn">Enviar Auditoría</button>
+				<button type="submit" class="submit-btn">{forms.product.submit}</button>
 			</form>
 		</section>
 	</main>
 </BaseLayout>
 
 <script>
-	// Character Counter JS Logic
-	const notesTextarea = document.getElementById("sensory-notes") as HTMLTextAreaElement | null;
-	const charCounter = document.getElementById("char-counter") as HTMLSpanElement | null;
-
-	if (notesTextarea && charCounter) {
-		notesTextarea.addEventListener("input", () => {
-			const currentLength = notesTextarea.value.length;
-			charCounter.textContent = `${currentLength}/200`;
-
-			// Visual indicator thresholds
-			if (currentLength >= 180) {
-				charCounter.classList.add("near-limit");
-			} else {
-				charCounter.classList.remove("near-limit");
-			}
-
-			if (currentLength >= 200) {
-				charCounter.classList.add("at-limit");
-			} else {
-				charCounter.classList.remove("at-limit");
-			}
-		});
-	}
+	import { initFeedbackForm } from "@scripts/experience/feedback";
+	
+	document.addEventListener("DOMContentLoaded", () => {
+		initFeedbackForm("sensory-notes", "char-counter", 200);
+	});
 
 	// Trigger animations if present
 	import { animations } from "@utils/animations";
